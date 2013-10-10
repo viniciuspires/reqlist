@@ -721,13 +721,18 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('[data-tooltip]').tooltip();
-
 		$('[data-chosen]').chosen();
 
-		$('nav ul li a').click(function(){
+		window.setHash = function(newHash) {
 			$('nav ul li a').removeClass('active');
-			$(this).addClass('active');
-		});
+			$('nav ul li a[href='+newHash+']').addClass('active');
+		};
+
+		window.setHash( location.hash );
+
+		window.onhashchange = function(e) {
+			window.setHash( '#' + e.newURL.split('#')[1] );
+		};
 	});
 	</script>
 </body>
