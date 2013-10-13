@@ -11,6 +11,9 @@
 	<title>Reqlist</title>
 
 	<style type="text/css">
+	:focus {
+		outline:0;
+	}
 	nav#nav {
 		position:fixed;
 		left:-3em;
@@ -32,7 +35,7 @@
 	nav ul li a {
 		display:block;
 		width:4em;
-		padding: 0.1em 0;
+		padding:0.81em 0;
 		color:#eee;
 		background-color:#444;
 		text-shadow:1px 1px 0px #222;
@@ -51,12 +54,12 @@
 		content:' ';
 		width:0;
 		height:0;
-		border-top: solid 0.8em transparent;
-		border-left: solid 0.8em #eee;
-		border-bottom: solid 0.8em transparent;
+		border-top: solid 1.5em transparent;
+		border-left: solid 1em #eee;
+		border-bottom: solid 1.5em transparent;
 		position:absolute;
-		right:-0.8em;
-		margin-top:-0.1em;
+		right:-1em;
+		margin-top:-0.8em;
 	}
 	.checkbox input[type=checkbox]:checked + span {
 		text-decoration: line-through;
@@ -103,16 +106,10 @@
 			<li><a href="#14">Tela 14</a></li>
 			<li><a href="#15">Tela 15</a></li>
 			<li><a href="#16">Tela 16</a></li>
-			<li><a href="#17">Tela 17</a></li>
-			<li><a href="#18">Tela 18</a></li>
-			<li><a href="#19">Tela 19</a></li>
-			<li><a href="#20">Tela 20</a></li>
 		</ul>
 	</nav>
 	
 	<div class="container">
-		<hr />
-		<div class="test"></div>
 		<h1 id="1">Tela 1</h1>
 		<div class="row">
 			<div class="col-md-6">
@@ -360,25 +357,27 @@
 									Enviar Convite
 								</button>
 							</div>
-					    </div>
+						</div>
 					</fieldset>
 				</form>
 				<hr />
 				<div class="row">
 					<div class="col-md-12">
 						<div class="well well-sm">
+							<img alt="" class="img-circle"
+								src="//gravatar.com/avatar/36bb355a5f3ef6df2644c42f17e804eb?s=40" />
+							<strong>Iran Sousa de Freitas</strong>
+							<button class="close" aria-hidden="true">&times;</button>
+						</div>
+						<div class="well well-sm">
+							<img alt="" class="img-circle"
+								src="//gravatar.com/avatar/6bb8d259b6b46a59ec66aadbd2b13015?s=40" />
+							<strong>Vinicius da Costa Pires</strong>
+							<button class="close" aria-hidden="true">&times;</button>
+						</div>
+						<div class="well well-sm">
 							<img src="http://placehold.it/40x40" alt="" class="img-circle" />
 							<strong>Fulano da Silva Sauro</strong>
-							<button class="close" aria-hidden="true">&times;</button>
-						</div>
-						<div class="well well-sm">
-							<img src="http://placehold.it/40x40" alt="" class="img-circle" />
-							<strong>Silva do Fulano Sauro</strong>
-							<button class="close" aria-hidden="true">&times;</button>
-						</div>
-						<div class="well well-sm">
-							<img src="http://placehold.it/40x40" alt="" class="img-circle" />
-							<strong>Sauro do Fulano Silva</strong>
 							<button class="close" aria-hidden="true">&times;</button>
 						</div>
 					</div>
@@ -411,7 +410,7 @@
 								<input type="text" name="nome-escopo" id="nome-escopo"
 									class="form-control" value="Primeira versão (v1.0)" />
 							</td>
-							<td>03/04/2014</td>
+							<td></td>
 							<td>
 								<div class="btn-group">
 									<button disabled class="btn btn-default" title="Travar escopo" data-toggle="tooltip">
@@ -699,7 +698,7 @@
 							<td width="60">
 								<img class="img-thumbnail"
 									src="//gravatar.com/avatar/36bb355a5f3ef6df2644c42f17e804eb?s=30"
-									title="Responsável: Iran Sousa Freitas" />
+									title="Responsável: Iran Sousa de Freitas" />
 							</td>
 							<td width="130">
 								<div class="btn-group">
@@ -856,6 +855,7 @@
 		<h1 id="14">Tela 14</h1>
 		<div class="row">
 			<div class="col-md-12">
+				<h2>Burndown de tarefas</h2>
 				<div id="burndown"></div>
 			</div>
 		</div>
@@ -976,27 +976,9 @@
 		<hr />
 		<h1 id="16">Tela 16</h1>
 		<div class="row">
-			<div class="col-md-"></div>
-		</div>
-		<hr />
-		<h1 id="17">Tela 17</h1>
-		<div class="row">
-			<div class="col-md-"></div>
-		</div>
-		<hr />
-		<h1 id="18">Tela 18</h1>
-		<div class="row">
-			<div class="col-md-"></div>
-		</div>
-		<hr />
-		<h1 id="19">Tela 19</h1>
-		<div class="row">
-			<div class="col-md-"></div>
-		</div>
-		<hr />
-		<h1 id="20">Tela 20</h1>
-		<div class="row">
-			<div class="col-md-"></div>
+			<div class="col-md-12">
+				<div id="comparacao"></div>
+			</div>
 		</div>
 		<hr />
 
@@ -1034,69 +1016,126 @@
 			editable: true,
 		});
 
-        $('#burndown').highcharts({
-            title: {
-                text: 'Burndown de tarefas',
-            },
-            chart: {
-                type: 'spline'
-            },
-            xAxis: {
-                categories: [
-                	'7/10',
-                	'8/10',
-                	'9/10',
-                	'10/10',
-                	'11/10',
-                	'14/10',
-                	'15/10',
-                	'16/10',
-                	'17/10',
-                	'18/10',
-                	'21/10',
-                	'22/10',
-                ]
-            },
-            credits: false,
-            yAxis: {
-                title: {
-                    text: 'Número de tarefas restantes'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: ' tarefas restantes'
-            },
-            legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom',
-                borderWidth: 0
-            },
-            series: [
-	            {
-	            	type: 'areaspline',
-	                name: 'Estimado',
-	                color: '#3276B1',
-	                data: [30, 25, 21, 19, 18, 15, 11, 10, 9, 5, 2, 0]
-	            },
-	            {
-	                name: 'Realizado',
-	                color: '#5CB85C',
-	                data: [30, 30, 28, 23, 22, 20, 20, 19, 17, 15, 10, 8]
-	            },
-	            {
-	            	type: 'spline',
-	                name: 'Projeção',
-	                color:'#D9534F',
-	                data: [30, 27.5, 25, 22.5, 20, 17.5, 15, 12.5, 10, 7.5, 5, 2.5]
-	            }
-	        ]
-        });
+		$('#burndown').highcharts({
+			title: {
+				text:'',
+			},
+			chart: {
+				type: 'spline'
+			},
+			xAxis: {
+				categories: [
+					'7/10',
+					'8/10',
+					'9/10',
+					'10/10',
+					'11/10',
+					'14/10',
+					'15/10',
+					'16/10',
+					'17/10',
+					'18/10',
+					'21/10',
+					'22/10',
+				]
+			},
+			credits: false,
+			yAxis: {
+				title: {
+					text: 'Número de tarefas restantes'
+				},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			},
+			tooltip: {
+				valueSuffix: ' tarefas restantes'
+			},
+			legend: {
+				layout: 'horizontal',
+				align: 'center',
+				verticalAlign: 'bottom',
+				borderWidth: 0
+			},
+			series: [
+				{
+					type: 'areaspline',
+					name: 'Estimado',
+					color: '#3276B1',
+					data: [30, 25, 21, 19, 18, 15, 11, 10, 9, 5, 2, 0]
+				},
+				{
+					name: 'Realizado',
+					color: '#5CB85C',
+					data: [30, 30, 28, 23, 22, 20, 20, 19, 17, 15, 10, 8]
+				},
+				{
+					type: 'spline',
+					name: 'Projeção',
+					color:'#D9534F',
+					data: [30, 27.5, 25, 22.5, 20, 17.5, 15, 12.5, 10, 7.5, 5, 2.5]
+				}
+			]
+		});
+		
+		$('#comparacao').highcharts({
+			chart: {
+				type: 'column'
+			},
+			title:{ text:'' },
+			xAxis: {
+				categories: [
+					'Folha de Pagamento',
+					'Controle de Estoque',
+					'Fluxo de Caixa',
+					'Reqlist'
+				],
+				labels: {
+					rotation: -(360/16),
+					align: 'right',
+					style: {
+						fontSize: '1em',
+						fontFamily: 'Verdana, sans-serif'
+					}
+				}
+			},
+			yAxis: {
+				min:0,
+				max:200,
+				title: {
+					text:'Horas estimadas x utilizadas (%)'
+				},
+				labels:{
+					format:'{value}%'
+				}
+			},
+			credits:null,
+			legend: {
+				enabled: false
+			},
+			tooltip: {
+				pointFormat:'<b>{point.y:.1f}%</b> das horas estimadas',
+			},
+			series: [{
+				name: 'Population',
+				data: [145.8, 117.9, 89.5, 100],
+				dataLabels: {
+					format:'{y}%',
+					enabled: true,
+					rotation: 0,
+					color: 'white',
+					align: 'center',
+					y: 20,
+					style: {
+						fontSize: '13px',
+						fontFamily: 'Verdana, sans-serif',
+						textShadow: '0 0 3px black'
+					}
+				}
+			}]
+		});
 	});
 	</script>
 </body>
