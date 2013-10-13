@@ -1,3 +1,3 @@
 Reqlist
 ======= 
-Open Source Requirement Analysis &amp; Management for Agile Teams
+Open Source Wishlist-like Requirement Analysis for Agile Teams
