@@ -977,6 +977,7 @@
 		<h1 id="16">Tela 16</h1>
 		<div class="row">
 			<div class="col-md-12">
+				<h2>Comparação de projetos ao longo do tempo</h2>
 				<div id="comparacao"></div>
 			</div>
 		</div>
@@ -1037,6 +1038,10 @@
 					'18/10',
 					'21/10',
 					'22/10',
+					'23/10',
+					'24/10',
+					'25/10',
+					'28/10',
 				]
 			},
 			credits: false,
@@ -1051,7 +1056,8 @@
 				}]
 			},
 			tooltip: {
-				valueSuffix: ' tarefas restantes'
+				valueSuffix: ' tarefas restantes',
+				shared:true
 			},
 			legend: {
 				layout: 'horizontal',
@@ -1061,30 +1067,30 @@
 			},
 			series: [
 				{
-					type: 'areaspline',
-					name: 'Estimado',
+					name: 'Estimativa',
 					color: '#3276B1',
-					data: [30, 25, 21, 19, 18, 15, 11, 10, 9, 5, 2, 0]
+					data: [30, 25, 21, 19, 18, 15, 11, 10, 9, 5, 2, 0],
+					type: 'areaspline',
 				},
 				{
-					name: 'Realizado',
+					name: 'Real',
 					color: '#5CB85C',
-					data: [30, 30, 28, 23, 22, 20, 20, 19, 17, 15, 10, 8]
+					data: [30, 30, 28, 23, 22, 20, 20, 19, 17, 15, 13, 7],
 				},
 				{
-					type: 'spline',
 					name: 'Projeção',
 					color:'#D9534F',
-					data: [30, 27.5, 25, 22.5, 20, 17.5, 15, 12.5, 10, 7.5, 5, 2.5]
+					data: [30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0],
+					type: 'spline',
 				}
 			]
 		});
 		
 		$('#comparacao').highcharts({
-			chart: {
-				type: 'column'
+			chart:{
+				zoomType: 'xy'
 			},
-			title:{ text:'' },
+			title:false,
 			xAxis: {
 				categories: [
 					'Folha de Pagamento',
@@ -1093,50 +1099,61 @@
 					'Reqlist'
 				],
 				labels: {
-					rotation: -(360/16),
-					align: 'right',
+					align: 'center',
 					style: {
-						fontSize: '1em',
+						fontSize: '0.9em',
 						fontFamily: 'Verdana, sans-serif'
 					}
 				}
 			},
-			yAxis: {
-				min:0,
-				max:200,
+			yAxis: [{
 				title: {
-					text:'Horas estimadas x utilizadas (%)'
+					text:'Horas estimadas x utilizadas'
+				},
+				labels:{
+					format:'{value}h'
+				}
+			},
+			{
+				title: {
+					text:'Razão (%)'
 				},
 				labels:{
 					format:'{value}%'
-				}
-			},
+				},
+				format:'{y}%',
+				opposite:true
+			}],
 			credits:{
 				enabled:false
 			},
 			legend: {
-				enabled: false
+				layout: 'horizontal',
+				align: 'center',
+				verticalAlign: 'bottom',
+				borderWidth: 0
 			},
 			tooltip: {
-				pointFormat:'<b>{point.y:.1f}%</b> das horas estimadas',
+				shared:true
 			},
-			series: [{
-				name: 'Population',
-				data: [145.8, 117.9, 89.5, 100],
-				dataLabels: {
-					format:'{y}%',
-					enabled: true,
-					rotation: 0,
-					color: 'white',
-					align: 'center',
-					y: 20,
-					style: {
-						fontSize: '13px',
-						fontFamily: 'Verdana, sans-serif',
-						textShadow: '0 0 3px black'
-					}
+			series: [
+				{
+					type:'column',
+					name:'Planejado',
+					data:[115, 110, 90, 60],
+				},
+				{
+					type:'column',
+					name:'Realizado',
+					data:[150, 178, 58, 59]
+				},
+				{
+					type:'spline',
+					name:'Razão',
+					yAxis:1,
+					data:[130.43, 161.82, 64.44, 98.33]
 				}
-			}]
+			]
 		});
 	});
 	</script>
