@@ -1,0 +1,29 @@
+body {
+	background-color:#FAFAFA;
+}
+
+:focus {
+	outline:0;
+}
+.checkbox input[type=checkbox]:checked + span {
+	text-decoration: line-through;
+}
+.tasks li {
+	padding:0.6em 0em;
+	border-top:solid 1px #E3E3E3;
+	background-color: #FFF;
+}
+.tasks li:nth-of-type(odd) {
+	background-color: #F5F5F5;
+}
+.tasks li:last-of-type {
+	border-bottom:solid 1px #E3E3E3;
+}
+input, select, textarea, .well, .well-sm, .btn, .img-thumbnail, .progress {
+	border-radius:0px !important;
+}
+.progress.tiny {
+	height:4px;
+	margin-top:4px;
+	margin-bottom:-9px;
+}
