@@ -16,7 +16,7 @@
 
 	<div class="container">
 
-		<h1 id="2">Tela 2</h1>
+		<h1 id="2"><a href="#2">Tela 2</a></h1>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<form action="" role="form">
@@ -47,7 +47,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="3">Tela 3</h1>
+		<h1 id="3"><a href="#3">Tela 3</a></h1>
 		<div class="row">
 			<div class="col-md-2 col-md-offset-3">
 				<img src="http://placehold.it/140x140" class="img-thumbnail" alt="Fulano de tal da Silva" />
@@ -61,7 +61,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="4">Tela 4</h1>
+		<h1 id="4"><a href="#4">Tela 4</a></h1>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<form action="" role="form">
@@ -83,7 +83,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="5">Tela 5</h1>
+		<h1 id="5"><a href="#5">Tela 5</a></h1>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<form action="" role="form">
@@ -114,7 +114,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="6">Tela 6</h1>
+		<h1 id="6"><a href="#6">Tela 6</a></h1>
 		<div class="row">
 			<h1>Projetos</h1>
 			<ul class="list-inline">
@@ -207,7 +207,7 @@
 		</div>
 		
 		<hr />
-		<h1 id="7">Tela 7</h1>
+		<h1 id="7"><a href="#7">Tela 7</a></h1>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
 				<form action="" role="form">
@@ -249,7 +249,7 @@
 		</div>
 		
 		<hr />
-		<h1 id="8">Tela 8</h1>
+		<h1 id="8"><a href="#8">Tela 8</a></h1>
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<h2>
@@ -336,7 +336,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="9">Tela 9</h1>
+		<h1 id="9"><a href="#9">Tela 9</a></h1>
 		<div class="row">
 			<div class="col-md-4">
 				<form action="" role="form">
@@ -389,7 +389,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="10">Tela 10</h1>
+		<h1 id="10"><a href="#10">Tela 10</a></h1>
 		<div class="row">
 			<div class="col-md-4">
 				<form role="form">
@@ -488,7 +488,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="11">Tela 11</h1>
+		<h1 id="11"><a href="#11">Tela 11</a></h1>
 		<div class="row">
 			<div class="col-md-4">
 				<form role="form">
@@ -609,7 +609,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="12">Tela 12</h1>
+		<h1 id="12"><a href="#12">Tela 12</a></h1>
 		<div class="row">
 			<div class="col-md-4">
 				<h2>Tarefas</h2>
@@ -643,7 +643,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="13">Tela 13</h1>
+		<h1 id="13"><a href="#13">Tela 13</a></h1>
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Tarefas</h2>
@@ -715,7 +715,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="14">Tela 14</h1>
+		<h1 id="14"><a href="#14">Tela 14</a></h1>
 		<div class="row">
 			<div class="col-md-12">
 				<h2>Burndown de tarefas</h2>
@@ -723,7 +723,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="15">Tela 15</h1>
+		<h1 id="15"><a href="#15">Tela 15</a></h1>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="well">
@@ -837,7 +837,7 @@
 			</div>
 		</div>
 		<hr />
-		<h1 id="16">Tela 16</h1>
+		<h1 id="16"><a href="#16">Tela 16</a></h1>
 		<div class="row">
 			<div class="col-md-12">
 				<h2>Comparação de projetos ao longo do tempo</h2>
@@ -854,171 +854,6 @@
 	<script src="js/highcharts.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jqueryui/ui/jquery-ui.js"></script>
-
-	<script type="text/javascript">
-	$(document).ready(function(){
-		window.setHash = function(newHash) {
-			$('nav ul li a').removeClass('active');
-			$('nav ul li a[href='+newHash+']').addClass('active');
-		};
-
-		window.setHash( location.hash );
-
-		window.onhashchange = function(e) {
-			window.setHash( '#' + e.newURL.split('#')[1] );
-		};
-
-		$('[data-tooltip]').tooltip();
-		$('[data-chosen]').chosen();
-		$('[data-draggable]').draggable({revert:true});
-		$('[data-droppable]').droppable();
-		$('[data-calendar]').fullCalendar({
-			header: {
-				left:'prev,next today',
-				right:'month,basicWeek'
-			},
-			editable: true,
-		});
-
-		$('#burndown').highcharts({
-			title: {
-				text:'',
-			},
-			chart: {
-				type: 'spline'
-			},
-			xAxis: {
-				categories: [
-					'7/10',
-					'8/10',
-					'9/10',
-					'10/10',
-					'11/10',
-					'14/10',
-					'15/10',
-					'16/10',
-					'17/10',
-					'18/10',
-					'21/10',
-					'22/10',
-					'23/10',
-					'24/10',
-					'25/10',
-					'28/10',
-				]
-			},
-			credits: false,
-			yAxis: {
-				title: {
-					text: 'Número de tarefas restantes'
-				},
-				plotLines: [{
-					value: 0,
-					width: 1,
-					color: '#808080'
-				}]
-			},
-			tooltip: {
-				valueSuffix: ' tarefas restantes',
-				shared:true
-			},
-			legend: {
-				layout: 'horizontal',
-				align: 'center',
-				verticalAlign: 'bottom',
-				borderWidth: 0
-			},
-			series: [
-				{
-					name: 'Estimativa',
-					color: '#3276B1',
-					data: [30, 25, 21, 19, 18, 15, 11, 10, 9, 5, 2, 0],
-					type: 'areaspline',
-				},
-				{
-					name: 'Real',
-					color: '#5CB85C',
-					data: [30, 30, 28, 23, 22, 20, 20, 19, 17, 15, 13, 7],
-				},
-				{
-					name: 'Projeção',
-					color:'#D9534F',
-					data: [30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0],
-					type: 'spline',
-				}
-			]
-		});
-		
-		$('#comparacao').highcharts({
-			chart:{
-				zoomType: 'xy'
-			},
-			title:false,
-			xAxis: {
-				categories: [
-					'Folha de Pagamento',
-					'Controle de Estoque',
-					'Fluxo de Caixa',
-					'Reqlist'
-				],
-				labels: {
-					align: 'center',
-					style: {
-						fontSize: '0.9em',
-						fontFamily: 'Verdana, sans-serif'
-					}
-				}
-			},
-			yAxis: [{
-				title: {
-					text:'Horas estimadas x utilizadas'
-				},
-				labels:{
-					format:'{value}h'
-				}
-			},
-			{
-				title: {
-					text:'Razão (%)'
-				},
-				labels:{
-					format:'{value}%'
-				},
-				format:'{y}%',
-				opposite:true
-			}],
-			credits:{
-				enabled:false
-			},
-			legend: {
-				layout: 'horizontal',
-				align: 'center',
-				verticalAlign: 'bottom',
-				borderWidth: 0
-			},
-			tooltip: {
-				shared:true
-			},
-			series: [
-				{
-					type:'column',
-					name:'Planejado',
-					data:[115, 110, 90, 60],
-				},
-				{
-					type:'column',
-					name:'Realizado',
-					data:[150, 178, 58, 59]
-				},
-				{
-					type:'spline',
-					name:'Razão',
-					yAxis:1,
-					data:[130.43, 161.82, 64.44, 98.33]
-				}
-			]
-		});
-	});
-	</script>
+	<script src="js/reqlist/home.js"></script>
 </body>
 </html>
