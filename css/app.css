@@ -8,6 +8,9 @@ body {
 .checkbox input[type=checkbox]:checked + span {
 	text-decoration: line-through;
 }
+.tasks {
+	margin:1em 0;
+}
 .tasks li {
 	padding:0.6em 0em;
 	border-top:solid 1px #E3E3E3;
