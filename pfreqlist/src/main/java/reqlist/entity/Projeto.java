@@ -189,5 +189,4 @@ public class Projeto implements Serializable {
     public String toString() {
         return "reqlist.entity.Projeto[ id=" + id + " ]";
     }
-    
 }
