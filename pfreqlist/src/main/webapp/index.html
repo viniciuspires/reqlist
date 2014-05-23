@@ -1,18 +1,73 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" ng-app="reqlist">
 <head>
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/fullcalendar.css" />
 	<link rel="stylesheet" href="js/jqueryui/themes/base/jquery-ui.css" type="text/css" />
 	<link rel="stylesheet" href="css/chosen.css" />
 	<link rel="stylesheet" href="css/app.css" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
 	<title>Reqlist</title>
 </head>
 <body>
+	
+	<div class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#barra-navegacao">
+					<span class="sr-only">Abrir navegação</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand">
+					<big><span class="glyphicon glyphicon-ok"></span></big>
+				</a>
+			</div>
 
-	<div class="container">
+			<div id="barra-navegacao" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active">
+						<a href="#projeto">Planejamento</a>
+					</li>
+					<li>
+						<a href="#">Execução</a>
+					</li>
+					<li>
+						<a href="#">Acompanhamento</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="//gravatar.com/avatar/6bb8d259b6b46a59ec66aadbd2b13015?s=18" />
+							Vinicius Pires <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#/usuario/1">
+                                    <span class="glyphicon glyphicon-user"></span>
+									Meu perfil
+								</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="#/logout">
+									<span class="glyphicon glyphicon-off"></span>
+									Sair
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="container" ng-view>
 
 		<h1 id="2"><a href="#2">Tela 2</a></h1>
 		<div class="row">
@@ -213,7 +268,7 @@
 						<legend>Convidar amigo para o Projeto</legend>
 						<div class="input-group">
 							<input type="search" name="busca" id="busca" class="form-control" placeholder="Pesquisar por nome ou email..." />
-							<span class="input-group-btn">
+							<div class="input-group-btn">
 								<div class="btn-group">
 									<button type="button" class="btn btn-default dropdown-toggle"
 										data-toggle="dropdown">
@@ -236,7 +291,7 @@
 										</li>
 									</ul>
 								</div>
-							</span>
+							</div>
 							<div class="input-group-btn">
 								<button class="btn btn-primary">
 									Enviar Convite
@@ -874,11 +929,13 @@
 	</div>
 	
 	<script src="js/jquery.min.js"></script>
+	<script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
 	<script src="js/chosen.jquery.js"></script>
 	<script src="js/fullcalendar.js"></script>
 	<script src="js/highcharts.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jqueryui/ui/jquery-ui.js"></script>
-	<script src="js/reqlist/home.js"></script>
+	<script src="js/reqlist/app.js"></script>
 </body>
 </html>

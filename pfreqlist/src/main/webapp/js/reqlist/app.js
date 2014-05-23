@@ -1,3 +1,75 @@
+var app = angular.module('reqlist', ['ngRoute']);
+
+app.config(function($routeProvider) {
+	$routeProvider.when('projeto', {
+		templateUrl:'view/projeto-list.html',
+		controller:'ProjetoListController'
+	}).when('projeto/:idProjeto', {
+		templateUrl:'view/projeto-detail.html',
+		controller:'ProjetoController'
+	}).when('projeto/:idProjeto/requisitos', {
+		templateUrl:'requisitos',
+		controller:''
+	}).otherwise({
+		redirectTo:''
+	});
+}).service('ProjetoService', function($http) {
+	this.findAll = function() {
+		return [];
+	};
+	this.getProjeto = function(id){
+		return {};
+	};
+	this.persist = function(projeto) {
+		if ( projeto.id != null ) {
+
+		} else {
+
+		}
+	};
+	this.getAndamento = function(projeto) {
+
+	};
+	this.getBurndown = function(projeto) {
+
+	};
+	this.getComparacao = function(projeto) {
+
+	};
+}).controller({
+	MenuController:function($scope) {
+		$scope.modules = [
+			{
+				nome:"Projeto",
+				url:""
+			},
+			{
+				nome:"",
+				url:""
+			},
+			{
+				nome:"",
+				url:""
+			},
+			{
+				nome:"",
+				url:""
+			}
+		];
+	},
+	ProjetoListController:function($scope, $routeParams, ProjetoService){
+		$scope.projetos = [];
+	},
+	ProjetoController:function($scope, $routeParams, ProjetoService){
+
+	},
+});
+
+
+
+
+
+
 $(document).ready(function(){
 	$('[data-tooltip]').tooltip();
 	$('[data-chosen]').chosen();

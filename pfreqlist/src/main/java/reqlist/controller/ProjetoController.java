@@ -14,7 +14,7 @@ import reqlist.service.ProjetoService;
  * @author Vinicius
  */
 @Controller
-@RequestMapping("/projeto")
+@RequestMapping(value="/projeto")
 public class ProjetoController {
     @Autowired
     ProjetoService projetoService;
