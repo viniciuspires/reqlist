@@ -108,7 +108,9 @@ app.config(function($routeProvider) {
 		];
 
 		$scope.removerProjeto = function(projeto){
+			if ( window.confirm('Tem certeza que deseja arquivar este projeto?') ) {
 
+			}
 		};
 	},
 	ProjetoController:function($scope, $routeParams, ProjetoService){

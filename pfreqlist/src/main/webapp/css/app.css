@@ -32,12 +32,16 @@ input, select, textarea, .well, .well-sm, .btn, .img-thumbnail, .progress {
 }
 
 .projeto ul li.novo .well {
-	border:dashed 0.2em lightgray;
+	border:dashed 0.2em #E3E3E3;
 	opacity:0.6;
 }
 .projeto ul li.novo .well:hover {
 	opacity:1;
+	text-decoration:none;
 }
-.projeto ul li.novo .well h4 {
-	line-height:5.6em;
+.projeto ul li.novo .well:hover a {
+	text-decoration:none;
+}
+.projeto ul li.novo .well h2 {
+	line-height:3.05em;
 }
