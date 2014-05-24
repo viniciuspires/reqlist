@@ -76,9 +76,42 @@ app.config(function($routeProvider) {
 		];
 	},
 	ProjetoListController:function($scope, $routeParams, ProjetoService){
-		$scope.projetos = [];
+		$scope.projetos = [
+			{
+				id:1,
+				titulo:'Sistema de Folha de Pagamento',
+				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...',
+			},
+			{
+				id:2,
+				titulo:'Sistema de Controle de Colaboradores',
+				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...',
+			},
+			{
+				id:3,
+				titulo:'CRM Cliente Acme',
+				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...',
+			},
+			{
+				id:4,
+				titulo:'Reqlist',
+				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...',
+			},
+			{
+				id:5,
+				titulo:'Sistema de Controle de Estoque',
+				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...',
+			}
+		];
+
+		$scope.removerProjeto = function(projeto){
+
+		};
 	},
 	ProjetoController:function($scope, $routeParams, ProjetoService){
+
+	},
+	ProjetoFormController:function($scope, $routeParams, ProjetoService){
 
 	},
 	BurndownController:function($scope, $routeParams){

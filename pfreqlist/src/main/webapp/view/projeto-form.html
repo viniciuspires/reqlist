@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<form action="" role="form">
+		<form action="" role="form" ng-submit="salvar()">
 			<fieldset>
 				<legend>Editar <em>Sistema de Folha de Pagamento</em></legend>
 				<div class="form-group">
@@ -21,7 +21,7 @@
 					</select>
 				</div>
 
-				<button class="btn btn-default">Voltar</button>
+				<a href="javascript:history.back();" class="btn btn-default">Voltar</a>
 				<button class="btn btn-primary">Salvar</button>
 			</fieldset>
 		</form>
