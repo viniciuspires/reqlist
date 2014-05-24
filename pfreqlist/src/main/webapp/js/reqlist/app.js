@@ -66,10 +66,6 @@ app.config(function($routeProvider) {
 });
 
 
-
-
-
-
 $(document).ready(function(){
 	$('[data-tooltip]').tooltip();
 	$('[data-chosen]').chosen();
