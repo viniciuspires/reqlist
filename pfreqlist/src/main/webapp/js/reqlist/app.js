@@ -7,6 +7,9 @@ app.config(function($routeProvider) {
 	}).when('/projeto/new', {
 		templateUrl:'view/projeto-form.html',
 		controller:'ProjetoFormController'
+	}).when('/projeto/comparacao', {
+		templateUrl:'view/comparacao.html',
+		controller:'ComparacaoController'
 	}).when('/projeto/:idProjeto', {
 		templateUrl:'view/projeto-detail.html',
 		controller:'ProjetoController'
@@ -19,9 +22,6 @@ app.config(function($routeProvider) {
 	}).when('/projeto/:idProjeto/andamento', {
 		templateUrl:'view/projeto-andamento.html',
 		controller:'AndamentoController'
-	}).when('/projeto/comparacao', {
-		templateUrl:'view/comparacao.html',
-		controller:'ComparacaoController'
 	}).when('/projeto/:idProjeto/requisitos', {
 		templateUrl:'requisitos',
 		controller:'RequisitoController'
