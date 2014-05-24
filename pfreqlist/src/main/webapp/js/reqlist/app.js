@@ -1,35 +1,35 @@
 var app = angular.module('reqlist', ['ngRoute']);
 
 app.config(function($routeProvider) {
-	$routeProvider.when('projeto', {
+	$routeProvider.when('/projeto', {
 		templateUrl:'view/projeto-list.html',
 		controller:'ProjetoListController'
-	}).when('projeto/:idProjeto', {
+	}).when('/projeto/:idProjeto', {
 		templateUrl:'view/projeto-detail.html',
 		controller:'ProjetoController'
-	}).when('projeto/:idProjeto/edit', {
+	}).when('/projeto/:idProjeto/edit', {
 		templateUrl:'view/projeto-form.html',
 		controller:'ProjetoFormController'
-	}).when('projeto/:idProjeto/burndown', {
+	}).when('/projeto/:idProjeto/burndown', {
 		templateUrl:'view/projeto-burndown.html',
 		controller:'BurndownController'
-	}).when('projeto/:idProjeto/andamento', {
+	}).when('/projeto/:idProjeto/andamento', {
 		templateUrl:'view/projeto-andamento.html',
 		controller:'AndamentoController'
-	}).when('projeto/comparacao', {
+	}).when('/projeto/comparacao', {
 		templateUrl:'view/comparacao.html',
 		controller:'ComparacaoController'
-	}).when('projeto/:idProjeto/requisitos', {
+	}).when('/projeto/:idProjeto/requisitos', {
 		templateUrl:'requisitos',
 		controller:'RequisitoController'
-	}).when('projeto/:idProjeto/tarefas', {
+	}).when('/projeto/:idProjeto/tarefas', {
 		templateUrl:'view/tarefa-list.html',
 		controller:'TarefaController'
-	}).when('projeto/:idProjeto/alocacao', {
+	}).when('/projeto/:idProjeto/alocacao', {
 		templateUrl:'view/alocacao.html',
 		controller:'AlocacaoController'
 	}).otherwise({
-		redirectTo:'projeto'
+		redirectTo:'/projeto'
 	});
 }).service('ProjetoService', function($http) {
 	this.findAll = function() {
