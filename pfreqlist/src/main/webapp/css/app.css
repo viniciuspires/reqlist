@@ -30,3 +30,14 @@ input, select, textarea, .well, .well-sm, .btn, .img-thumbnail, .progress {
 	margin-top:4px;
 	margin-bottom:-9px;
 }
+
+.projeto ul li.novo .well {
+	border:dashed 0.2em lightgray;
+	opacity:0.6;
+}
+.projeto ul li.novo .well:hover {
+	opacity:1;
+}
+.projeto ul li.novo .well h4 {
+	line-height:5.6em;
+}

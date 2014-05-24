@@ -4,6 +4,9 @@ app.config(function($routeProvider) {
 	$routeProvider.when('/projeto', {
 		templateUrl:'view/projeto-list.html',
 		controller:'ProjetoListController'
+	}).when('/projeto/new', {
+		templateUrl:'view/projeto-form.html',
+		controller:'ProjetoFormController'
 	}).when('/projeto/:idProjeto', {
 		templateUrl:'view/projeto-detail.html',
 		controller:'ProjetoController'
