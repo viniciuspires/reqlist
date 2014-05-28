@@ -16,64 +16,27 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<tr ng-repeat="escopo in escopos">
 					<td>
-						<input type="text" name="nome-escopo" id="nome-escopo"
-							class="form-control" value="Primeira versão (v1.0)" />
+						{{escopo.titulo}}
+						<!--<input type="text" name="nome-escopo" id="nome-escopo"
+							class="form-control" value="Primeira versão (v1.0)" />-->
 					</td>
-					<td></td>
+					<td>{{escopo.data}}</td>
 					<td>
 						<div class="btn-group">
-							<button disabled class="btn btn-default" title="Travar escopo" data-toggle="tooltip">
+							<button class="btn btn-success" title="Travar escopo" data-toggle="tooltip"
+								ng-click="travarEscopo(escopo)">
 								<span class="glyphicon glyphicon-pushpin"></span>
 							</button>
-							<button disabled class="btn btn-default" title="Copiar escopo" data-toggle="tooltip">
+							<button class="btn btn-default" title="Copiar escopo" data-toggle="tooltip"
+								ng-click="copiarEscopo(escopo)">
 								<span class="glyphicon glyphicon-retweet"></span>
 							</button>
-							<button disabled class="btn btn-default" title="Ver requisitos">
+							<a href="#/projeto/1/escopo/{{escopo.id}}/requisitos" class="btn btn-default" title="Ver requisitos">
 								<span class="glyphicon glyphicon-list"></span>
-							</button>
-							<button disabled class="btn btn-default" title="Excluir">
-								<span class="glyphicon glyphicon-trash"></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>Versão Alpha (v0.1)</td>
-					<td>01/10/2013</td>
-					<td>
-						<div class="btn-group">
-							<button class="btn btn-default" disabled title="Escopo travado" data-toggle="tooltip">
-								<span class="glyphicon glyphicon-pushpin"></span>
-							</button>
-							<button class="btn btn-default" title="Copiar escopo" data-toggle="tooltip">
-								<span class="glyphicon glyphicon-retweet"></span>
-							</button>
-							<button class="btn btn-default" title="Ver requisitos">
-								<span class="glyphicon glyphicon-list"></span>
-							</button>
-							<button class="btn btn-danger" title="Excluir">
-								<span class="glyphicon glyphicon-trash"></span>
-							</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>Beta testing (v0.7)</td>
-					<td>29/02/2014</td>
-					<td>
-						<div class="btn-group">
-							<button class="btn btn-success" title="Travar escopo" data-toggle="tooltip">
-								<span class="glyphicon glyphicon-pushpin"></span>
-							</button>
-							<button class="btn btn-default" title="Copiar escopo" data-toggle="tooltip">
-								<span class="glyphicon glyphicon-retweet"></span>
-							</button>
-							<button class="btn btn-default" title="Ver requisitos">
-								<span class="glyphicon glyphicon-list"></span>
-							</button>
-							<button class="btn btn-danger" title="Excluir">
+							</a>
+							<button class="btn btn-danger" title="Excluir" ng-click="removerEscopo(escopo)">
 								<span class="glyphicon glyphicon-trash"></span>
 							</button>
 						</div>
@@ -86,7 +49,7 @@
 	<div class="col-md-4">
 		<form action="" role="form">
 			<fieldset>
-				<legend>Convidar amigo para o Projeto</legend>
+				<legend>Compartilhar Projeto</legend>
 				<div class="input-group">
 					<input type="search" name="busca" id="busca" class="form-control" placeholder="Pesquisar por nome ou email..." />
 					<div class="input-group-btn">

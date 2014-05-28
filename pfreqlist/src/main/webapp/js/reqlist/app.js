@@ -22,8 +22,8 @@ app.config(function($routeProvider) {
 	}).when('/projeto/:idProjeto/andamento', {
 		templateUrl:'view/projeto-andamento.html',
 		controller:'AndamentoController'
-	}).when('/projeto/:idProjeto/requisitos', {
-		templateUrl:'requisitos',
+	}).when('/projeto/:idProjeto/escopo/:idEscopo/requisitos', {
+		templateUrl:'view/requisito-list.html',
 		controller:'RequisitoController'
 	}).when('/projeto/:idProjeto/tarefas', {
 		templateUrl:'view/tarefa-list.html',
@@ -114,7 +114,23 @@ app.config(function($routeProvider) {
 		};
 	},
 	ProjetoController:function($scope, $routeParams, ProjetoService){
-
+		$scope.escopos = [
+			{
+				id:1,
+				titulo:'Primeira versão (v1.0)',
+				data:'12/10/1990'
+			},
+			{
+				id:2,
+				titulo:'Versão Alpha (v0.1)',
+				data:'29/05/1987'
+			},
+			{
+				id:3,
+				titulo:'Beta testing (v0.2)',
+				data:'22/11/1989'
+			}
+		];
 	},
 	ProjetoFormController:function($scope, $routeParams, ProjetoService){
 
@@ -266,7 +282,7 @@ app.config(function($routeProvider) {
 		});
 	},
 	RequisitoController:function($scope, $routeParams){
-
+		$('[data-chosen]').chosen();
 	},
 	TarefaController:function($scope){
 		
@@ -277,7 +293,7 @@ app.config(function($routeProvider) {
 				left:'prev,next today',
 				right:'month,basicWeek'
 			},
-			editable: true,
+			editable: true
 		});
 	}
 });
