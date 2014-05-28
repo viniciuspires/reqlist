@@ -1,70 +1,68 @@
-<div class="row">
-	<div class="col-md-6">
-		<h2>Tarefas</h2>
+<div class="col-md-6">
+	<h2>Tarefas</h2>
 
-		<ul class="list-unstyled tasks">
-			<li data-draggable>Criar tela de cadastro de clientes</li>
-			<li data-draggable>Criar script batch para sincronizar os produtos</li>
-		</ul>
-	</div>
-	<div class="col-md-6">
-		<h2>
-			Entregas
-			<button class="btn btn-primary">
-				<span class="glyphicon glyphicon-plus"></span>
-			</button>
-		</h2>
+	<ul class="list-unstyled tasks">
+		<li data-draggable>Criar tela de cadastro de clientes</li>
+		<li data-draggable>Criar script batch para sincronizar os produtos</li>
+	</ul>
+</div>
+<div class="col-md-6">
+	<h2>
+		Entregas
+		<button class="btn btn-primary">
+			<span class="glyphicon glyphicon-plus"></span>
+		</button>
+	</h2>
 
-		<ul class="list-unstyled">
-			<li>
-				<div class="well well-sm">
-					<form role="form">
-						<fieldset>
-							<legend>Nova entrega</legend>
-							<div class="form-group">
-								<label>Data da entrega</label>
-								<input class="form-control" type="date" />
-							</div>
+	<ul class="list-unstyled">
+		<li>
+			<div class="well well-sm">
+				<form role="form">
+					<fieldset>
+						<legend>Nova entrega</legend>
+						<div class="form-group">
+							<label>Data da entrega</label>
+							<input class="form-control" type="date" />
+						</div>
 
-							<div class="text-right">
-								<button class="btn btn-primary">Salvar</button>
-							</div>
-						</fieldset>
-					</form>
+						<div class="text-right">
+							<button class="btn btn-primary">Salvar</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</li>
+		<li>
+			<div class="well well-sm">
+				<button class="close" aria-hidden="true">&times;</button>
+				<h4>Entrega 11/10/2013</h4>
+
+				<ul class="list-unstyled tasks" data-droppable>
+					<li>Criar tela de edição de produtos</li>
+					<li>Criar backend de regras de negócios de cadastrar produto</li>
+				</ul>
+
+				<div class="text-right">
+					<button class="btn btn-success" disabled>
+						Finalizada!
+					</button>
 				</div>
-			</li>
-			<li>
-				<div class="well well-sm">
-					<button class="close" aria-hidden="true">&times;</button>
-					<h4>Entrega 11/10/2013</h4>
+			</div>
+		</li>
+		<li>
+			<div class="well well-sm">
+				<button class="close" aria-hidden="true">&times;</button>
+				<h4>Entrega 25/10/2013</h4>
 
-					<ul class="list-unstyled tasks" data-droppable>
-						<li>Criar tela de edição de produtos</li>
-						<li>Criar backend de regras de negócios de cadastrar produto</li>
-					</ul>
+				<p>Nenhuma tarefa ainda. Arraste uma tarefa para cá!</p>
 
-					<div class="text-right">
-						<button class="btn btn-success" disabled>
-							Finalizada!
-						</button>
-					</div>
+				<div class="text-right">
+					<button class="btn btn-success">
+						<span class="glyphicon glyphicon-ok"></span>
+						Finalizar
+					</button>
 				</div>
-			</li>
-			<li>
-				<div class="well well-sm">
-					<button class="close" aria-hidden="true">&times;</button>
-					<h4>Entrega 25/10/2013</h4>
-
-					<p>Nenhuma tarefa ainda. Arraste uma tarefa para cá!</p>
-
-					<div class="text-right">
-						<button class="btn btn-success">
-							<span class="glyphicon glyphicon-ok"></span>
-							Finalizar
-						</button>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</div>
+			</div>
+		</li>
+	</ul>
 </div>

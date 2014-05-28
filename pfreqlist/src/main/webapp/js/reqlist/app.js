@@ -22,13 +22,13 @@ app.config(function($routeProvider) {
 	}).when('/projeto/:idProjeto/andamento', {
 		templateUrl:'view/projeto-andamento.html',
 		controller:'AndamentoController'
-	}).when('/projeto/:idProjeto/escopo/:idEscopo/requisitos', {
+	}).when('/projeto/:idProjeto/escopo/:idEscopo/requisito', {
 		templateUrl:'view/requisito-list.html',
 		controller:'RequisitoController'
-	}).when('/projeto/:idProjeto/tarefas', {
+	}).when('/projeto/:idProjeto/escopo/:idEscopo/tarefa', {
 		templateUrl:'view/tarefa-list.html',
 		controller:'TarefaController'
-	}).when('/projeto/:idProjeto/alocacao', {
+	}).when('/projeto/:idProjeto/escopo/:idEscopo/alocacao', {
 		templateUrl:'view/alocacao.html',
 		controller:'AlocacaoController'
 	}).otherwise({
@@ -56,6 +56,10 @@ app.config(function($routeProvider) {
 	};
 	this.getComparacao = function(projeto) {
 
+	};
+}).directive('menuNavegacao', function(){
+	return {
+		templateUrl:'directive/menu-navegacao.html'
 	};
 }).controller({
 	MenuController:function($scope) {
@@ -282,12 +286,22 @@ app.config(function($routeProvider) {
 		});
 	},
 	RequisitoController:function($scope, $routeParams){
+		$scope.idProjeto = $routeParams.idProjeto;
+		$scope.idEscopo = $routeParams.idEscopo;
+		$scope.selected = "requisito";
+		
 		$('[data-chosen]').chosen();
 	},
-	TarefaController:function($scope){
-		
+	TarefaController:function($scope, $routeParams){
+		$scope.idProjeto = $routeParams.idProjeto;
+		$scope.idEscopo = $routeParams.idEscopo;
+		$scope.selected = "tarefa";
 	},
-	AlocacaoController:function($scope){
+	AlocacaoController:function($scope, $routeParams){
+		$scope.idProjeto = $routeParams.idProjeto;
+		$scope.idEscopo = $routeParams.idEscopo;
+		$scope.selected = "alocacao";
+		
 		$('[data-calendar]').fullCalendar({
 			header: {
 				left:'prev,next today',
@@ -301,7 +315,7 @@ app.config(function($routeProvider) {
 
 $(document).ready(function(){
 	$('[data-tooltip]').tooltip();
-	$('[data-chosen]').chosen();
+	$('[data-chosen]').chosen({width:'100%'});
 	$('[data-draggable]').draggable({revert:true});
 	$('[data-droppable]').droppable();
 });
