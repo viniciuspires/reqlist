@@ -1,12 +1,12 @@
 <div menu-navegacao class="col-md-3"></div>
 <div class="col-md-6">
-	<ul class="nav nav-tabs">
-		<li class="active"><a href="#">Planejado</a></li>
-		<li><a href="#">Realizado</a></li>
-	</ul>
 	<div class="row">
 		<div class="col-md-12">
 			<div data-calendar></div>
+			<select ng-model="tipoAlocacao" class="form-control input-sm tipo-alocacao">
+				<option value="planejado">Planejamento</option>
+				<option value="realizado">Execução</option>
+			</select>
 		</div>
 	</div>
 </div>

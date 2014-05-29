@@ -1,3 +1,5 @@
+'use strict';
+
 var app = angular.module('reqlist', ['ngRoute']);
 
 app.config(function($routeProvider) {
@@ -42,7 +44,7 @@ app.config(function($routeProvider) {
 		return {};
 	};
 	this.persist = function(projeto) {
-		if ( projeto.id != null ) {
+		if ( projeto.id !== null ) {
 
 		} else {
 
@@ -297,18 +299,28 @@ app.config(function($routeProvider) {
 		$scope.idEscopo = $routeParams.idEscopo;
 		$scope.selected = "tarefa";
 	},
-	AlocacaoController:function($scope, $routeParams){
+	AlocacaoController:function($scope, $routeParams, $timeout){
+		$timeout(function(){
+			$('[data-calendar]').fullCalendar({
+				header: {
+					left:'prev,next today',
+					right:'month,agendaWeek,agendaDay'
+				},
+				defaultView:'agendaWeek',
+				editable: true,
+				start:new Date(),
+				weekNumbers:true
+			});
+		});
+		$scope.tipoAlocacao = "planejado"; // realizado
+		
+		$scope.$watch('tipoAlocacao', function(valorNovo){
+			// TODO buscar alocação do tipo
+		});
+		
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
 		$scope.selected = "alocacao";
-		
-		$('[data-calendar]').fullCalendar({
-			header: {
-				left:'prev,next today',
-				right:'month,basicWeek'
-			},
-			editable: true
-		});
 	}
 });
 

@@ -45,3 +45,11 @@ input, select, textarea, .well, .well-sm, .btn, .img-thumbnail, .progress {
 .projeto ul li.novo .well h2 {
 	line-height:3.05em;
 }
+
+.tipo-alocacao {
+    position:absolute;
+    top:0;
+    width:33%;
+    left:33%;
+    border-radius: 3px !important;
+}
