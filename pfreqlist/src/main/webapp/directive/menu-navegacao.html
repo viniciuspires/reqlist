@@ -1,5 +1,8 @@
-<h3>Navegação</h3>
-<ul class="nav nav-pills nav-stacked">
+<h3 ng-if="!horizontal">Navegação</h3>
+<ul class="nav" ng-class="{'nav-stacked':!horizontal, 'nav-justified':horizontal, 'nav-pills':!horizontal, 'nav-tabs':horizontal}">
+	<li ng-class="{active:selected=='objetivo'}">
+		<a href="#/projeto/{{idProjeto}}/escopo/{{idEscopo}}/objetivo">Objetivos</a>
+	</li>
 	<li ng-class="{active:selected=='requisito'}">
 		<a href="#/projeto/{{idProjeto}}/escopo/{{idEscopo}}/requisito">Requisitos</a>
 	</li>
@@ -7,6 +10,9 @@
 		<a href="#/projeto/{{idProjeto}}/escopo/{{idEscopo}}/tarefa">Tarefas</a>
 	</li>
 	<li ng-class="{active:selected=='alocacao'}">
-		<a href="#/projeto/{{idProjeto}}/escopo/{{idEscopo}}/alocacao">Alocações</a>
+		<a href="#/projeto/{{idProjeto}}/escopo/{{idEscopo}}/alocacao">Alocação</a>
+	</li>
+	<li ng-class="{active:selected=='burndown'}">
+		<a href="#/projeto/{{idProjeto}}/escopo/{{idEscopo}}/burndown">Burndown</a>
 	</li>
 </ul>

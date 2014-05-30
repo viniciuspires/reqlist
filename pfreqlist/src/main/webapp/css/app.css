@@ -53,3 +53,11 @@ input, select, textarea, .well, .well-sm, .btn, .img-thumbnail, .progress {
     left:33%;
     border-radius: 3px !important;
 }
+
+.tarefas-drag li {
+    -webkit-user-select:none;
+    cursor:move;
+}
+.tarefas-drag li .drag {
+    
+}

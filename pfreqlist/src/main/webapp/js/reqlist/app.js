@@ -18,7 +18,7 @@ app.config(function($routeProvider) {
 	}).when('/projeto/:idProjeto/edit', {
 		templateUrl:'view/projeto-form.html',
 		controller:'ProjetoFormController'
-	}).when('/projeto/:idProjeto/burndown', {
+	}).when('/projeto/:idProjeto/escopo/:idEscopo/burndown', {
 		templateUrl:'view/projeto-burndown.html',
 		controller:'BurndownController'
 	}).when('/projeto/:idProjeto/andamento', {
@@ -33,6 +33,15 @@ app.config(function($routeProvider) {
 	}).when('/projeto/:idProjeto/escopo/:idEscopo/alocacao', {
 		templateUrl:'view/alocacao.html',
 		controller:'AlocacaoController'
+	}).when('/projeto/:idProjeto/escopo/:idEscopo/objetivo', {
+		templateUrl:'view/objetivo-list.html',
+		controller:'ObjetivoController'
+	}).when('/usuario/:idUsuario', {
+		templateUrl:'view/usuario-detail.html',
+		controller:'UsuarioController'
+	}).when('/usuario/:idUsuario/edit', {
+		templateUrl:'view/usuario-edit.html',
+		controller:'UsuarioEditController'
 	}).otherwise({
 		redirectTo:'/projeto'
 	});
@@ -61,7 +70,12 @@ app.config(function($routeProvider) {
 	};
 }).directive('menuNavegacao', function(){
 	return {
-		templateUrl:'directive/menu-navegacao.html'
+		templateUrl:'directive/menu-navegacao.html',
+		link:function(scope, element, attrs){
+			scope.selected = attrs.menuNavegacao;
+			
+			scope.horizontal = attrs.horizontal !== undefined;
+		}
 	};
 }).controller({
 	MenuController:function($scope) {
@@ -89,27 +103,27 @@ app.config(function($routeProvider) {
 			{
 				id:1,
 				titulo:'Sistema de Folha de Pagamento',
-				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...',
+				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...'
 			},
 			{
 				id:2,
 				titulo:'Sistema de Controle de Colaboradores',
-				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...',
+				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...'
 			},
 			{
 				id:3,
 				titulo:'CRM Cliente Acme',
-				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...',
+				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...'
 			},
 			{
 				id:4,
 				titulo:'Reqlist',
-				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...',
+				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...'
 			},
 			{
 				id:5,
 				titulo:'Sistema de Controle de Estoque',
-				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...',
+				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...'
 			}
 		];
 
@@ -142,9 +156,12 @@ app.config(function($routeProvider) {
 
 	},
 	BurndownController:function($scope, $routeParams){
+		$scope.idProjeto = $routeParams.idProjeto;
+		$scope.idEscopo = $routeParams.idEscopo;
+		
 		$('#burndown').highcharts({
 			title: {
-				text:'',
+				text:'Burndown de tarefas'
 			},
 			chart: {
 				type: 'spline',
@@ -167,7 +184,7 @@ app.config(function($routeProvider) {
 					'23/10',
 					'24/10',
 					'25/10',
-					'28/10',
+					'28/10'
 				]
 			},
 			credits: false,
@@ -196,18 +213,18 @@ app.config(function($routeProvider) {
 					name: 'Estimativa',
 					color: '#3276B1',
 					data: [30, 25, 21, 19, 18, 15, 11, 10, 9, 5, 2, 0],
-					type: 'areaspline',
+					type: 'areaspline'
 				},
 				{
 					name: 'Real',
 					color: '#5CB85C',
-					data: [30, 30, 28, 23, 22, 20, 20, 19, 17, 15, 13, 7],
+					data: [30, 30, 28, 23, 22, 20, 20, 19, 17, 15, 13, 7]
 				},
 				{
 					name: 'Projeção',
 					color:'#D9534F',
 					data: [30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0],
-					type: 'spline',
+					type: 'spline'
 				}
 			]
 		});
@@ -271,7 +288,7 @@ app.config(function($routeProvider) {
 				{
 					type:'column',
 					name:'Planejado',
-					data:[115, 110, 90, 60],
+					data:[115, 110, 90, 60]
 				},
 				{
 					type:'column',
@@ -290,14 +307,11 @@ app.config(function($routeProvider) {
 	RequisitoController:function($scope, $routeParams){
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
-		$scope.selected = "requisito";
-		
 		$('[data-chosen]').chosen();
 	},
 	TarefaController:function($scope, $routeParams){
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
-		$scope.selected = "tarefa";
 	},
 	AlocacaoController:function($scope, $routeParams, $timeout){
 		$timeout(function(){
@@ -311,6 +325,8 @@ app.config(function($routeProvider) {
 				start:new Date(),
 				weekNumbers:true
 			});
+			$('[data-draggable]').draggable({revert:true});
+			$('[data-droppable]').droppable();
 		});
 		$scope.tipoAlocacao = "planejado"; // realizado
 		
@@ -320,7 +336,11 @@ app.config(function($routeProvider) {
 		
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
-		$scope.selected = "alocacao";
+		
+	},
+	ObjetivoController:function($scope, $routeParams){
+		$scope.idProjeto = $routeParams.idProjeto;
+		$scope.idEscopo = $routeParams.idEscopo;
 	}
 });
 
