@@ -36,12 +36,15 @@ app.config(function($routeProvider) {
 	}).when('/projeto/:idProjeto/escopo/:idEscopo/objetivo', {
 		templateUrl:'view/objetivo-list.html',
 		controller:'ObjetivoController'
+	}).when('/projeto/:idProjeto/escopo/:idEscopo/entrega', {
+		templateUrl:'view/entrega.html',
+		controller:'EntregaController'
 	}).when('/usuario/:idUsuario', {
 		templateUrl:'view/usuario-detail.html',
 		controller:'UsuarioController'
 	}).when('/usuario/:idUsuario/edit', {
 		templateUrl:'view/usuario-edit.html',
-		controller:'UsuarioEditController'
+		controller:'UsuarioController'
 	}).otherwise({
 		redirectTo:'/projeto'
 	});
@@ -341,6 +344,16 @@ app.config(function($routeProvider) {
 	ObjetivoController:function($scope, $routeParams){
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
+	},
+	EntregaController:function($scope, $routeParams){
+		$scope.idProjeto = $routeParams.idProjeto;
+		$scope.idEscopo = $routeParams.idEscopo;
+		
+		$('[data-draggable]').draggable({revert:true});
+		$('[data-droppable]').droppable();
+	},
+	UsuarioController:function($scope, $routeParams){
+		$scope.idUsuario = $routeParams.idUsuario;
 	}
 });
 

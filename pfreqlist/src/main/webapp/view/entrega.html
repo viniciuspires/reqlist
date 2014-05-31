@@ -1,19 +1,12 @@
-<div class="col-md-6">
-	<h2>Tarefas</h2>
-
-	<ul class="list-unstyled tasks">
-		<li data-draggable>Criar tela de cadastro de clientes</li>
-		<li data-draggable>Criar script batch para sincronizar os produtos</li>
-	</ul>
-</div>
-<div class="col-md-6">
-	<h2>
+<div menu-navegacao="entrega" class="col-md-3"></div>
+<div class="col-md-5">
+	<h3 class="clearfix">
 		Entregas
-		<button class="btn btn-primary">
+		<button class="btn btn-primary pull-right">
 			<span class="glyphicon glyphicon-plus"></span>
+			Nova
 		</button>
-	</h2>
-
+	</h3>
 	<ul class="list-unstyled">
 		<li>
 			<div class="well well-sm">
@@ -64,5 +57,13 @@
 				</div>
 			</div>
 		</li>
+	</ul>
+</div>
+<div class="col-md-4">
+	<h3>Tarefas</h3>
+
+	<ul class="list-unstyled tasks tarefas-drag">
+		<li data-draggable>Criar tela de cadastro de clientes</li>
+		<li data-draggable>Criar script batch para sincronizar os produtos</li>
 	</ul>
 </div>
