@@ -136,7 +136,7 @@ app.config(function($routeProvider) {
 			}
 		};
 	},
-	ProjetoController:function($scope, $routeParams, ProjetoService){
+	ProjetoController:function($scope, $routeParams, ProjetoService, $window){
 		$scope.escopos = [
 			{
 				id:1,
@@ -154,6 +154,64 @@ app.config(function($routeProvider) {
 				data:'22/11/1989'
 			}
 		];
+		
+		$scope.travarEscopo = function(escopo){
+			var confirmMessage = "Após travar o escopo, só será possível"
+				+" alterar o projeto atráves de um novo escopo.\n\n"
+				+" Deseja realmente travar o escopo?";
+			if ($window.confirm(confirmMessage)) {
+				
+			}
+		};
+		$scope.copiarEscopo = function(escopo) {
+			if ( $window.confirm("Tem certeza que deseja copiar o escopo?") ) {
+				
+			}
+		};
+		$scope.removerEscopo = function(escopo){
+			if ( $window.confirm("Tem certeza que deseja remover o escopo?") ) {
+				
+			}
+		};
+		
+		// Widget usuários do projeto
+		$scope.usuarios = [
+			{
+				nome:'Vinicius da Costa Pires',
+				email:'',
+				avatar:'//gravatar.com/avatar/6bb8d259b6b46a59ec66aadbd2b13015?s=40',
+				perfil:{
+					nome:'Administrador',
+					classe:'primary'
+				}
+			},
+			{
+				nome:'Iran Sousa de Freitas',
+				email:'',
+				avatar:'//gravatar.com/avatar/36bb355a5f3ef6df2644c42f17e804eb?s=40',
+				perfil:{
+					nome:'Prestador',
+					classe:'default'
+				}
+			},
+			{
+				nome:'Fulano da Silva Sauro',
+				email:'',
+				avatar:'//placehold.it/40x40',
+				perfil:{
+					nome:'Cliente',
+					classe:'success'
+				}
+			}
+		];
+		
+		$scope.removerUsuario = function(usuario) {
+			var primeiroNome = usuario.nome.split(" ")[0];
+			var mensagem = "Tem certeza que deseja remover o "
+				+usuario.perfil.nome.toLowerCase() + " " +primeiroNome+"?";
+			if ($window.confirm(mensagem)) {
+			}
+		};
 	},
 	ProjetoFormController:function($scope, $routeParams, ProjetoService){
 
@@ -307,10 +365,16 @@ app.config(function($routeProvider) {
 			]
 		});
 	},
-	RequisitoController:function($scope, $routeParams){
+	RequisitoController:function($scope, $routeParams, $window){
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
 		$('[data-chosen]').chosen();
+		
+		$scope.removerRequisito = function(requisito){
+			if ($window.confirm("Deseja remover o requisito?")) {
+				
+			}
+		};
 	},
 	TarefaController:function($scope, $routeParams){
 		$scope.idProjeto = $routeParams.idProjeto;
@@ -341,9 +405,15 @@ app.config(function($routeProvider) {
 		$scope.idEscopo = $routeParams.idEscopo;
 		
 	},
-	ObjetivoController:function($scope, $routeParams){
+	ObjetivoController:function($scope, $routeParams, $window){
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
+		
+		$scope.removerObjetivo = function(objetivo){
+			if ($window.confirm("Tem certeza que deseja remover o objetivo?")) {
+				
+			}
+		};
 	},
 	EntregaController:function($scope, $routeParams){
 		$scope.idProjeto = $routeParams.idProjeto;
