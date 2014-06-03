@@ -376,9 +376,20 @@ app.config(function($routeProvider) {
 			}
 		};
 	},
-	TarefaController:function($scope, $routeParams){
+	TarefaController:function($scope, $routeParams, $window){
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
+		
+		$scope.removerTarefa = function(tarefa){
+			if ($window.confirm("Deseja remover a tarefa?")) {
+				
+			}
+		};
+		$scope.alterarResponsavel = function(tarefa){
+			if ($window.confirm("Deseja se tornar responsável pela tarefa?")) {
+				
+			}
+		};
 	},
 	AlocacaoController:function($scope, $routeParams, $timeout){
 		$timeout(function(){
@@ -392,7 +403,7 @@ app.config(function($routeProvider) {
 				start:new Date(),
 				weekNumbers:true
 			});
-			$('[data-draggable]').draggable({revert:true});
+			$('[data-draggable]').draggable({revert:true,helper:'clone'});
 			$('[data-droppable]').droppable();
 		});
 		$scope.tipoAlocacao = "planejado"; // realizado
@@ -415,12 +426,18 @@ app.config(function($routeProvider) {
 			}
 		};
 	},
-	EntregaController:function($scope, $routeParams){
+	EntregaController:function($scope, $routeParams, $window){
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
 		
-		$('[data-draggable]').draggable({revert:true});
+		$('[data-draggable]').draggable({revert:true,helper:'clone',opacity:0.8});
 		$('[data-droppable]').droppable();
+		
+		$scope.removerEntrega = function(entrega){
+			if ($window.confirm("Deseja remover a entrega?")) {
+				
+			}
+		};
 	},
 	UsuarioController:function($scope, $routeParams){
 		$scope.idUsuario = $routeParams.idUsuario;

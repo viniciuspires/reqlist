@@ -23,10 +23,11 @@
 							title="Se tornar responsável">
 							<span class="glyphicon glyphicon-user"></span>
 						</button>
-						<button class="btn btn-default" title="Editar objetivo">
+						<button class="btn btn-default" title="Editar tarefa">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</button>
-						<button class="btn btn-danger" title="Excluir objetivo">
+						<button class="btn btn-danger" title="Excluir tarefa"
+							ng-click="removerTarefa(tarefa)">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</div>
@@ -51,10 +52,10 @@
 						<button class="btn btn-default" disabled>
 							<span class="glyphicon glyphicon-user"></span>
 						</button>
-						<button class="btn btn-default" title="Editar objetivo">
+						<button class="btn btn-default" title="Editar tarefa">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</button>
-						<button class="btn btn-danger" title="Excluir objetivo">
+						<button class="btn btn-danger" title="Excluir tarefa">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</div>
@@ -69,19 +70,17 @@
 						</label>
 					</div>
 				</td>
-				<td class="responsavel">
-
-				</td>
+				<td class="responsavel"></td>
 				<td class="acoes">
 					<div class="btn-group">
-						<button class="btn btn-default"
+						<button class="btn btn-default" ng-click="alterarResponsavel(tarefa)"
 							title="Se tornar responsável">
 							<span class="glyphicon glyphicon-user"></span>
 						</button>
-						<button class="btn btn-default" title="Editar objetivo">
+						<button class="btn btn-default" title="Editar tarefa">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</button>
-						<button class="btn btn-danger" title="Excluir objetivo">
+						<button class="btn btn-danger" title="Excluir tarefa">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</div>
