@@ -2,7 +2,7 @@
 
 var app = angular.module('reqlist', ['ngRoute']);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/projeto', {
 		templateUrl:'view/projeto-list.html',
 		controller:'ProjetoListController'
@@ -48,6 +48,9 @@ app.config(function($routeProvider) {
 	}).otherwise({
 		redirectTo:'/projeto'
 	});
+	
+	$locationProvider.html5Mode(true);
+	
 }).service('ProjetoService', function($http) {
 	this.findAll = function() {
 		return [];
