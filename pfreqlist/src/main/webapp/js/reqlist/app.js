@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('reqlist', ['ngRoute']);
+var app = angular.module('reqlist', ['ngRoute','ngAnimate','localytics.directives']);
 
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/projeto', {
@@ -49,7 +49,7 @@ app.config(function($routeProvider, $locationProvider) {
 		redirectTo:'/projeto'
 	});
 	
-	$locationProvider.html5Mode(true);
+	//$locationProvider.html5Mode(true);
 	
 }).service('ProjetoService', function($http) {
 	this.findAll = function() {
@@ -83,6 +83,19 @@ app.config(function($routeProvider, $locationProvider) {
 			scope.horizontal = attrs.horizontal !== undefined;
 		}
 	};
+}).directive('title', function($timeout){
+	return function(scope, element, attrs){
+		if (attrs.toggle === undefined) {
+			attrs.toggle = 'tooltip';
+		}
+		if (attrs.placement === undefined) {
+			attrs.placement = 'top';
+		}
+		
+		$timeout(function(){
+			element.tooltip();
+		});
+	};
 }).controller({
 	MenuController:function($scope) {
 		$scope.modules = [
@@ -104,7 +117,7 @@ app.config(function($routeProvider, $locationProvider) {
 			}
 		];
 	},
-	ProjetoListController:function($scope, $routeParams, ProjetoService){
+	ProjetoListController:function($scope, $routeParams, ProjetoService, $timeout){
 		$scope.projetos = [
 			{
 				id:1,
@@ -371,7 +384,6 @@ app.config(function($routeProvider, $locationProvider) {
 	RequisitoController:function($scope, $routeParams, $window){
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
-		$('[data-chosen]').chosen();
 		
 		$scope.removerRequisito = function(requisito){
 			if ($window.confirm("Deseja remover o requisito?")) {
@@ -445,12 +457,4 @@ app.config(function($routeProvider, $locationProvider) {
 	UsuarioController:function($scope, $routeParams){
 		$scope.idUsuario = $routeParams.idUsuario;
 	}
-});
-
-
-$(document).ready(function(){
-	$('[data-tooltip]').tooltip();
-	$('[data-chosen]').chosen({width:'100%'});
-	$('[data-draggable]').draggable({revert:true});
-	$('[data-droppable]').droppable();
 });

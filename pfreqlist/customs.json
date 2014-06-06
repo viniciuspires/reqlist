@@ -1,6 +1,7 @@
 {
     "attributes": {
-        "menu-navegacao": {}
+        "menu-navegacao": {},
+        "chosen": {}
     },
     "elements": {}
 }
