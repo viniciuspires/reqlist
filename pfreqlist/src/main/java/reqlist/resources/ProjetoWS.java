@@ -19,8 +19,12 @@ import reqlist.dao.ProjetoDAO;
  */
 @Path("/projeto")
 public class ProjetoWS {
-    @Inject
+
     private ProjetoDAO projetoDao;
+    
+    public ProjetoWS(){
+        projetoDao = new ProjetoDAO();
+    }
     
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)

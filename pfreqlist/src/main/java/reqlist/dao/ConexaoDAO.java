@@ -8,15 +8,13 @@ package reqlist.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author Iran
  */
-@PersistenceContext
 public class ConexaoDAO {
-
+    
     public static EntityManager getEntityManager() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("reqlist");
         return  factory.createEntityManager();

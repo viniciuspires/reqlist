@@ -7,8 +7,8 @@
 package reqlist.dao;
 
 import java.util.List;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import reqlist.entity.Projeto;
 
 /**
@@ -18,11 +18,14 @@ import reqlist.entity.Projeto;
 
 public class ProjetoDAO {
     
-    @Inject
     private EntityManager em;
+    
+    public ProjetoDAO(){
+        em = ConexaoDAO.getEntityManager();
+    }
 
     public Projeto getById(Integer id) {
-        return (Projeto) em.find(Projeto.class, 1);
+        return (Projeto) em.find(Projeto.class, id);
     }
  
     public void save(Projeto entity) {
@@ -38,11 +41,13 @@ public class ProjetoDAO {
     }
  
     public List<Projeto> findAll() {
-        return em.createQuery(("FROM " + Projeto.class))
-                .getResultList();
+        Query query = em.createNamedQuery ("Projeto.findAll") ;
+        return query.getResultList(); 
     }    
 
     public static void main (String []args){
+        ProjetoDAO pdao = new ProjetoDAO();
+        System.out.println(pdao.findAll());
     }
     
 }
