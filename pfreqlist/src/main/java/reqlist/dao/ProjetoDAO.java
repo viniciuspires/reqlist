@@ -7,53 +7,42 @@
 package reqlist.dao;
 
 import java.util.List;
-import javax.annotation.Resource;
 import javax.inject.Inject;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
+import javax.persistence.EntityManager;
 import reqlist.entity.Projeto;
 
 /**
  *
  * @author Iran
  */
-@Resource
+
 public class ProjetoDAO {
-
-    private Session sessao;
-    public ProjetoDAO() {        
-        this.sessao = HibernateUtil.getSessionFactory().openSession();
-    }
-
-
-    public void adiciona(Projeto projeto) {
-        Transaction tx = this.sessao.beginTransaction();
-        this.sessao.save(projeto);
-        tx.commit();
-    }
     
-    public void excluir(Projeto projeto) {
-        Transaction tx = this.sessao.beginTransaction();
-        this.sessao.delete(projeto);
-        tx.commit();
-    }
+    @Inject
+    private EntityManager em;
 
-    public Projeto carrega(Projeto projeto) {
-        return (Projeto) sessao.createCriteria(Projeto.class)
-                .add(Restrictions.eq("id", projeto.getId()))
-                .uniqueResult();
+    public Projeto getById(Integer id) {
+        return (Projeto) em.find(Projeto.class, 1);
+    }
+ 
+    public void save(Projeto entity) {
+        em.persist(entity);
+    }
+ 
+    public void update(Projeto entity) {
+        em.merge(entity);
+    }
+ 
+    public void delete(Projeto entity) {
+        em.remove(entity);
+    }
+ 
+    public List<Projeto> findAll() {
+        return em.createQuery(("FROM " + Projeto.class))
+                .getResultList();
     }    
-    public List<Projeto> listarTodos() {
-        Criteria criteria = sessao.createCriteria(Projeto.class);
-        return criteria.list();        
-    }    
-    
+
     public static void main (String []args){
-        ProjetoDAO pj = new ProjetoDAO();
-        System.out.println(pj.listarTodos());
     }
     
 }

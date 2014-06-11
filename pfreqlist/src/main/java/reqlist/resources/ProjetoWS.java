@@ -7,6 +7,7 @@
 package reqlist.resources;
 
 import java.util.List;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -18,12 +19,12 @@ import reqlist.dao.ProjetoDAO;
  */
 @Path("/projeto")
 public class ProjetoWS {
+    @Inject
     private ProjetoDAO projetoDao;
     
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public List getProjetos(){
-        projetoDao = new ProjetoDAO();
-        return projetoDao.listarTodos();
+        return projetoDao.findAll();
     }
 }
