@@ -9,22 +9,23 @@ package reqlist.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import reqlist.entity.Escopo;
 import reqlist.entity.Projeto;
 
 /**
- *
- * @author Iran
+ * 
+ * @author Vinicius
  */
-public class ProjetoDAO {
+public class EscopoDAO {
     
     private EntityManager em;
     
-    public ProjetoDAO(){
+    public EscopoDAO(){
         em = ConexaoDAO.getEntityManager();
     }
 
-    public Projeto getById(Integer id) {
-        return em.find(Projeto.class, id);
+    public Escopo getById(Integer id) {
+        return em.find(Escopo.class, id);
     }
  
     public void save(Projeto entity) {
@@ -40,7 +41,7 @@ public class ProjetoDAO {
     }
  
     public List<Projeto> findAll() {
-        Query query = em.createNamedQuery("Projeto.findAll") ;
+        Query query = em.createNamedQuery ("Projeto.findAll") ;
         return query.getResultList(); 
     }
 }

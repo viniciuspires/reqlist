@@ -27,6 +27,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -73,7 +74,7 @@ public class Projeto implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
     private List<Escopo> escopoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
-    private List<UsuarioXProjeto> usuarioXProjetoList;
+    private List<Perfil> perfilList;
 
     public Projeto() {
     }
@@ -156,15 +157,6 @@ public class Projeto implements Serializable {
         this.escopoList = escopoList;
     }
 
-    @XmlTransient
-    public List<UsuarioXProjeto> getUsuarioXProjetoList() {
-        return usuarioXProjetoList;
-    }
-
-    public void setUsuarioXProjetoList(List<UsuarioXProjeto> usuarioXProjetoList) {
-        this.usuarioXProjetoList = usuarioXProjetoList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -188,5 +180,15 @@ public class Projeto implements Serializable {
     @Override
     public String toString() {
         return "reqlist.entity.Projeto[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<Perfil> getPerfilList() {
+        return perfilList;
+    }
+
+    public void setPerfilList(List<Perfil> perfilList) {
+        this.perfilList = perfilList;
     }
 }
