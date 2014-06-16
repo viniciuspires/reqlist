@@ -12,15 +12,16 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import org.hibernate.annotations.Subselect;
 import reqlist.dao.ProjetoDAO;
-import javax.ws.rs.core.MediaType;
 import reqlist.entity.Projeto;
 
 /**
  *
  * @author Iran
  */
-@Path("/projeto")
+@Path("projeto")
+@Produces("application/json; charset=utf-8")
 public class ProjetoResource {
     private ProjetoDAO projetoDao;
     
@@ -29,12 +30,11 @@ public class ProjetoResource {
     }
     
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List getProjetos(){
         return projetoDao.findAll();
     }
+    
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public Projeto getProjeto(@PathParam("id") Integer id) {
         Projeto projeto = projetoDao.getById(id);
@@ -45,7 +45,7 @@ public class ProjetoResource {
     }
     
     @Path("{id}/escopo")
-    public Class<EscopoResource> getEscopoResource() {
-        return EscopoResource.class;
+    public EscopoResource getEscopoResource(@PathParam("id") Integer id) {
+        return new EscopoResource();
     }
 }

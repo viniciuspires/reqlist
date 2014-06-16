@@ -6,6 +6,7 @@
 
 package reqlist.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -24,14 +25,14 @@ import reqlist.entity.Escopo;
  * @author Vinicius
  */
 @Path("escopo")
-class EscopoResource {
+public class EscopoResource {
     EscopoDAO dao;
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Escopo> get() {
         
-        return null;
+        return new ArrayList<Escopo>();
     }
     @GET
     @Path("{id}")
