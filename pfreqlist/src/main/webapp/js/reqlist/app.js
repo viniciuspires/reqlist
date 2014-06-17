@@ -53,26 +53,34 @@ app.config(function($routeProvider, $locationProvider) {
 	
 }).service('ProjetoService', function($http) {
 	this.findAll = function() {
-		return [];
+		return $http.get('api/projeto');
 	};
 	this.getProjeto = function(id){
-		return {};
+		return $http.get('api/projeto/'+id);
 	};
 	this.persist = function(projeto) {
 		if ( projeto.id !== null ) {
-
+			return $http.put('api/projeto/'+projeto.id, projeto);
 		} else {
-
+			return $http.post('api/projeto', projeto);
 		}
 	};
+	this.arquivar = function(projeto){
+		return $http.delete('api/projeto/'+projeto.id);
+	};
 	this.getAndamento = function(projeto) {
-
+		return $http.get('api/projeto/'+projeto.id+'/andamento');
 	};
-	this.getBurndown = function(projeto) {
-
+	this.getComparacao = function() {
+		return $http.get('api/projeto/andamento');
 	};
-	this.getComparacao = function(projeto) {
-
+}).service('EscopoService', function($http){
+	this.getEscoposByProjeto = function(projeto){
+		return $http.get('api/projeto/'+projeto.id+'/escopo');
+	};
+	
+	this.getBurndown = function(projeto, escopo) {
+		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id+'/burndown');
 	};
 }).directive('menuNavegacao', function(){
 	return {
@@ -117,34 +125,15 @@ app.config(function($routeProvider, $locationProvider) {
 			}
 		];
 	},
-	ProjetoListController:function($scope, $routeParams, ProjetoService, $timeout){
-		$scope.projetos = [
-			{
-				id:1,
-				titulo:'Sistema de Folha de Pagamento',
-				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...'
-			},
-			{
-				id:2,
-				titulo:'Sistema de Controle de Colaboradores',
-				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...'
-			},
-			{
-				id:3,
-				titulo:'CRM Cliente Acme',
-				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...'
-			},
-			{
-				id:4,
-				titulo:'Reqlist',
-				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...'
-			},
-			{
-				id:5,
-				titulo:'Sistema de Controle de Estoque',
-				descricao:'O sistema de pagamento começou com a necessidade de manter um histórico de folhas da empresa X, ...'
-			}
-		];
+	ProjetoListController:function($scope, $window, ProjetoService){
+		$scope.projetos = [];
+		
+		ProjetoService.findAll().then(function(response){
+			$scope.projetos = response.data;
+		}, function(response){
+			console.log(response);
+			$window.alert("Não foi possível buscar os projetos: " + response.statusText + " ("+response.status+")");
+		});
 
 		$scope.removerProjeto = function(projeto){
 			if ( window.confirm('Tem certeza que deseja arquivar este projeto?') ) {
@@ -152,24 +141,18 @@ app.config(function($routeProvider, $locationProvider) {
 			}
 		};
 	},
-	ProjetoController:function($scope, $routeParams, ProjetoService, $window){
-		$scope.escopos = [
-			{
-				id:1,
-				titulo:'Primeira versão (v1.0)',
-				data:'12/10/1990'
-			},
-			{
-				id:2,
-				titulo:'Versão Alpha (v0.1)',
-				data:'29/05/1987'
-			},
-			{
-				id:3,
-				titulo:'Beta testing (v0.2)',
-				data:'22/11/1989'
-			}
-		];
+	ProjetoController:function($scope, $routeParams, EscopoService, $window){
+		$scope.projeto = {
+			id:$routeParams.idProjeto
+		};
+		$scope.escopos = [];
+		
+		EscopoService.getEscoposByProjeto($scope.projeto).then(function(response){
+			$scope.escopos = response.data;
+		}, function(response){
+			console.log(response);
+			$window.alert("Não foi possível buscar os projetos: " + response.statusText + " ("+response.status+")");
+		});
 		
 		$scope.travarEscopo = function(escopo){
 			var confirmMessage = "Após travar o escopo, só será possível"
@@ -306,8 +289,19 @@ app.config(function($routeProvider, $locationProvider) {
 			]
 		});
 	},
-	AndamentoController:function($scope, $routeParams){
-
+	AndamentoController:function($scope, $routeParams, ProjetoService){
+		$scope.projeto = {
+			id: $routeParams.idProjeto
+		};
+		
+		$scope.escopos = [];
+		
+		ProjetoService.getAndamento($scope.projeto).then(function(response){
+			$scope.escopos = response.data;
+			console.log($scope.escopos);
+		}, function(response){
+			console.log(response);
+		});
 	},
 	ComparacaoController:function($scope, $routeParams){
 		$('#comparacao').highcharts({

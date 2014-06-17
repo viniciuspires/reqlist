@@ -3,7 +3,7 @@
 		Escopos
 		<button class="btn btn-primary">
 			<span class="glyphicon glyphicon-plus"></span>
-
+			Novo
 		</button>
 	</h2>
 	<table class="table table-striped table-condensed">
@@ -15,13 +15,18 @@
 			</tr>
 		</thead>
 		<tbody>
+			<tr ng-if="escopos.length===0">
+				<td colspan="3" class="text-center">
+					<p><em>Nenhum escopo cadastrado</em></p>
+				</td>
+			</tr>
 			<tr ng-repeat="escopo in escopos">
 				<td>
 					{{escopo.titulo}}
 					<!--<input type="text" name="nome-escopo" id="nome-escopo"
 						class="form-control" value="Primeira versão (v1.0)" />-->
 				</td>
-				<td>{{escopo.data}}</td>
+				<td>{{escopo.data | date:'dd/MM/yyyy H:m:s'}}</td>
 				<td>
 					<div class="btn-group">
 						<button class="btn btn-success" title="Travar escopo" data-toggle="tooltip"
@@ -32,7 +37,7 @@
 							ng-click="copiarEscopo(escopo)">
 							<span class="glyphicon glyphicon-file"></span>
 						</button>
-						<a href="#/projeto/1/escopo/{{escopo.id}}/objetivo" class="btn btn-default" title="Detalhes">
+						<a href="#/projeto/{{projeto.id}}/escopo/{{escopo.id}}/objetivo" class="btn btn-default" title="Detalhes">
 							<span class="glyphicon glyphicon-list-alt"></span>
 						</a>
 						<button class="btn btn-danger" title="Excluir" ng-click="removerEscopo(escopo)">
