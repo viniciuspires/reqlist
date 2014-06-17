@@ -6,7 +6,6 @@
 
 package reqlist.model;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import reqlist.entity.view.AndamentoProjeto;
@@ -16,7 +15,9 @@ import reqlist.entity.view.AndamentoProjeto;
  * @author Vinicius
  */
 public class AndamentoEscopo {
+    private Integer id;
     private String titulo;
+    
     private Integer horasPlanejadas;
     private Integer horasRealizadas;
     private Integer tarefas;
@@ -24,22 +25,27 @@ public class AndamentoEscopo {
     
     private List<AndamentoRequisito> requisitos;
 
-    public AndamentoEscopo(List<AndamentoProjeto> andamentoProjetoList) {
-        this.titulo = andamentoProjetoList.get(0).getEscopoTitulo();
+    public AndamentoEscopo(Integer id, String titulo, List<AndamentoProjeto> andamentoProjetoList) {
+        this.id = id;
+        this.titulo = titulo;
+        this.requisitos = new ArrayList<>();
         
-        this.requisitos = new ArrayList<AndamentoRequisito>();
         for (AndamentoProjeto andamentoProjeto : andamentoProjetoList) {
-            AndamentoRequisito requisito = new AndamentoRequisito();
-            requisito.setTitulo(andamentoProjeto.getRequisitoTitulo());
-            requisito.setTarefas( BigInteger.valueOf( andamentoProjeto.getTarefas() ) );
-            requisito.setTarefasFinalizadas( andamentoProjeto.getTarefasRealizadas() );
-            requisito.setHorasPlanejadas( andamentoProjeto.getHorasPlanejadas() );
-            requisito.setHorasRealizadas( andamentoProjeto.getHorasRealizadas() );
-            
-            this.requisitos.add(requisito);
+            if ( andamentoProjeto.getEscopoId() == this.id ) {
+                AndamentoRequisito requisito = new AndamentoRequisito(andamentoProjeto);
+                this.requisitos.add( requisito );
+            }
         }
         
         // TODO Inicializar contagem do escopo
+    }
+    
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitulo() {

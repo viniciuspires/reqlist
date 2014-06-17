@@ -7,18 +7,37 @@
 package reqlist.model;
 
 import java.math.BigInteger;
+import reqlist.entity.view.AndamentoProjeto;
 
 /**
  *
  * @author Vinicius
  */
 public class AndamentoRequisito {
+    private Integer id;
     private String titulo;
     
     private BigInteger horasPlanejadas;
     private BigInteger horasRealizadas;
     private BigInteger tarefas;
     private BigInteger tarefasFinalizadas;
+    
+    public AndamentoRequisito(AndamentoProjeto andamentoProjeto) {
+        this.id = andamentoProjeto.getRequisitoId();
+        this.titulo = andamentoProjeto.getRequisitoTitulo();
+        this.tarefas =  BigInteger.valueOf( andamentoProjeto.getTarefas() );
+        this.tarefasFinalizadas = andamentoProjeto.getTarefasRealizadas();
+        this.horasPlanejadas = andamentoProjeto.getHorasPlanejadas();
+        this.horasRealizadas = andamentoProjeto.getHorasRealizadas();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getTitulo() {
         return titulo;

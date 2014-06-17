@@ -6,7 +6,6 @@
 
 package reqlist.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
@@ -16,7 +15,7 @@ import javax.ws.rs.Produces;
 import reqlist.dao.ProjetoDAO;
 import reqlist.entity.Projeto;
 import reqlist.entity.view.AndamentoProjeto;
-import reqlist.model.AndamentoEscopo;
+import reqlist.model.Andamento;
 
 /**
  *
@@ -44,9 +43,8 @@ public class ProjetoResource {
     
     @GET
     @Path("{id}/andamento")
-    public List<AndamentoProjeto> getAndamentoProjeto(@PathParam("id") Integer id) {
-        
-        return dao.getAndamento(id);
+    public Andamento getAndamentoProjeto(@PathParam("id") Integer id) {
+        return new Andamento( dao.getAndamento(id) );
     }
     
     @Path("{id}/escopo")
