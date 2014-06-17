@@ -222,78 +222,98 @@ app.config(function($routeProvider) {
 	ProjetoFormController:function($scope, $routeParams, ProjetoService){
 		
 	},
-	BurndownController:function($scope, $routeParams){
+	BurndownController:function($scope, $routeParams, EscopoService, $filter, $window){
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
 		
-		$('#burndown').highcharts({
-			title: {
-				text:'Burndown de tarefas'
-			},
-			chart: {
-				type: 'spline',
-				backgroundColor:null
-			},
-			xAxis: {
-				categories: [
-					'7/10',
-					'8/10',
-					'9/10',
-					'10/10',
-					'11/10',
-					'14/10',
-					'15/10',
-					'16/10',
-					'17/10',
-					'18/10',
-					'21/10',
-					'22/10',
-					'23/10',
-					'24/10',
-					'25/10',
-					'28/10'
-				]
-			},
-			credits: false,
-			yAxis: {
+		$scope.burndown = {};
+		
+		EscopoService.getBurndown({id:$scope.idProjeto}, {id:$scope.idEscopo}).then(function(response){
+			$scope.burndown = response.data;
+			console.log($scope.burndown);
+			
+			var categories = $scope.burndown.estimativa.map(function(element){
+				var data = new Date( element.finalizacao );
+				return $filter('date')(data, 'dd/MM');
+			});
+			
+			var tarefasRestantes = $scope.burndown.totalTarefas;
+			
+			var planejamento = $scope.burndown.planejamento.map(function(element){
+				tarefasRestantes -= element.tarefasConcluidas;
+				return tarefasRestantes;
+			});
+			
+			var tarefasRestantes = $scope.burndown.totalTarefas;
+			
+			var realizacao = $scope.burndown.realizacao.map(function(element){
+				tarefasRestantes -= element.tarefasConcluidas;
+				return tarefasRestantes;
+			});
+			
+			var tarefasRestantes = $scope.burndown.totalTarefas;
+			
+			var estimativa = $scope.burndown.estimativa.map(function(element){
+				tarefasRestantes -= element.tarefasConcluidas;
+				return tarefasRestantes;
+			});
+			
+			$('#burndown').highcharts({
 				title: {
-					text: 'Número de tarefas restantes'
+					text:'Burndown de tarefas'
 				},
-				plotLines: [{
-					value: 0,
-					width: 1,
-					color: '#808080'
-				}]
-			},
-			tooltip: {
-				valueSuffix: ' tarefas restantes',
-				shared:true
-			},
-			legend: {
-				layout: 'horizontal',
-				align: 'center',
-				verticalAlign: 'bottom',
-				borderWidth: 0
-			},
-			series: [
-				{
-					name: 'Estimativa',
-					color: '#3276B1',
-					data: [30, 25, 21, 19, 18, 15, 11, 10, 9, 5, 2, 0],
-					type: 'areaspline'
+				chart: {
+					type: 'spline',
+					backgroundColor:null
 				},
-				{
-					name: 'Real',
-					color: '#5CB85C',
-					data: [30, 30, 28, 23, 22, 20, 20, 19, 17, 15, 13, 7]
+				xAxis: {
+					categories: categories
 				},
-				{
-					name: 'Projeção',
-					color:'#D9534F',
-					data: [30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0],
-					type: 'spline'
-				}
-			]
+				credits: false,
+				yAxis: {
+					title: {
+						text: 'Número de tarefas restantes'
+					},
+					plotLines: [{
+						value: 0,
+						width: 1,
+						color: '#808080'
+					}]
+				},
+				tooltip: {
+					valueSuffix: ' tarefas restantes',
+					shared:true
+				},
+				legend: {
+					layout: 'horizontal',
+					align: 'center',
+					verticalAlign: 'bottom',
+					borderWidth: 0
+				},
+				series: [
+					{
+						name: 'Planejamento',
+						color: '#3276B1',
+						data: planejamento,
+						type: 'areaspline'
+					},
+					{
+						name: 'Realização',
+						color: '#5CB85C',
+						data: realizacao
+					},
+					{
+						name: 'Projeção',
+						color:'#D9534F',
+						data: estimativa,
+						type: 'spline'
+					}
+				]
+			});
+			
+		}, function(response){
+			console.log(response);
+			$window.alert("Não foi possível buscar o andamento do projeto: " + response.statusText + " ("+response.status+")");
 		});
 	},
 	AndamentoController:function($scope, $routeParams, ProjetoService, $window){
