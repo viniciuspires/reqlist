@@ -27,6 +27,21 @@ table.table tr td {
 .tasks li:last-of-type {
 	border-bottom:solid 1px #E3E3E3;
 }
+.requisitos {
+	margin:1em 0;
+}
+.requisitos li {
+	padding:0.6em 0em;
+	line-height: 1.6em;
+	border-top:solid 1px #E3E3E3;
+	background-color: #FFF;
+}
+.requisitos li:nth-of-type(odd) {
+	background-color: #F5F5F5;
+}
+.requisitos li:last-of-type {
+	border-bottom:solid 1px #E3E3E3;
+}
 input, select, textarea, .well, .well-sm, .btn, .img-thumbnail, .progress {
 	border-radius:0px !important;
 }

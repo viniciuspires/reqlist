@@ -2,7 +2,7 @@
 
 var app = angular.module('reqlist', ['ngRoute','ngAnimate','localytics.directives']);
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(function($routeProvider) {
 	$routeProvider.when('/projeto', {
 		templateUrl:'view/projeto-list.html',
 		controller:'ProjetoListController'
@@ -51,6 +51,13 @@ app.config(function($routeProvider, $locationProvider) {
 	
 	//$locationProvider.html5Mode(true);
 	
+}).filter('numberPad', function() {
+	return function(input, minNumberOfDigits) {
+		minNumberOfDigits = minNumberOfDigits || 2;
+		input = input + '';
+		var zeros = new Array(minNumberOfDigits - input.length + 1).join('0');
+		return zeros + input;
+	};
 }).service('ProjetoService', function($http) {
 	this.findAll = function() {
 		return $http.get('api/projeto');
@@ -151,7 +158,7 @@ app.config(function($routeProvider, $locationProvider) {
 			$scope.escopos = response.data;
 		}, function(response){
 			console.log(response);
-			$window.alert("Não foi possível buscar os projetos: " + response.statusText + " ("+response.status+")");
+			$window.alert("Não foi possível buscar os escopos: " + response.statusText + " ("+response.status+")");
 		});
 		
 		$scope.travarEscopo = function(escopo){
@@ -213,7 +220,7 @@ app.config(function($routeProvider, $locationProvider) {
 		};
 	},
 	ProjetoFormController:function($scope, $routeParams, ProjetoService){
-
+		
 	},
 	BurndownController:function($scope, $routeParams){
 		$scope.idProjeto = $routeParams.idProjeto;
@@ -289,7 +296,7 @@ app.config(function($routeProvider, $locationProvider) {
 			]
 		});
 	},
-	AndamentoController:function($scope, $routeParams, ProjetoService){
+	AndamentoController:function($scope, $routeParams, ProjetoService, $window){
 		$scope.projeto = {
 			id: $routeParams.idProjeto
 		};
@@ -297,11 +304,16 @@ app.config(function($routeProvider, $locationProvider) {
 		$scope.escopos = [];
 		
 		ProjetoService.getAndamento($scope.projeto).then(function(response){
-			$scope.escopos = response.data;
+			$scope.escopos = response.data.escopos;
 			console.log($scope.escopos);
 		}, function(response){
 			console.log(response);
+			$window.alert("Não foi possível buscar o andamento do projeto: " + response.statusText + " ("+response.status+")");
 		});
+		
+		$scope.porcentagem = function(parte, todo){
+			return parte/todo*100;
+		};
 	},
 	ComparacaoController:function($scope, $routeParams){
 		$('#comparacao').highcharts({
