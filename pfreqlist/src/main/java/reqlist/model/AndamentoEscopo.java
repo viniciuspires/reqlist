@@ -6,6 +6,7 @@
 
 package reqlist.model;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import reqlist.entity.view.AndamentoProjeto;
@@ -18,10 +19,10 @@ public class AndamentoEscopo {
     private Integer id;
     private String titulo;
     
-    private Integer horasPlanejadas;
-    private Integer horasRealizadas;
-    private Integer tarefas;
-    private Integer tarefasFinalizadas;
+    private BigInteger horasPlanejadas;
+    private BigInteger horasRealizadas;
+    private BigInteger tarefas;
+    private BigInteger tarefasFinalizadas;
     
     private List<AndamentoRequisito> requisitos;
 
@@ -37,7 +38,47 @@ public class AndamentoEscopo {
             }
         }
         
-        // TODO Inicializar contagem do escopo
+        this.horasPlanejadas = calculaTotalHorasPlanejadas();
+        this.horasRealizadas = calculaTotalHorasRealizadas();
+        this.tarefas = calculaTotalTarefas();
+        this.tarefasFinalizadas = calculaTotalTarefasFinalizadas();
+    }
+    
+    private BigInteger calculaTotalHorasPlanejadas(){
+        BigInteger total = new BigInteger("0");
+        
+        for (AndamentoRequisito requisito : requisitos) {
+            total = requisito.getHorasPlanejadas().add(total);
+        }
+        
+        return total;
+    }
+    private BigInteger calculaTotalHorasRealizadas(){
+        BigInteger total = new BigInteger("0");
+        
+        for (AndamentoRequisito requisito : requisitos) {
+            total = requisito.getHorasRealizadas().add(total);
+        }
+        
+        return total;
+    }
+    private BigInteger calculaTotalTarefas(){
+        BigInteger total = new BigInteger("0");
+        
+        for (AndamentoRequisito requisito : requisitos) {
+            total = requisito.getTarefas().add(total);
+        }
+        
+        return total;
+    }
+    private BigInteger calculaTotalTarefasFinalizadas(){
+        BigInteger total = new BigInteger("0");
+        
+        for (AndamentoRequisito requisito : requisitos) {
+            total = requisito.getTarefasFinalizadas().add(total);
+        }
+        
+        return total;
     }
     
     public Integer getId() {
@@ -64,35 +105,35 @@ public class AndamentoEscopo {
         this.requisitos = requisitos;
     }
 
-    public Integer getHorasPlanejadas() {
+    public BigInteger getHorasPlanejadas() {
         return horasPlanejadas;
     }
 
-    public void setHorasPlanejadas(Integer horasPlanejadas) {
+    public void setHorasPlanejadas(BigInteger horasPlanejadas) {
         this.horasPlanejadas = horasPlanejadas;
     }
 
-    public Integer getHorasRealizadas() {
+    public BigInteger getHorasRealizadas() {
         return horasRealizadas;
     }
 
-    public void setHorasRealizadas(Integer horasRealizadas) {
+    public void setHorasRealizadas(BigInteger horasRealizadas) {
         this.horasRealizadas = horasRealizadas;
     }
 
-    public Integer getTarefas() {
+    public BigInteger getTarefas() {
         return tarefas;
     }
 
-    public void setTarefas(Integer tarefas) {
+    public void setTarefas(BigInteger tarefas) {
         this.tarefas = tarefas;
     }
 
-    public Integer getTarefasFinalizadas() {
+    public BigInteger getTarefasFinalizadas() {
         return tarefasFinalizadas;
     }
 
-    public void setTarefasFinalizadas(Integer tarefasFinalizadas) {
+    public void setTarefasFinalizadas(BigInteger tarefasFinalizadas) {
         this.tarefasFinalizadas = tarefasFinalizadas;
     }
 }
