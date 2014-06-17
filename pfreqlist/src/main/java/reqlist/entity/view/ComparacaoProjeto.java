@@ -20,7 +20,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -28,7 +27,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "vw_comparacao_projeto")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ComparacaoProjeto.findAll", query = "SELECT c FROM ComparacaoProjeto c"),
     @NamedQuery(name = "ComparacaoProjeto.findByProjetoId", query = "SELECT c FROM ComparacaoProjeto c WHERE c.projetoId = :projetoId"),
@@ -37,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ComparacaoProjeto.findByEscopoTitulo", query = "SELECT c FROM ComparacaoProjeto c WHERE c.escopoTitulo = :escopoTitulo"),
     @NamedQuery(name = "ComparacaoProjeto.findByData", query = "SELECT c FROM ComparacaoProjeto c WHERE c.data = :data"),
     @NamedQuery(name = "ComparacaoProjeto.findByHorasPlanejadas", query = "SELECT c FROM ComparacaoProjeto c WHERE c.horasPlanejadas = :horasPlanejadas"),
-    @NamedQuery(name = "ComparacaoProjeto.findByHorasRealizadas", query = "SELECT c FROM ComparacaoProjeto c WHERE c.horasRealizadas = :horasRealizadas")})
+    @NamedQuery(name = "ComparacaoProjeto.findByHorasRealizadas", query = "SELECT c FROM ComparacaoProjeto c WHERE c.horasRealizadas = :horasRealizadas")
+})
 public class ComparacaoProjeto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
@@ -53,6 +52,7 @@ public class ComparacaoProjeto implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "escopo_id")
+    @Id
     private int escopoId;
     @Basic(optional = false)
     @NotNull
@@ -127,5 +127,30 @@ public class ComparacaoProjeto implements Serializable {
     public void setHorasRealizadas(BigInteger horasRealizadas) {
         this.horasRealizadas = horasRealizadas;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + this.projetoId;
+        hash = 13 * hash + this.escopoId;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ComparacaoProjeto other = (ComparacaoProjeto) obj;
+        if (this.projetoId != other.projetoId) {
+            return false;
+        }
+        if (this.escopoId != other.escopoId) {
+            return false;
+        }
+        return true;
+    }
 }

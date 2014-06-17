@@ -34,10 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DataFinalizacao.findByProjetoId", query = "SELECT d FROM DataFinalizacao d WHERE d.projetoId = :projetoId"),
     @NamedQuery(name = "DataFinalizacao.findByEscopoId", query = "SELECT d FROM DataFinalizacao d WHERE d.escopoId = :escopoId"),
     @NamedQuery(name = "DataFinalizacao.findByTarefaId", query = "SELECT d FROM DataFinalizacao d WHERE d.tarefaId = :tarefaId"),
-    //@NamedQuery(name = "DataFinalizacao.findByTitulo", query = "SELECT d FROM DataFinalizacao d WHERE d.titulo = :titulo"),
     @NamedQuery(name = "DataFinalizacao.findByTipo", query = "SELECT d FROM DataFinalizacao d WHERE d.tipo = :tipo"),
     @NamedQuery(name = "DataFinalizacao.findByFinalizacao", query = "SELECT d FROM DataFinalizacao d WHERE d.finalizacao = :finalizacao"),
-    //@NamedQuery(name = "DataFinalizacao.findByStatus", query = "SELECT d FROM DataFinalizacao d WHERE d.status = :status"),
     @NamedQuery(name = "DataFinalizacao.findByTarefasConcluidas", query = "SELECT d FROM DataFinalizacao d WHERE d.tarefasConcluidas = :tarefasConcluidas"),
     @NamedQuery(name = "DataFinalizacao.findByEscopoAndTipo", query = "SELECT d FROM DataFinalizacao d WHERE d.escopoId = :escopoId AND d.tipo = :tipo")})
 public class DataFinalizacao implements Serializable {

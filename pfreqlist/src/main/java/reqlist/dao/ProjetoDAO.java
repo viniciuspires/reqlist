@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import reqlist.entity.Projeto;
 import reqlist.entity.view.AndamentoProjeto;
+import reqlist.entity.view.ComparacaoProjeto;
 
 /**
  *
@@ -48,6 +49,12 @@ public class ProjetoDAO {
     public List<AndamentoProjeto> getAndamento(Integer projetoId) {
         Query query = em.createNamedQuery("AndamentoProjeto.findByProjetoId");
         query.setParameter("projetoId", projetoId);
+        
+        return query.getResultList(); 
+    }
+
+    public List<ComparacaoProjeto> getComparacao() {
+        Query query = em.createNamedQuery("ComparacaoProjeto.findAll");
         
         return query.getResultList(); 
     }
