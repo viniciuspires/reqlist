@@ -26,7 +26,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -35,13 +34,13 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "escopo")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Escopo.findAll", query = "SELECT e FROM Escopo e"),
     @NamedQuery(name = "Escopo.findById", query = "SELECT e FROM Escopo e WHERE e.id = :id"),
     @NamedQuery(name = "Escopo.findByTitulo", query = "SELECT e FROM Escopo e WHERE e.titulo = :titulo"),
     @NamedQuery(name = "Escopo.findByData", query = "SELECT e FROM Escopo e WHERE e.data = :data"),
-    @NamedQuery(name = "Escopo.findByStatus", query = "SELECT e FROM Escopo e WHERE e.status = :status")})
+    @NamedQuery(name = "Escopo.findByStatus", query = "SELECT e FROM Escopo e WHERE e.status = :status"),
+    @NamedQuery(name = "Escopo.findByProjeto", query = "SELECT e FROM Escopo e WHERE e.projeto.id = :projetoId")})
 public class Escopo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -70,7 +69,7 @@ public class Escopo implements Serializable {
     private List<Requisito> requisitoList;
     @JoinColumn(name = "projeto_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Projeto projetoId;
+    private Projeto projeto;
 
     public Escopo() {
     }
@@ -127,12 +126,12 @@ public class Escopo implements Serializable {
         this.requisitoList = requisitoList;
     }
 
-    public Projeto getProjetoId() {
-        return projetoId;
+    public Projeto getProjeto() {
+        return projeto;
     }
 
-    public void setProjetoId(Projeto projetoId) {
-        this.projetoId = projetoId;
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
     }
 
     @Override

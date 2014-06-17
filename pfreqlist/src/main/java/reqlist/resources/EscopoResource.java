@@ -6,7 +6,6 @@
 
 package reqlist.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,27 +18,33 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import reqlist.dao.EscopoDAO;
 import reqlist.entity.Escopo;
+import reqlist.entity.Projeto;
+import reqlist.model.Burndown;
 
 /**
  *
  * @author Vinicius
  */
 @Path("escopo")
+@Produces("application/json; charset=utf-8")
 public class EscopoResource {
-    EscopoDAO dao;
+    Projeto projeto = null;
+    EscopoDAO dao = new EscopoDAO();
     
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<Escopo> get() {
-        
-        return new ArrayList<Escopo>();
+        List<Escopo> escopos;
+        if ( projeto != null ) {
+            escopos = dao.findByProjeto(projeto);
+        } else {
+            escopos = dao.findAll();
+        }
+        return escopos;
     }
     @GET
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Escopo getById(@PathParam("id") Long id) {
-        
-        return null;
+    public Escopo getById(@PathParam("id") Integer id) {
+        return dao.getById(id);
     }
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -48,7 +53,6 @@ public class EscopoResource {
     }
     @PUT
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public void put(@PathParam("id") Long id) {
         
@@ -59,5 +63,18 @@ public class EscopoResource {
         
     }
     
-    
+    @GET
+    @Path("{id}/burndown")
+    public Burndown getBurndownPlanejamento(@PathParam("id") Integer id) {
+        Burndown burndown = new Burndown(
+            dao.getBurndownPlanejamento(id),
+            dao.getBurndownRealizacao(id)
+        );
+        
+        return burndown;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
 }

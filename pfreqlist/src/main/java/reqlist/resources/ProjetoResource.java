@@ -6,15 +6,17 @@
 
 package reqlist.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import org.hibernate.annotations.Subselect;
 import reqlist.dao.ProjetoDAO;
 import reqlist.entity.Projeto;
+import reqlist.entity.view.AndamentoProjeto;
+import reqlist.model.AndamentoEscopo;
 
 /**
  *
@@ -23,29 +25,34 @@ import reqlist.entity.Projeto;
 @Path("projeto")
 @Produces("application/json; charset=utf-8")
 public class ProjetoResource {
-    private ProjetoDAO projetoDao;
-    
-    public ProjetoResource(){
-        projetoDao = new ProjetoDAO();
-    }
+    ProjetoDAO dao = new ProjetoDAO();
     
     @GET
     public List getProjetos(){
-        return projetoDao.findAll();
+        return dao.findAll();
     }
     
     @GET
     @Path("{id}")
     public Projeto getProjeto(@PathParam("id") Integer id) {
-        Projeto projeto = projetoDao.getById(id);
+        Projeto projeto = dao.getById(id);
         if ( projeto == null ) {
             throw new NotFoundException();
         }
         return projeto;
     }
     
+    @GET
+    @Path("{id}/andamento")
+    public List<AndamentoProjeto> getAndamentoProjeto(@PathParam("id") Integer id) {
+        
+        return dao.getAndamento(id);
+    }
+    
     @Path("{id}/escopo")
     public EscopoResource getEscopoResource(@PathParam("id") Integer id) {
-        return new EscopoResource();
+        EscopoResource escopoResource = new EscopoResource();
+        escopoResource.setProjeto( new Projeto(id) );
+        return escopoResource;
     }
 }

@@ -35,7 +35,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "projeto")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Projeto.findAll", query = "SELECT p FROM Projeto p"),
     @NamedQuery(name = "Projeto.findById", query = "SELECT p FROM Projeto p WHERE p.id = :id"),
@@ -71,7 +70,7 @@ public class Projeto implements Serializable {
     private List<Requisito> requisitoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
     private List<Objetivo> objetivoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Escopo> escopoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Perfil> perfilList;

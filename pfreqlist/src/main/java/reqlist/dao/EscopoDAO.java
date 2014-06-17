@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import reqlist.entity.Escopo;
 import reqlist.entity.Projeto;
+import reqlist.entity.view.DataFinalizacao;
+import reqlist.enumerated.TipoAlocacao;
 
 /**
  * 
@@ -21,27 +23,47 @@ public class EscopoDAO {
     private EntityManager em;
     
     public EscopoDAO(){
-        em = ConexaoDAO.getEntityManager();
+        em = Conexao.getEntityManager();
     }
 
     public Escopo getById(Integer id) {
         return em.find(Escopo.class, id);
     }
  
-    public void save(Projeto entity) {
+    public void save(Escopo entity) {
         em.persist(entity);
     }
  
-    public void update(Projeto entity) {
+    public void update(Escopo entity) {
         em.merge(entity);
     }
  
-    public void delete(Projeto entity) {
+    public void delete(Escopo entity) {
         em.remove(entity);
     }
  
-    public List<Projeto> findAll() {
-        Query query = em.createNamedQuery ("Projeto.findAll") ;
-        return query.getResultList(); 
+    public List<Escopo> findAll() {
+        Query query = em.createNamedQuery("Escopo.findAll");
+        return query.getResultList();
+    }
+
+    public List<Escopo> findByProjeto(Projeto projeto) {
+        Query query = em.createNamedQuery("Escopo.findByProjeto");
+        query.setParameter("projetoId", projeto.getId());
+        return query.getResultList();
+    }
+
+    public List<DataFinalizacao> getBurndownPlanejamento(Integer id) {
+        Query query = em.createNamedQuery("DataFinalizacao.findByEscopoAndTipo");
+        query.setParameter("escopoId", id);
+        query.setParameter("tipo", TipoAlocacao.PLANEJAMENTO);
+        return query.getResultList();
+    }
+    
+    public List<DataFinalizacao> getBurndownRealizacao(Integer id) {
+        Query query = em.createNamedQuery("DataFinalizacao.findByEscopoAndTipo");
+        query.setParameter("escopoId", id);
+        query.setParameter("tipo", TipoAlocacao.REALIZACAO);
+        return query.getResultList();
     }
 }

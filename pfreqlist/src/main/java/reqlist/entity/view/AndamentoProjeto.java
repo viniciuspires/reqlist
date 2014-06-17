@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AndamentoProjeto.findByHorasRealizadas", query = "SELECT a FROM AndamentoProjeto a WHERE a.horasRealizadas = :horasRealizadas")})
 public class AndamentoProjeto implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "projeto_id")
@@ -53,6 +54,7 @@ public class AndamentoProjeto implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "escopo_id")
+    @Id
     private int escopoId;
     @Basic(optional = false)
     @NotNull
@@ -62,6 +64,7 @@ public class AndamentoProjeto implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "requisito_id")
+    @Id
     private int requisitoId;
     @Basic(optional = false)
     @NotNull
@@ -161,5 +164,34 @@ public class AndamentoProjeto implements Serializable {
     public void setHorasRealizadas(BigInteger horasRealizadas) {
         this.horasRealizadas = horasRealizadas;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + this.projetoId;
+        hash = 53 * hash + this.escopoId;
+        hash = 53 * hash + this.requisitoId;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AndamentoProjeto other = (AndamentoProjeto) obj;
+        if (this.projetoId != other.projetoId) {
+            return false;
+        }
+        if (this.escopoId != other.escopoId) {
+            return false;
+        }
+        if (this.requisitoId != other.requisitoId) {
+            return false;
+        }
+        return true;
+    }
 }

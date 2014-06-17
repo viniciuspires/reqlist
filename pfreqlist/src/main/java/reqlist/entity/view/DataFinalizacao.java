@@ -8,6 +8,7 @@ package reqlist.entity.view;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,11 +34,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DataFinalizacao.findByProjetoId", query = "SELECT d FROM DataFinalizacao d WHERE d.projetoId = :projetoId"),
     @NamedQuery(name = "DataFinalizacao.findByEscopoId", query = "SELECT d FROM DataFinalizacao d WHERE d.escopoId = :escopoId"),
     @NamedQuery(name = "DataFinalizacao.findByTarefaId", query = "SELECT d FROM DataFinalizacao d WHERE d.tarefaId = :tarefaId"),
-    @NamedQuery(name = "DataFinalizacao.findByTitulo", query = "SELECT d FROM DataFinalizacao d WHERE d.titulo = :titulo"),
+    //@NamedQuery(name = "DataFinalizacao.findByTitulo", query = "SELECT d FROM DataFinalizacao d WHERE d.titulo = :titulo"),
     @NamedQuery(name = "DataFinalizacao.findByTipo", query = "SELECT d FROM DataFinalizacao d WHERE d.tipo = :tipo"),
     @NamedQuery(name = "DataFinalizacao.findByFinalizacao", query = "SELECT d FROM DataFinalizacao d WHERE d.finalizacao = :finalizacao"),
-    @NamedQuery(name = "DataFinalizacao.findByStatus", query = "SELECT d FROM DataFinalizacao d WHERE d.status = :status"),
-    @NamedQuery(name = "DataFinalizacao.findByTarefasConcluidas", query = "SELECT d FROM DataFinalizacao d WHERE d.tarefasConcluidas = :tarefasConcluidas")})
+    //@NamedQuery(name = "DataFinalizacao.findByStatus", query = "SELECT d FROM DataFinalizacao d WHERE d.status = :status"),
+    @NamedQuery(name = "DataFinalizacao.findByTarefasConcluidas", query = "SELECT d FROM DataFinalizacao d WHERE d.tarefasConcluidas = :tarefasConcluidas"),
+    @NamedQuery(name = "DataFinalizacao.findByEscopoAndTipo", query = "SELECT d FROM DataFinalizacao d WHERE d.escopoId = :escopoId AND d.tipo = :tipo")})
 public class DataFinalizacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
@@ -48,31 +50,37 @@ public class DataFinalizacao implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "escopo_id")
+    @Id
     private int escopoId;
     @Basic(optional = false)
     @NotNull
     @Column(name = "tarefa_id")
+    @Id
     private int tarefaId;
-    @Basic(optional = false)
+    /*@Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "titulo")
-    private String titulo;
+    private String titulo;*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "tipo")
+    @Id
     private int tipo;
     @Column(name = "finalizacao")
     @Temporal(TemporalType.TIMESTAMP)
+    @Id
     private Date finalizacao;
-    @Basic(optional = false)
+    /*@Basic(optional = false)
     @NotNull
     @Column(name = "status")
-    private int status;
+    @Id
+    private int status;*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "tarefas_concluidas")
-    private long tarefasConcluidas;
+    @Id
+    private int tarefasConcluidas;
 
     public DataFinalizacao() {
     }
@@ -101,13 +109,13 @@ public class DataFinalizacao implements Serializable {
         this.tarefaId = tarefaId;
     }
 
-    public String getTitulo() {
+    /*public String getTitulo() {
         return titulo;
     }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-    }
+    }*/
 
     public int getTipo() {
         return tipo;
@@ -125,20 +133,53 @@ public class DataFinalizacao implements Serializable {
         this.finalizacao = finalizacao;
     }
 
-    public int getStatus() {
+    /*public int getStatus() {
         return status;
     }
 
     public void setStatus(int status) {
         this.status = status;
-    }
+    }*/
 
-    public long getTarefasConcluidas() {
+    public int getTarefasConcluidas() {
         return tarefasConcluidas;
     }
 
-    public void setTarefasConcluidas(long tarefasConcluidas) {
+    public void setTarefasConcluidas(int tarefasConcluidas) {
         this.tarefasConcluidas = tarefasConcluidas;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 43 * hash + this.projetoId;
+        hash = 43 * hash + this.escopoId;
+        hash = 43 * hash + this.tarefaId;
+        hash = 43 * hash + this.tipo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DataFinalizacao other = (DataFinalizacao) obj;
+        if (this.projetoId != other.projetoId) {
+            return false;
+        }
+        if (this.escopoId != other.escopoId) {
+            return false;
+        }
+        if (this.tarefaId != other.tarefaId) {
+            return false;
+        }
+        if (this.tipo != other.tipo) {
+            return false;
+        }
+        return true;
+    }
 }

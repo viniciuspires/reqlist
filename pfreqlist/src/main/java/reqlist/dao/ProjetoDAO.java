@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import reqlist.entity.Projeto;
+import reqlist.entity.view.AndamentoProjeto;
 
 /**
  *
@@ -20,7 +21,7 @@ public class ProjetoDAO {
     private EntityManager em;
     
     public ProjetoDAO(){
-        em = ConexaoDAO.getEntityManager();
+        em = Conexao.getEntityManager();
     }
 
     public Projeto getById(Integer id) {
@@ -41,6 +42,13 @@ public class ProjetoDAO {
  
     public List<Projeto> findAll() {
         Query query = em.createNamedQuery("Projeto.findAll") ;
+        return query.getResultList(); 
+    }
+
+    public List<AndamentoProjeto> getAndamento(Integer projetoId) {
+        Query query = em.createNamedQuery("AndamentoProjeto.findByProjetoId");
+        query.setParameter("projetoId", projetoId);
+        
         return query.getResultList(); 
     }
 }
