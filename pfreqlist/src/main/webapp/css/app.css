@@ -50,6 +50,13 @@ input, select, textarea, .well, .well-sm, .btn, .img-thumbnail, .progress {
 	margin-top:4px;
 	margin-bottom:-9px;
 }
+.projeto ul li:not(.novo) .well {
+    opacity:1;
+}
+.projeto ul li:not(.novo) .well:hover {
+    opacity:0.9;
+    box-shadow:0 0.2em 0.1em #ccc;
+}
 
 .projeto ul li.novo .well {
 	border:dashed 0.2em #E3E3E3;

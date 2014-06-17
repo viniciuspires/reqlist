@@ -305,7 +305,6 @@ app.config(function($routeProvider) {
 		
 		ProjetoService.getAndamento($scope.projeto).then(function(response){
 			$scope.escopos = response.data.escopos;
-			console.log($scope.escopos);
 		}, function(response){
 			console.log(response);
 			$window.alert("Não foi possível buscar o andamento do projeto: " + response.statusText + " ("+response.status+")");
