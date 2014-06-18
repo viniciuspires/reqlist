@@ -108,7 +108,7 @@ app.config(function($routeProvider) {
 		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id+'/requisito');
 	};
 	this.persist = function(projeto, escopo, requisito) {
-		if ( objetivo.id !== null ) {
+		if ( requisito.id !== null ) {
 			return $http.put('api/projeto/'+projeto.id+'/escopo/'+escopo.id
 				+'/requisito/'+requisito.id, requisito);
 		} else {
@@ -119,6 +119,23 @@ app.config(function($routeProvider) {
 	this.getRequisito = function(projeto, escopo, requisito) {
 		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id
 			+'/requisito/'+requisito.id);
+	};
+}).service('TarefaService', function($http){
+	this.getTarefasByProjetoAndEscopo = function(projeto, escopo){
+		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id+'/tarefa');
+	};
+	this.persist = function(projeto, escopo, tarefa) {
+		if ( tarefa.id !== null ) {
+			return $http.put('api/projeto/'+projeto.id+'/escopo/'+escopo.id
+				+'/tarefa/'+tarefa.id, tarefa);
+		} else {
+			return $http.post('api/projeto/'+projeto.id+'/escopo'+escopo.id
+				+'/tarefa', tarefa);
+		}
+	};
+	this.getRequisito = function(projeto, escopo, tarefa) {
+		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id
+			+'/tarefa/'+tarefa.id);
 	};
 }).directive('menuNavegacao', function($routeParams){
 	return {
@@ -517,17 +534,43 @@ app.config(function($routeProvider) {
 			}
 		};
 	},
-	TarefaController:function($scope, $routeParams, $window){
-		$scope.idProjeto = $routeParams.idProjeto;
-		$scope.idEscopo = $routeParams.idEscopo;
+	TarefaController:function($scope, $routeParams, $window, TarefaService){
+		var projeto = {
+			id: $routeParams.idProjeto
+		};
+		var escopo = {
+			id: $routeParams.idEscopo
+		};
 		
-		$scope.removerTarefa = function(tarefa){
-			if ($window.confirm("Deseja remover a tarefa?")) {
-				
-			}
+		TarefaService.getTarefasByProjetoAndEscopo(projeto, escopo).then(function(response){
+			$scope.tarefas = response.data;
+			console.log($scope.tarefas);
+		}, function( response ){
+			console.log(response);
+			$window.alert("Não foi possível buscar as tarefas do projeto: "
+				+response.statusText+" ("+response.status+")");
+		});
+		
+		$scope.mudarStatus = function(tarefa){
+			TarefaService.persist(projeto, escopo, tarefa).then(function(response){
+				console.log(response);
+			}, function( response ){
+				console.log(response);
+				$window.alert("Não foi possível mudar o status da tarefa: "
+					+response.statusText+" ("+response.status+")");
+				tarefa.status = !tarefa.status;
+			});
 		};
 		$scope.alterarResponsavel = function(tarefa){
 			if ($window.confirm("Deseja se tornar responsável pela tarefa?")) {
+				
+			}
+		};
+		$scope.editarTarefa = function(tarefa){
+			
+		};
+		$scope.removerTarefa = function(tarefa){
+			if ($window.confirm("Deseja remover a tarefa?")) {
 				
 			}
 		};

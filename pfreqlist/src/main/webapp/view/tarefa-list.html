@@ -3,27 +3,30 @@
 	<h3>Tarefas</h3>
 	<table class="table table-striped table-condensed tarefas-list">
 		<tbody>
-			<tr>
+			<tr ng-repeat="tarefa in tarefas">
 				<td>
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" checked />
-							<span>Criar tela de cadastro de clientes</span>
+							<input type="checkbox" ng-model="tarefa.status" ng-change="mudarStatus(tarefa)" />
+							<span>{{tarefa.titulo}}</span>
 						</label>
 					</div>
 				</td>
 				<td class="responsavel">
 					<img class="img-thumbnail"
-						src="//gravatar.com/avatar/6bb8d259b6b46a59ec66aadbd2b13015?s=24"
-						title="Responsável: Vinicius da Costa Pires" />
+						ng-src="{{tarefa.usuarioId.avatar}}?s=24"
+						title="Responsável: Vinicius da Costa Pires"
+						ng-if="tarefa.usuarioId!==null" />
 				</td>
 				<td class="acoes">
 					<div class="btn-group">
-						<button class="btn btn-default" disabled
-							title="Se tornar responsável">
+						<button class="btn btn-default" title="Se tornar responsável"
+							ng-disabled="tarefa.usuarioId!==null"
+							ng-click="alterarResponsavel(tarefa)">
 							<span class="glyphicon glyphicon-user"></span>
 						</button>
-						<button class="btn btn-default" title="Editar tarefa">
+						<button class="btn btn-default" title="Editar tarefa"
+							ng-click="editarTarefa(tarefa)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</button>
 						<button class="btn btn-danger" title="Excluir tarefa"
@@ -33,7 +36,7 @@
 					</div>
 				</td>
 			</tr>
-			<tr>
+			<!--<tr>
 				<td>
 					<div class="checkbox">
 						<label>
@@ -85,7 +88,7 @@
 						</button>
 					</div>
 				</td>
-			</tr>
+			</tr>-->
 		</tbody>
 	</table>
 </div>
