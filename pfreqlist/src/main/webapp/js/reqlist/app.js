@@ -251,12 +251,18 @@ app.config(function($routeProvider) {
 				return $filter('date')(data, 'dd/MM');
 			});
 			
+			var dataAnterior = new Date( $scope.burndown.estimativa[0].finalizacao );
+			dataAnterior.setDate( dataAnterior.getDate() - 1 );
+			categories.unshift( $filter('date')(dataAnterior, 'dd/MM') );
+			
 			var tarefasRestantes = $scope.burndown.totalTarefas;
 			
 			var planejamento = $scope.burndown.planejamento.map(function(element){
 				tarefasRestantes -= element.tarefasConcluidas;
 				return tarefasRestantes;
 			});
+			
+			planejamento.unshift($scope.burndown.totalTarefas);
 			
 			var tarefasRestantes = $scope.burndown.totalTarefas;
 			
@@ -265,12 +271,16 @@ app.config(function($routeProvider) {
 				return tarefasRestantes;
 			});
 			
+			realizacao.unshift($scope.burndown.totalTarefas);
+			
 			var tarefasRestantes = $scope.burndown.totalTarefas;
 			
 			var estimativa = $scope.burndown.estimativa.map(function(element){
 				tarefasRestantes -= element.tarefasConcluidas;
 				return tarefasRestantes;
 			});
+			
+			estimativa.unshift($scope.burndown.totalTarefas);
 			
 			$('#burndown').highcharts({
 				title: {
