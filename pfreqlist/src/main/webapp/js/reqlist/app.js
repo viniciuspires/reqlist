@@ -137,6 +137,23 @@ app.config(function($routeProvider) {
 		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id
 			+'/tarefa/'+tarefa.id);
 	};
+}).service('AlocacaoService', function($http){
+	this.getAlocacoesByProjetoAndEscopo = function(projeto, escopo){
+		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id+'/alocacao');
+	};
+	this.persist = function(projeto, escopo, alocacao) {
+		if ( alocacao.id !== null ) {
+			return $http.put('api/projeto/'+projeto.id+'/escopo/'+escopo.id
+				+'/tarefa/'+alocacao.id, alocacao);
+		} else {
+			return $http.post('api/projeto/'+projeto.id+'/escopo'+escopo.id
+				+'/tarefa', alocacao);
+		}
+	};
+	this.getRequisito = function(projeto, escopo, alocacao) {
+		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id
+			+'/tarefa/'+alocacao.id);
+	};
 }).directive('menuNavegacao', function($routeParams){
 	return {
 		scope:true,
@@ -576,8 +593,33 @@ app.config(function($routeProvider) {
 			}
 		};
 	},
-	AlocacaoController:function($scope, $routeParams, $timeout){
-		$timeout(function(){
+	AlocacaoController:function($scope, $routeParams, $timeout, AlocacaoService, $window){
+		var projeto = {
+			id: $routeParams.idProjeto
+		};
+		var escopo = {
+			id: $routeParams.idEscopo
+		};
+		
+		AlocacaoService.getAlocacoesByProjetoAndEscopo(projeto, escopo).then(function(response){
+			$scope.alocacoes = response.data;
+			console.log($scope.alocacoes);
+			
+			var alocacoes = $scope.alocacoes.map(function(alocacao){
+				var start = new Date(alocacao.inicio);
+				start = start.toISOString().replace(".000Z", "");
+				var end = new Date(alocacao.fim);
+				end = end.toISOString().replace(".000Z", "");
+				
+				console.log(start);
+				
+				return {
+					title:alocacao.tarefa.titulo,
+					start:start,
+					end:end
+				};
+			});
+			
 			$('[data-calendar]').fullCalendar({
 				header: {
 					left:'prev,next today',
@@ -586,11 +628,18 @@ app.config(function($routeProvider) {
 				defaultView:'agendaWeek',
 				editable: true,
 				start:new Date(),
-				weekNumbers:true
+				weekNumbers:true,
+				events: alocacoes
 			});
 			$('[data-draggable]').draggable({revert:true,helper:'clone'});
 			$('[data-droppable]').droppable();
+			
+		}, function(response){
+			console.log(response);
+			$window.alert("Não foi possível buscar as alocacoes do projeto: "
+				+response.statusText+" ("+response.status+")");
 		});
+		
 		$scope.tipoAlocacao = "planejado"; // realizado
 		
 		$scope.$watch('tipoAlocacao', function(valorNovo){
