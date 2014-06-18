@@ -69,7 +69,7 @@ public class Tarefa implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "status")
-    private boolean status;
+    private Boolean status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tarefaId")
     private List<Alocacao> alocacaoList;
     @JoinColumn(name = "entrega_id", referencedColumnName = "id")
@@ -128,11 +128,11 @@ public class Tarefa implements Serializable {
         this.dataCriacao = dataCriacao;
     }
 
-    public boolean getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

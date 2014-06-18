@@ -32,7 +32,9 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Alocacao.findById", query = "SELECT a FROM Alocacao a WHERE a.id = :id"),
     @NamedQuery(name = "Alocacao.findByInicio", query = "SELECT a FROM Alocacao a WHERE a.inicio = :inicio"),
     @NamedQuery(name = "Alocacao.findByFim", query = "SELECT a FROM Alocacao a WHERE a.fim = :fim"),
-    @NamedQuery(name = "Alocacao.findByTipo", query = "SELECT a FROM Alocacao a WHERE a.tipo = :tipo")})
+    @NamedQuery(name = "Alocacao.findByTipo", query = "SELECT a FROM Alocacao a WHERE a.tipo = :tipo"),
+    @NamedQuery(name = "Alocacao.findByEscopo",
+        query="SELECT a FROM Alocacao a JOIN FETCH a.tarefaId t JOIN FETCH t.requisitoId r JOIN FETCH r.escopoList e WHERE e.id = :escopoId")})
 public class Alocacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

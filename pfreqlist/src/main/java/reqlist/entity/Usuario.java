@@ -100,6 +100,9 @@ public class Usuario implements Serializable {
     public String getAvatar() {
         return "//gravatar.com/avatar/"+MD5.digest(getEmail());
     }
+    public void setAvatar(String s){
+        // silêncio...
+    }
 
     public Integer getId() {
         return id;

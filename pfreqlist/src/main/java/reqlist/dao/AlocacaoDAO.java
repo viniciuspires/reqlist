@@ -7,46 +7,27 @@
 package reqlist.dao;
 
 import java.util.List;
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import reqlist.entity.Objetivo;
-import reqlist.entity.Projeto;
+import reqlist.entity.Alocacao;
+import reqlist.entity.Escopo;
 
 /**
  *
  * @author Vinicius
  */
-public class AlocacaoDAO {
-    private EntityManager em;
-    
-    public AlocacaoDAO(){
-        em = Conexao.getEntityManager();
+public class AlocacaoDAO extends AbstractDAO<Alocacao> {
+    public Alocacao getById(Integer id) {
+        return em.find(Alocacao.class, id);
     }
     
-    public Objetivo getById(Integer id) {
-        return em.find(Objetivo.class, id);
-    }
- 
-    public void save(Objetivo entity) {
-        em.persist(entity);
-    }
- 
-    public void update(Objetivo entity) {
-        em.merge(entity);
-    }
- 
-    public void delete(Objetivo entity) {
-        em.remove(entity);
-    }
- 
-    public List<Objetivo> findAll() {
-        Query query = em.createNamedQuery("Objetivo.findAll");
+    public List<Alocacao> findAll() {
+        Query query = em.createNamedQuery("Alocacao.findAll");
         return query.getResultList();
     }
 
-    public List<Objetivo> findByProjeto(Projeto projeto) {
-        Query query = em.createNamedQuery("Objetivo.findByProjeto");
-        query.setParameter("projetoId", projeto.getId());
+    public List<Alocacao> findByEscopo(Escopo escopo) {
+        Query query = em.createNamedQuery("Alocacao.findByEscopo");
+        query.setParameter("escopoId", escopo.getId());
         return query.getResultList();
     }
 }

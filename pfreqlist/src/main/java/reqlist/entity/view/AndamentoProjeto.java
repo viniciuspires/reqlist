@@ -176,7 +176,8 @@ public class AndamentoProjeto implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        return false;
+        /*if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
@@ -192,6 +193,6 @@ public class AndamentoProjeto implements Serializable {
         if (this.requisitoId != other.requisitoId) {
             return false;
         }
-        return true;
+        return true;*/
     }
 }

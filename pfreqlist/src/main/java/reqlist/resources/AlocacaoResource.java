@@ -16,10 +16,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import reqlist.dao.ObjetivoDAO;
+import reqlist.dao.AlocacaoDAO;
+import reqlist.entity.Alocacao;
 import reqlist.entity.Escopo;
-import reqlist.entity.Objetivo;
-import reqlist.entity.Projeto;
 
 /**
  *
@@ -28,22 +27,22 @@ import reqlist.entity.Projeto;
 @Path("alocacao")
 @Produces("application/json; charset=utf-8")
 public class AlocacaoResource {
-    private Projeto projeto;
-    ObjetivoDAO dao = new ObjetivoDAO();
+    private Escopo escopo;
+    AlocacaoDAO dao = new AlocacaoDAO();
     
     @GET
-    public List<Objetivo> get() {
-        List<Objetivo> objetivos;
-        if ( this.projeto != null ) {
-            objetivos = dao.findByProjeto(projeto);
+    public List<Alocacao> get() {
+        List<Alocacao> alocacoes;
+        if ( this.escopo != null ) {
+            alocacoes = dao.findByEscopo(escopo);
         } else {
-            objetivos = dao.findAll();
+            alocacoes = dao.findAll();
         }
-        return objetivos;
+        return alocacoes;
     }
     @GET
     @Path("{id}")
-    public Objetivo getById(@PathParam("id") Integer id) {
+    public Alocacao getById(@PathParam("id") Integer id) {
         return dao.getById(id);
     }
     @POST
@@ -63,11 +62,7 @@ public class AlocacaoResource {
         
     }
 
-    public void setProjeto(Projeto projeto) {
-        this.projeto = projeto;
-    }
-
-    void setEscopo(Escopo escopo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setEscopo(Escopo escopo) {
+        this.escopo = escopo;
     }
 }

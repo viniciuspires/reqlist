@@ -9,8 +9,6 @@ package reqlist.dao;
 import java.util.List;
 import javax.persistence.Query;
 import reqlist.entity.Escopo;
-import reqlist.entity.Objetivo;
-import reqlist.entity.Projeto;
 import reqlist.entity.Tarefa;
 
 /**

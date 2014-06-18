@@ -8,6 +8,7 @@ package reqlist.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -24,9 +25,17 @@ public abstract class AbstractDAO<T> {
     public void save(T entity) {
         em.persist(entity);
     }
- 
+    
+    @Transactional
     public void update(T entity) {
-        em.merge(entity);
+        em.getTransaction().begin();
+        try {
+            em.merge(entity);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
     }
  
     public void delete(T entity) {

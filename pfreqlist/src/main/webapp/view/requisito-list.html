@@ -5,7 +5,7 @@
 		<tbody>
 			<tr ng-repeat="requisito in requisitos">
 				<td>
-					<strong>#{{$index+1 | numberPad}}</strong>
+					<strong>#{{$index+1 | numberPad}}:</strong>
 					{{requisito.titulo}}
 					<span class="label {{classeTipo(requisito.tipo)}}">
 						{{nomeTipo(requisito.tipo)}}

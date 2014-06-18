@@ -27,4 +27,11 @@ public class Conexao {
         }
         return em;
     }
+    
+    @Override
+    protected void finalize() throws Throwable {
+        em.close();
+        em = null;
+        super.finalize();
+    }
 }

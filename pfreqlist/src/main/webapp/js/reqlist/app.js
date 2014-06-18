@@ -552,6 +552,7 @@ app.config(function($routeProvider) {
 		});
 		
 		$scope.mudarStatus = function(tarefa){
+			console.log(tarefa);
 			TarefaService.persist(projeto, escopo, tarefa).then(function(response){
 				console.log(response);
 			}, function( response ){

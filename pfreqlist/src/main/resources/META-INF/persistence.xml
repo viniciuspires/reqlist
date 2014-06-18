@@ -4,6 +4,8 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
+            <property name="hibernate.cache.use_second_level_cache" value="false" />
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/reqlist?characterEncoding=UTF-8" />
             <property name="javax.persistence.jdbc.user" value="root" />
