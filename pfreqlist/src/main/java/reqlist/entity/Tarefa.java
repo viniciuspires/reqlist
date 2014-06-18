@@ -70,7 +70,7 @@ public class Tarefa implements Serializable {
     @NotNull
     @Column(name = "status")
     private Boolean status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tarefaId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tarefa")
     private List<Alocacao> alocacaoList;
     @JoinColumn(name = "entrega_id", referencedColumnName = "id")
     @ManyToOne(optional = false)

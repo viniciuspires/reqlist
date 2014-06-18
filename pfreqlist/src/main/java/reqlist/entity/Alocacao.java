@@ -34,7 +34,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Alocacao.findByFim", query = "SELECT a FROM Alocacao a WHERE a.fim = :fim"),
     @NamedQuery(name = "Alocacao.findByTipo", query = "SELECT a FROM Alocacao a WHERE a.tipo = :tipo"),
     @NamedQuery(name = "Alocacao.findByEscopo",
-        query="SELECT a FROM Alocacao a JOIN FETCH a.tarefaId t JOIN FETCH t.requisitoId r JOIN FETCH r.escopoList e WHERE e.id = :escopoId")})
+        query="SELECT a FROM Alocacao a JOIN FETCH a.tarefa t JOIN FETCH t.requisitoId r JOIN FETCH r.escopoList e WHERE e.id = :escopoId")})
 public class Alocacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,7 +58,7 @@ public class Alocacao implements Serializable {
     private int tipo;
     @JoinColumn(name = "tarefa_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Tarefa tarefaId;
+    private Tarefa tarefa;
 
     public Alocacao() {
     }
@@ -106,12 +106,12 @@ public class Alocacao implements Serializable {
         this.tipo = tipo;
     }
 
-    public Tarefa getTarefaId() {
-        return tarefaId;
+    public Tarefa getTarefa() {
+        return tarefa;
     }
 
-    public void setTarefaId(Tarefa tarefaId) {
-        this.tarefaId = tarefaId;
+    public void setTarefa(Tarefa tarefa) {
+        this.tarefa = tarefa;
     }
 
     @Override
