@@ -3,49 +3,22 @@
 	<h3>Requisitos</h3>
 	<table class="table table-striped table-condensed">
 		<tbody>
-			<tr>
+			<tr ng-repeat="requisito in requisitos">
 				<td>
-					O sistema deve cadastrar o usuário
-					<span class="label label-primary">Funcional</span>
+					<strong>#{{$index+1 | numberPad}}</strong>
+					{{requisito.titulo}}
+					<span class="label {{classeTipo(requisito.tipo)}}">
+						{{nomeTipo(requisito.tipo)}}
+					</span>
 				</td>
 				<td width="90">
 					<div class="btn-group">
-						<button class="btn btn-default" title="Editar requisito">
+						<button class="btn btn-default" title="Editar requisito"
+							ng-click="editarRequisito(requisito)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</button>
-						<button class="btn btn-danger" title="Excluir requisito" ng-click="removerRequisito(requisito)">
-							<span class="glyphicon glyphicon-trash"></span>
-						</button>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					O sistema deve cadastrar produtos
-					<span class="label label-primary">Funcional</span>
-				</td>
-				<td width="90">
-					<div class="btn-group">
-						<button class="btn btn-default" title="Editar objetivo">
-							<span class="glyphicon glyphicon-pencil"></span>
-						</button>
-						<button class="btn btn-danger" title="Excluir objetivo">
-							<span class="glyphicon glyphicon-trash"></span>
-						</button>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					O sistema deve rodar sob uma conexão SSL
-					<span class="label label-warning">Segurança</span>
-				</td>
-				<td>
-					<div class="btn-group">
-						<button class="btn btn-default" title="Editar objetivo">
-							<span class="glyphicon glyphicon-pencil"></span>
-						</button>
-						<button class="btn btn-danger" title="Excluir objetivo">
+						<button class="btn btn-danger" title="Excluir requisito"
+							ng-click="removerRequisito(requisito)">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</div>

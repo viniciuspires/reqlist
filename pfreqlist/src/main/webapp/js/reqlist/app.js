@@ -103,11 +103,32 @@ app.config(function($routeProvider) {
 	this.getObjetivo = function(projeto, objetivo) {
 		return $http.get('api/projeto/'+projeto.id+'/objetivo/'+objetivo.id+'/burndown');
 	};
-}).directive('menuNavegacao', function(){
+}).service('RequisitoService', function($http){
+	this.getRequisitosByProjetoAndEscopo = function(projeto, escopo){
+		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id+'/requisito');
+	};
+	this.persist = function(projeto, escopo, requisito) {
+		if ( objetivo.id !== null ) {
+			return $http.put('api/projeto/'+projeto.id+'/escopo/'+escopo.id
+				+'/requisito/'+requisito.id, requisito);
+		} else {
+			return $http.post('api/projeto/'+projeto.id+'/escopo'+escopo.id
+				+'/requisito', requisito);
+		}
+	};
+	this.getRequisito = function(projeto, escopo, requisito) {
+		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id
+			+'/requisito/'+requisito.id);
+	};
+}).directive('menuNavegacao', function($routeParams){
 	return {
+		scope:true,
 		templateUrl:'directive/menu-navegacao.html',
 		link:function(scope, element, attrs){
 			scope.selected = attrs.menuNavegacao;
+			
+			scope.idProjeto = $routeParams.idProjeto;
+			scope.idEscopo = $routeParams.idEscopo;
 			
 			scope.horizontal = attrs.horizontal !== undefined;
 		}
@@ -452,9 +473,43 @@ app.config(function($routeProvider) {
 				+ response.statusText + " ("+response.status+")");
 		});
 	},
-	RequisitoController:function($scope, $routeParams, $window){
-		$scope.idProjeto = $routeParams.idProjeto;
-		$scope.idEscopo = $routeParams.idEscopo;
+	RequisitoController:function($scope, $routeParams, $window, RequisitoService){
+		var projeto = {
+			id: $routeParams.idProjeto
+		};
+		var escopo = {
+			id: $routeParams.idEscopo
+		};
+		
+		RequisitoService.getRequisitosByProjetoAndEscopo(projeto, escopo).then(function(response){
+			$scope.requisitos = response.data;
+			console.log($scope.requisitos);
+		}, function( response ){
+			console.log(response);
+			$window.alert("Não foi possível buscar os requisitos do projeto: "
+				+response.statusText+" ("+response.status+")");
+		});
+		
+		$scope.classeTipo = function(tipo){
+			var defaultClass = 'label-default';
+			var tipos = {
+				1: 'label-primary',
+				2: 'label-warning'
+			};
+			return tipos[tipo] === undefined ? defaultClass : tipos[tipo];
+		};
+		$scope.nomeTipo = function(tipo){
+			var tipos = {
+				1:'Funcional',
+				2:'Confiabilidade',
+				3:'Usabilidade',
+				4:'Desempenho',
+				5:'Portabilidade',
+				6:'Manutenibilidade',
+				7:'Segurança'
+			};
+			return tipos[tipo];
+		};
 		
 		$scope.removerRequisito = function(requisito){
 			if ($window.confirm("Deseja remover o requisito?")) {
