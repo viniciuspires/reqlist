@@ -73,7 +73,7 @@ public class Usuario implements Serializable {
     private boolean confirmado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
     private List<Requisito> requisitoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Objetivo> objetivoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
     private List<Tarefa> tarefaList;

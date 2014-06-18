@@ -27,7 +27,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -36,12 +35,13 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "objetivo")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Objetivo.findAll", query = "SELECT o FROM Objetivo o"),
     @NamedQuery(name = "Objetivo.findById", query = "SELECT o FROM Objetivo o WHERE o.id = :id"),
     @NamedQuery(name = "Objetivo.findByTitulo", query = "SELECT o FROM Objetivo o WHERE o.titulo = :titulo"),
-    @NamedQuery(name = "Objetivo.findByData", query = "SELECT o FROM Objetivo o WHERE o.data = :data")})
+    @NamedQuery(name = "Objetivo.findByData", query = "SELECT o FROM Objetivo o WHERE o.data = :data"),
+    @NamedQuery(name = "Objetivo.findByProjeto", query = "SELECT o FROM Objetivo o WHERE o.projeto.id = :projetoId")
+})
 public class Objetivo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -68,10 +68,10 @@ public class Objetivo implements Serializable {
     private List<Requisito> requisitoList;
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Usuario usuarioId;
+    private Usuario usuario;
     @JoinColumn(name = "projeto_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Projeto projetoId;
+    private Projeto projeto;
 
     public Objetivo() {
     }
@@ -126,20 +126,20 @@ public class Objetivo implements Serializable {
         this.requisitoList = requisitoList;
     }
 
-    public Usuario getUsuarioId() {
-        return usuarioId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(Usuario usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Projeto getProjetoId() {
-        return projetoId;
+    public Projeto getProjeto() {
+        return projeto;
     }
 
-    public void setProjetoId(Projeto projetoId) {
-        this.projetoId = projetoId;
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
     }
 
     @Override

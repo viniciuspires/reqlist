@@ -25,7 +25,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -68,7 +67,7 @@ public class Projeto implements Serializable {
     private int status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
     private List<Requisito> requisitoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Objetivo> objetivoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Escopo> escopoList;
