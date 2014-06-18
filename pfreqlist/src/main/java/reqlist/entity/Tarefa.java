@@ -42,7 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tarefa.findById", query = "SELECT t FROM Tarefa t WHERE t.id = :id"),
     @NamedQuery(name = "Tarefa.findByTitulo", query = "SELECT t FROM Tarefa t WHERE t.titulo = :titulo"),
     @NamedQuery(name = "Tarefa.findByDataCriacao", query = "SELECT t FROM Tarefa t WHERE t.dataCriacao = :dataCriacao"),
-    @NamedQuery(name = "Tarefa.findByStatus", query = "SELECT t FROM Tarefa t WHERE t.status = :status")})
+    @NamedQuery(name = "Tarefa.findByStatus", query = "SELECT t FROM Tarefa t WHERE t.status = :status"),
+    @NamedQuery(name = "Tarefa.findByEscopo",
+        query="SELECT t FROM Tarefa t JOIN FETCH t.requisitoId r JOIN FETCH r.escopoList e WHERE e.id = :escopoId")})
 public class Tarefa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

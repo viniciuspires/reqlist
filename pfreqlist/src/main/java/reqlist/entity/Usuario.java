@@ -27,6 +27,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import reqlist.MD5;
 
 /**
  *
@@ -94,6 +95,10 @@ public class Usuario implements Serializable {
         this.email = email;
         this.data = data;
         this.confirmado = confirmado;
+    }
+    
+    public String getAvatar() {
+        return "//gravatar.com/avatar/"+MD5.digest(getEmail());
     }
 
     public Integer getId() {
