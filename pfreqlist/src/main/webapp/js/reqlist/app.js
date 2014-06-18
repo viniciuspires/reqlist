@@ -79,7 +79,7 @@ app.config(function($routeProvider) {
 		return $http.get('api/projeto/'+projeto.id+'/andamento');
 	};
 	this.getComparacao = function() {
-		return $http.get('api/projeto/andamento');
+		return $http.get('api/projeto/comparacao');
 	};
 }).service('EscopoService', function($http){
 	this.getEscoposByProjeto = function(projeto){
@@ -313,7 +313,8 @@ app.config(function($routeProvider) {
 			
 		}, function(response){
 			console.log(response);
-			$window.alert("Não foi possível buscar o andamento do projeto: " + response.statusText + " ("+response.status+")");
+			$window.alert("Não foi possível buscar o burndown do projeto: "
+				+ response.statusText + " ("+response.status+")");
 		});
 	},
 	AndamentoController:function($scope, $routeParams, ProjetoService, $window){
@@ -334,76 +335,97 @@ app.config(function($routeProvider) {
 			return parte/todo*100;
 		};
 	},
-	ComparacaoController:function($scope, $routeParams){
-		$('#comparacao').highcharts({
-			chart:{
-				zoomType: 'xy',
-				backgroundColor:null
-			},
-			title:false,
-			xAxis: {
-				categories: [
-					'Folha de Pagamento',
-					'Controle de Estoque',
-					'Fluxo de Caixa',
-					'Reqlist'
-				],
-				labels: {
-					align: 'center',
-					style: {
-						fontSize: '0.9em',
-						fontFamily: 'Verdana, sans-serif'
+	ComparacaoController:function($scope, $window, ProjetoService){
+		$scope.comparacao = {};
+		
+		ProjetoService.getComparacao().then(function(response){
+			$scope.comparacao = response.data;
+			console.log($scope.comparacao);
+			
+			var categories = $scope.comparacao.projetos.map(function(projeto){
+				return projeto.nome;
+			});
+			var planejado = $scope.comparacao.projetos.map(function(projeto){
+				return projeto.horasPlanejadas;
+			});
+			var realizado = $scope.comparacao.projetos.map(function(projeto){
+				return projeto.horasRealizadas;
+			});
+			var razao = $scope.comparacao.projetos.map(function(projeto){
+				return (projeto.horasRealizadas / projeto.horasPlanejadas) * 100;
+			});
+			
+			$('#comparacao').highcharts({
+				chart:{
+					zoomType: 'xy',
+					backgroundColor:null
+				},
+				title:false,
+				xAxis: {
+					categories: categories,
+					labels: {
+						align: 'center',
+						style: {
+							fontSize: '0.9em',
+							fontFamily: 'Verdana, sans-serif'
+						}
 					}
-				}
-			},
-			yAxis: [{
-				title: {
-					text:'Horas estimadas x utilizadas'
 				},
-				labels:{
-					format:'{value}h'
-				}
-			},
-			{
-				title: {
-					text:'Razão (%)'
-				},
-				labels:{
-					format:'{value}%'
-				},
-				format:'{y}%',
-				opposite:true
-			}],
-			credits:{
-				enabled:false
-			},
-			legend: {
-				layout: 'horizontal',
-				align: 'center',
-				verticalAlign: 'bottom',
-				borderWidth: 0
-			},
-			tooltip: {
-				shared:true
-			},
-			series: [
-				{
-					type:'column',
-					name:'Planejado',
-					data:[115, 110, 90, 60]
+				yAxis: [{
+					title: {
+						text:'Horas estimadas x utilizadas'
+					},
+					labels:{
+						format:'{value}h'
+					}
 				},
 				{
-					type:'column',
-					name:'Realizado',
-					data:[150, 178, 58, 59]
+					title: {
+						text:'Razão (%)'
+					},
+					labels:{
+						format:'{value}%'
+					},
+					format:'{y}% batata',
+					min:0,
+					opposite:true
+				}],
+				credits:{
+					enabled:false
 				},
-				{
-					type:'spline',
-					name:'Razão',
-					yAxis:1,
-					data:[130.43, 161.82, 64.44, 98.33]
-				}
-			]
+				legend: {
+					layout: 'horizontal',
+					align: 'center',
+					verticalAlign: 'bottom',
+					borderWidth: 0
+				},
+				tooltip: {
+					shared:true
+				},
+				series: [
+					{
+						type:'column',
+						name:'Planejado',
+						data: planejado
+					},
+					{
+						type:'column',
+						name:'Realizado',
+						data: realizado
+					},
+					{
+						type:'spline',
+						name:'Razão',
+						yAxis:1,
+						data: razao
+					}
+				]
+			});
+			
+		}, function(response){
+			console.log(response);
+			$window.alert("Não foi possível buscar a comparação dos projetos: "
+				+ response.statusText + " ("+response.status+")");
 		});
 	},
 	RequisitoController:function($scope, $routeParams, $window){
