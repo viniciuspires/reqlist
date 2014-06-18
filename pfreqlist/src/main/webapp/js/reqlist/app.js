@@ -89,6 +89,20 @@ app.config(function($routeProvider) {
 	this.getBurndown = function(projeto, escopo) {
 		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id+'/burndown');
 	};
+}).service('ObjetivoService', function($http){
+	this.getObjetivosByProjeto = function(projeto){
+		return $http.get('api/projeto/'+projeto.id+'/objetivo');
+	};
+	this.persist = function(projeto, objetivo) {
+		if ( objetivo.id !== null ) {
+			return $http.put('api/projeto/'+projeto.id+'/objetivo/'+objetivo.id, objetivo);
+		} else {
+			return $http.post('api/projeto/'+projeto.id+'/objetivo', objetivo);
+		}
+	};
+	this.getObjetivo = function(projeto, objetivo) {
+		return $http.get('api/projeto/'+projeto.id+'/objetivo/'+objetivo.id+'/burndown');
+	};
 }).directive('menuNavegacao', function(){
 	return {
 		templateUrl:'directive/menu-navegacao.html',
@@ -478,9 +492,18 @@ app.config(function($routeProvider) {
 		$scope.idEscopo = $routeParams.idEscopo;
 		
 	},
-	ObjetivoController:function($scope, $routeParams, $window){
+	ObjetivoController:function($scope, $routeParams, $window, ObjetivoService){
 		$scope.idProjeto = $routeParams.idProjeto;
 		$scope.idEscopo = $routeParams.idEscopo;
+		
+		ObjetivoService.getObjetivosByProjeto({id: $scope.idProjeto}).then(function(response){
+			$scope.objetivos = response.data;
+			console.log(response);
+		}, function(response){
+			console.log(response);
+			$window.alert("Não foi possível buscar os objetivos do projeto: "
+				+ response.statusText + " ("+response.status+")");
+		});
 		
 		$scope.removerObjetivo = function(objetivo){
 			if ($window.confirm("Tem certeza que deseja remover o objetivo?")) {
