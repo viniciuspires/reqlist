@@ -71,7 +71,7 @@ public class Usuario implements Serializable {
     @NotNull
     @Column(name = "confirmado")
     private boolean confirmado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Requisito> requisitoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Objetivo> objetivoList;

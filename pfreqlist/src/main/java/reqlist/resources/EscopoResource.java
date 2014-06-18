@@ -77,4 +77,30 @@ public class EscopoResource {
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
     }
+    
+    // Subresources
+    @Path("{id}/requisito")
+    public RequisitoResource getRequisitoResource(@PathParam("id") Integer id) {
+        RequisitoResource requisitoResource = new RequisitoResource();
+        requisitoResource.setEscopo( new Escopo(id) );
+        return requisitoResource;
+    }
+    @Path("{id}/tarefa")
+    public TarefaResource getTarefaResource(@PathParam("id") Integer id) {
+        TarefaResource tarefaResource = new TarefaResource();
+        tarefaResource.setEscopo( new Escopo(id) );
+        return tarefaResource;
+    }
+    @Path("{id}/alocacao")
+    public AlocacaoResource getAlocacaoResource(@PathParam("id") Integer id) {
+        AlocacaoResource alocacaoResource = new AlocacaoResource();
+        alocacaoResource.setEscopo( new Escopo(id) );
+        return alocacaoResource;
+    }
+    @Path("{id}/entrega")
+    public EntregaResource getEntregaResource(@PathParam("id") Integer id) {
+        EntregaResource entregaResource = new EntregaResource();
+        entregaResource.setEscopo( new Escopo(id) );
+        return entregaResource;
+    }
 }

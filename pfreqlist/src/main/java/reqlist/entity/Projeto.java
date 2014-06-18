@@ -65,7 +65,7 @@ public class Projeto implements Serializable {
     @NotNull
     @Column(name = "status")
     private int status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Requisito> requisitoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Objetivo> objetivoList;

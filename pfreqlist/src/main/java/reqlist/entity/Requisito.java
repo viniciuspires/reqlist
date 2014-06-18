@@ -44,7 +44,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Requisito.findByTitulo", query = "SELECT r FROM Requisito r WHERE r.titulo = :titulo"),
     @NamedQuery(name = "Requisito.findByData", query = "SELECT r FROM Requisito r WHERE r.data = :data"),
     @NamedQuery(name = "Requisito.findByTipo", query = "SELECT r FROM Requisito r WHERE r.tipo = :tipo"),
-    @NamedQuery(name = "Requisito.findByStatus", query = "SELECT r FROM Requisito r WHERE r.status = :status")})
+    @NamedQuery(name = "Requisito.findByStatus", query = "SELECT r FROM Requisito r WHERE r.status = :status"),
+    @NamedQuery(name = "Requisito.findByEscopo", query = "SELECT r FROM Requisito r JOIN FETCH r.escopoList escopo WHERE escopo.id = :escopoId")
+})
 public class Requisito implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -80,10 +82,10 @@ public class Requisito implements Serializable {
     private List<Escopo> escopoList;
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Usuario usuarioId;
+    private Usuario usuario;
     @JoinColumn(name = "projeto_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Projeto projetoId;
+    private Projeto projeto;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "requisitoId")
     private List<Tarefa> tarefaList;
 
@@ -168,20 +170,20 @@ public class Requisito implements Serializable {
         this.escopoList = escopoList;
     }
 
-    public Usuario getUsuarioId() {
-        return usuarioId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(Usuario usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Projeto getProjetoId() {
-        return projetoId;
+    public Projeto getProjeto() {
+        return projeto;
     }
 
-    public void setProjetoId(Projeto projetoId) {
-        this.projetoId = projetoId;
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
     }
 
     @XmlTransient
