@@ -47,14 +47,14 @@ public class AlocacaoResource {
     }
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void post() {
-        
+    public void post(Alocacao alocacao) {
+        dao.save(alocacao);
     }
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void put(@PathParam("id") Long id) {
-        
+    public void put(@PathParam("id") Long id, Alocacao alocacao) throws Exception {
+        dao.update(alocacao);
     }
     @DELETE
     @Path("{id}")

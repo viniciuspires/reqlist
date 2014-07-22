@@ -13,17 +13,9 @@
 <div class="col-md-3">
 	<h3>Tarefas</h3>
 	<ul class="list-unstyled tasks tarefas-drag">
-			<li data-draggable>
-				Criar tela de cadastro de clientes
-				<div class="drag"></div>
-			</li>
-			<li data-draggable>
-				Criar tela de edição de produtos
-				<div class="drag"></div>
-			</li>
-			<li data-draggable>
-				Criar script batch para sincronizar os produtos
-				<div class="drag"></div>
-			</li>
+		<li data-draggable ng-repeat="tarefa in tarefas" data-tarefa="{{tarefa}}">
+			{{tarefa.titulo}}
+			<div class="drag"></div>
+		</li>
 	</ul>
 </div>

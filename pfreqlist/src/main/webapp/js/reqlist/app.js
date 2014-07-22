@@ -2,6 +2,13 @@
 
 var app = angular.module('reqlist', ['ngRoute','ngAnimate','localytics.directives']);
 
+var standardErrorHandler = function(response){
+	console.log(response);
+	window.alert("Não foi possível realizar a operação: "
+		+response.statusText
+		+" ("+response.status+")");
+};
+
 app.config(function($routeProvider) {
 	$routeProvider.when('/projeto', {
 		templateUrl:'view/projeto-list.html',
@@ -142,17 +149,21 @@ app.config(function($routeProvider) {
 		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id+'/alocacao');
 	};
 	this.persist = function(projeto, escopo, alocacao) {
-		if ( alocacao.id !== null ) {
+		if ( alocacao.id != null ) {
 			return $http.put('api/projeto/'+projeto.id+'/escopo/'+escopo.id
-				+'/tarefa/'+alocacao.id, alocacao);
+				+'/alocacao/'+alocacao.id, alocacao);
 		} else {
-			return $http.post('api/projeto/'+projeto.id+'/escopo'+escopo.id
-				+'/tarefa', alocacao);
+			return $http.post('api/projeto/'+projeto.id+'/escopo/'+escopo.id
+				+'/alocacao', alocacao);
 		}
 	};
-	this.getRequisito = function(projeto, escopo, alocacao) {
+	this.getAlocacao = function(projeto, escopo, alocacao) {
 		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id
-			+'/tarefa/'+alocacao.id);
+			+'/alocacao/'+alocacao.id);
+	};
+	this.deleteAlocacao = function(projeto, escopo, alocacao){
+		return $http.delete('api/projeto/'+projeto.id+'/escopo/'+escopo.id
+			+'/alocacao/'+alocacao.id);
 	};
 }).directive('menuNavegacao', function($routeParams){
 	return {
@@ -206,10 +217,7 @@ app.config(function($routeProvider) {
 		
 		ProjetoService.findAll().then(function(response){
 			$scope.projetos = response.data;
-		}, function(response){
-			console.log(response);
-			$window.alert("Não foi possível buscar os projetos: " + response.statusText + " ("+response.status+")");
-		});
+		}, standardErrorHandler);
 
 		$scope.removerProjeto = function(projeto){
 			if ( window.confirm('Tem certeza que deseja arquivar este projeto?') ) {
@@ -225,10 +233,7 @@ app.config(function($routeProvider) {
 		
 		EscopoService.getEscoposByProjeto($scope.projeto).then(function(response){
 			$scope.escopos = response.data;
-		}, function(response){
-			console.log(response);
-			$window.alert("Não foi possível buscar os escopos: " + response.statusText + " ("+response.status+")");
-		});
+		}, standardErrorHandler);
 		
 		$scope.travarEscopo = function(escopo){
 			var confirmMessage = "Após travar o escopo, só será possível"
@@ -390,11 +395,7 @@ app.config(function($routeProvider) {
 				]
 			});
 			
-		}, function(response){
-			console.log(response);
-			$window.alert("Não foi possível buscar o burndown do projeto: "
-				+ response.statusText + " ("+response.status+")");
-		});
+		}, standardErrorHandler);
 	},
 	AndamentoController:function($scope, $routeParams, ProjetoService, $window){
 		$scope.projeto = {
@@ -405,10 +406,7 @@ app.config(function($routeProvider) {
 		
 		ProjetoService.getAndamento($scope.projeto).then(function(response){
 			$scope.escopos = response.data.escopos;
-		}, function(response){
-			console.log(response);
-			$window.alert("Não foi possível buscar o andamento do projeto: " + response.statusText + " ("+response.status+")");
-		});
+		}, standardErrorHandler);
 		
 		$scope.porcentagem = function(parte, todo){
 			return parte/todo*100;
@@ -501,11 +499,7 @@ app.config(function($routeProvider) {
 				]
 			});
 			
-		}, function(response){
-			console.log(response);
-			$window.alert("Não foi possível buscar a comparação dos projetos: "
-				+ response.statusText + " ("+response.status+")");
-		});
+		}, standardErrorHandler);
 	},
 	RequisitoController:function($scope, $routeParams, $window, RequisitoService){
 		var projeto = {
@@ -518,11 +512,7 @@ app.config(function($routeProvider) {
 		RequisitoService.getRequisitosByProjetoAndEscopo(projeto, escopo).then(function(response){
 			$scope.requisitos = response.data;
 			console.log($scope.requisitos);
-		}, function( response ){
-			console.log(response);
-			$window.alert("Não foi possível buscar os requisitos do projeto: "
-				+response.statusText+" ("+response.status+")");
-		});
+		}, standardErrorHandler);
 		
 		$scope.classeTipo = function(tipo){
 			var defaultClass = 'label-default';
@@ -562,20 +552,14 @@ app.config(function($routeProvider) {
 		TarefaService.getTarefasByProjetoAndEscopo(projeto, escopo).then(function(response){
 			$scope.tarefas = response.data;
 			console.log($scope.tarefas);
-		}, function( response ){
-			console.log(response);
-			$window.alert("Não foi possível buscar as tarefas do projeto: "
-				+response.statusText+" ("+response.status+")");
-		});
+		}, standardErrorHandler);
 		
 		$scope.mudarStatus = function(tarefa){
 			console.log(tarefa);
 			TarefaService.persist(projeto, escopo, tarefa).then(function(response){
 				console.log(response);
 			}, function( response ){
-				console.log(response);
-				$window.alert("Não foi possível mudar o status da tarefa: "
-					+response.statusText+" ("+response.status+")");
+				standardErrorHandler(response);
 				tarefa.status = !tarefa.status;
 			});
 		};
@@ -593,7 +577,7 @@ app.config(function($routeProvider) {
 			}
 		};
 	},
-	AlocacaoController:function($scope, $routeParams, $timeout, AlocacaoService, $window){
+	AlocacaoController:function($scope, $routeParams, $timeout, AlocacaoService, $window, TarefaService){
 		var projeto = {
 			id: $routeParams.idProjeto
 		};
@@ -601,54 +585,143 @@ app.config(function($routeProvider) {
 			id: $routeParams.idEscopo
 		};
 		
-		AlocacaoService.getAlocacoesByProjetoAndEscopo(projeto, escopo).then(function(response){
-			$scope.alocacoes = response.data;
-			console.log($scope.alocacoes);
-			
-			var alocacoes = $scope.alocacoes.map(function(alocacao){
-				var start = new Date(alocacao.inicio);
-				start = start.toISOString().replace(".000Z", "");
-				var end = new Date(alocacao.fim);
-				end = end.toISOString().replace(".000Z", "");
-				
-				console.log(start);
-				
-				return {
-					title:alocacao.tarefa.titulo,
-					start:start,
-					end:end
-				};
+		$scope.tipoAlocacao = "planejado"; // realizado
+		
+		$scope.$watch('tipoAlocacao', function(){
+			_renderCalendar();
+		});
+		
+		$scope.alocacoes = [];
+		
+		var calendario = angular.element('[data-calendar]');
+		
+		var _filtraTipoSelecionado = function(){
+			var tipoSelecionado = $scope.tipoAlocacao==='planejado'? 0 : 1;
+			return $scope.alocacoes.filter(function(alocacao){
+				return alocacao.tipo === tipoSelecionado;
 			});
-			
-			$('[data-calendar]').fullCalendar({
+		};
+		var _numeroTipoAlocacao = function(tipo){
+			return tipo==='planejado'? 0 : 1;
+		};
+		
+		var _renderCalendar = function(){
+			var alocacoes = _filtraTipoSelecionado();
+			calendario.fullCalendar('destroy');
+			calendario.fullCalendar({
 				header: {
 					left:'prev,next today',
 					right:'month,agendaWeek,agendaDay'
 				},
+				drop:function(date, ev, element){
+					var date = date;
+					var endDate = {};
+					angular.copy( date, endDate );
+					endDate.add('hours', 2);
+					
+					var alocacao = {
+						inicio: date,
+						fim: endDate,
+						tarefa: element.helper.data('tarefa'),
+						tipo: _numeroTipoAlocacao( $scope.tipoAlocacao )
+					};
+					
+					AlocacaoService.persist(projeto, escopo, alocacao).then(function(response){
+						var event = {
+							start: date.format(),
+							end: endDate.format(),
+							title: alocacao.tarefa.titulo
+						};
+						angular.extend(event, alocacao);
+
+						console.log(event);
+
+						calendario.fullCalendar('renderEvent', event, true); // stick? = true
+					}, standardErrorHandler);
+				},
+				scrollTime:'08:00:00',
+				lang:'pt-br',
+				timezone:'local',
+				eventClick:function(alocacao,element){
+					if($window.confirm("Deseja remover a tarefa '"
+						+alocacao.tarefa.titulo+"' do dia "
+						+moment(alocacao.inicio).format('DD/MM')+"?")) {
+						$scope.alocacoes.forEach(function(a, i){
+							if (a.id === alocacao.id) {
+								// TODO enviar delete pro servidor
+								$scope.alocacoes.splice(i, 1);
+								_renderCalendar();
+								return;
+							}
+						});
+					}
+				},
+				eventDrop:function(alocacao){
+					alocacao.inicio = alocacao.start;
+					alocacao.fim = alocacao.end;
+					
+					AlocacaoService.persist(projeto, escopo, alocacao).then(function(response){
+						var event = {
+							start: alocacao.start,
+							end: alocacao.end,
+							title: alocacao.tarefa.titulo
+						};
+						angular.extend(event, alocacao);
+
+						calendario.fullCalendar('renderEvent', event, true);
+					}, standardErrorHandler);
+				},
+				eventResize:function(alocacao){
+					alocacao.inicio = alocacao.start;
+					alocacao.fim = alocacao.end;
+					
+					AlocacaoService.persist(projeto, escopo, alocacao).then(function(response){
+						var event = {
+							start: alocacao.start,
+							end: alocacao.end,
+							title: alocacao.tarefa.titulo
+						};
+						angular.extend(event, alocacao);
+
+						calendario.fullCalendar('renderEvent', event, true);
+					}, standardErrorHandler);
+				},
+				selectable: true,
+				selectHelper: true,
 				defaultView:'agendaWeek',
 				editable: true,
+				droppable: true,
 				start:new Date(),
-				weekNumbers:true,
-				events: alocacoes
+				weekNumbers:false,
+				allDayDefault:false,
+				events: alocacoes.map(function(alocacao){
+					alocacao.start = moment(alocacao.inicio).format();
+					alocacao.end = moment(alocacao.fim).format();
+					alocacao.title = alocacao.tarefa.titulo;
+					
+					return alocacao;
+				})
 			});
-			$('[data-draggable]').draggable({revert:true,helper:'clone'});
 			$('[data-droppable]').droppable();
+		};
+		
+		AlocacaoService.getAlocacoesByProjetoAndEscopo(projeto, escopo).then(function(response){
+			$scope.alocacoes = response.data;
 			
-		}, function(response){
-			console.log(response);
-			$window.alert("Não foi possível buscar as alocacoes do projeto: "
-				+response.statusText+" ("+response.status+")");
-		});
+			_renderCalendar();
+		}, standardErrorHandler);
 		
-		$scope.tipoAlocacao = "planejado"; // realizado
-		
-		$scope.$watch('tipoAlocacao', function(valorNovo){
-			// TODO buscar alocação do tipo
-		});
-		
-		$scope.idProjeto = $routeParams.idProjeto;
-		$scope.idEscopo = $routeParams.idEscopo;
-		
+		TarefaService.getTarefasByProjetoAndEscopo(projeto, escopo).then(function(response){
+			$scope.tarefas = response.data;
+
+			$timeout(function(){
+				angular.element('[data-draggable]').draggable({
+					revert:true,
+					helper:'clone',
+					zIndex: 999
+				});
+			});
+		}, standardErrorHandler);
 	},
 	ObjetivoController:function($scope, $routeParams, $window, ObjetivoService){
 		$scope.idProjeto = $routeParams.idProjeto;
@@ -657,11 +730,7 @@ app.config(function($routeProvider) {
 		ObjetivoService.getObjetivosByProjeto({id: $scope.idProjeto}).then(function(response){
 			$scope.objetivos = response.data;
 			console.log(response);
-		}, function(response){
-			console.log(response);
-			$window.alert("Não foi possível buscar os objetivos do projeto: "
-				+ response.statusText + " ("+response.status+")");
-		});
+		}, standardErrorHandler);
 		
 		$scope.removerObjetivo = function(objetivo){
 			if ($window.confirm("Tem certeza que deseja remover o objetivo?")) {

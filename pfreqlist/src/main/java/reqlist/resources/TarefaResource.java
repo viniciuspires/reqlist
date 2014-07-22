@@ -53,7 +53,7 @@ public class TarefaResource {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void put(@PathParam("id") Integer id, Tarefa tarefa) {
+    public void put(@PathParam("id") Integer id, Tarefa tarefa) throws Exception {
         dao.update(tarefa);
     }
     @DELETE

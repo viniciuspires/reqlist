@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.hibernate.annotations.GeneratorType;
 
 /**
  *
@@ -35,12 +38,13 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Alocacao.findByTipo", query = "SELECT a FROM Alocacao a WHERE a.tipo = :tipo"),
     @NamedQuery(name = "Alocacao.findByEscopo",
         query="SELECT a FROM Alocacao a JOIN FETCH a.tarefa t JOIN FETCH t.requisitoId r JOIN FETCH r.escopoList e WHERE e.id = :escopoId")})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Alocacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
+    @GeneratedValue
     private Integer id;
     @Basic(optional = false)
     @NotNull

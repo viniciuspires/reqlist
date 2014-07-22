@@ -22,22 +22,26 @@ public abstract class AbstractDAO<T> {
         em = Conexao.getEntityManager();
     }
  
-    public void save(T entity) {
-        em.persist(entity);
-    }
-    
     @Transactional
-    public void update(T entity) {
+    public void save(T entity) {
         em.getTransaction().begin();
         try {
-            em.merge(entity);
+            em.persist(entity);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
             throw e;
         }
     }
+    
+    @Transactional
+    public void update(T entity) throws Exception {
+        em.getTransaction().begin();
+        em.merge(entity);
+        em.getTransaction().commit();
+    }
  
+    @Transactional(Transactional.TxType.REQUIRED)
     public void delete(T entity) {
         em.remove(entity);
     }
