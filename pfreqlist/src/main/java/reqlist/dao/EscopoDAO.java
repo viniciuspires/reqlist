@@ -7,7 +7,6 @@
 package reqlist.dao;
 
 import java.util.List;
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import reqlist.entity.Escopo;
 import reqlist.entity.Projeto;
@@ -18,35 +17,7 @@ import reqlist.enumerated.TipoAlocacao;
  * 
  * @author Vinicius
  */
-public class EscopoDAO {
-    
-    private EntityManager em;
-    
-    public EscopoDAO(){
-        em = Conexao.getEntityManager();
-    }
-
-    public Escopo getById(Integer id) {
-        return em.find(Escopo.class, id);
-    }
- 
-    public void save(Escopo entity) {
-        em.persist(entity);
-    }
- 
-    public void update(Escopo entity) {
-        em.merge(entity);
-    }
- 
-    public void delete(Escopo entity) {
-        em.remove(entity);
-    }
- 
-    public List<Escopo> findAll() {
-        Query query = em.createNamedQuery("Escopo.findAll");
-        return query.getResultList();
-    }
-
+public class EscopoDAO extends AbstractDAO<Escopo> {
     public List<Escopo> findByProjeto(Projeto projeto) {
         Query query = em.createNamedQuery("Escopo.findByProjeto");
         query.setParameter("projetoId", projeto.getId());
@@ -65,5 +36,10 @@ public class EscopoDAO {
         query.setParameter("escopoId", id);
         query.setParameter("tipo", TipoAlocacao.REALIZACAO);
         return query.getResultList();
+    }
+
+    @Override
+    Class<Escopo> getEntityClass() {
+        return Escopo.class;
     }
 }

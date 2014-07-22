@@ -8,6 +8,7 @@ package reqlist.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 /**
@@ -21,7 +22,7 @@ public abstract class AbstractDAO<T> {
     public AbstractDAO(){
         em = Conexao.getEntityManager();
     }
- 
+    
     @Transactional
     public void save(T entity) {
         em.getTransaction().begin();
@@ -46,7 +47,17 @@ public abstract class AbstractDAO<T> {
         em.remove(entity);
     }
     
-    abstract List<T> findAll();
+    @Transactional(Transactional.TxType.REQUIRED)
+    public List<T> findAll() {
+        String string = "FROM "+getEntityClass().getName();
+        Query query = em.createQuery(string);
+        return query.getResultList();
+    }
     
-    public abstract T getById(Integer id);
+    @Transactional(Transactional.TxType.REQUIRED)
+    public T getById(Integer id){
+        return em.find(getEntityClass(), id);
+    }
+    
+    abstract Class<T> getEntityClass();
 }

@@ -58,8 +58,8 @@ public class AlocacaoResource {
     }
     @DELETE
     @Path("{id}")
-    public void delete(@PathParam("id") Long id) {
-        
+    public void delete(@PathParam("id") Integer id) {
+        dao.delete(new Alocacao(id));
     }
 
     public void setEscopo(Escopo escopo) {

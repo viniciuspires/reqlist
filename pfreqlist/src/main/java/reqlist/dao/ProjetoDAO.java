@@ -7,7 +7,6 @@
 package reqlist.dao;
 
 import java.util.List;
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import reqlist.entity.Projeto;
 import reqlist.entity.view.AndamentoProjeto;
@@ -17,35 +16,7 @@ import reqlist.entity.view.ComparacaoProjeto;
  *
  * @author Iran
  */
-public class ProjetoDAO {
-    
-    private EntityManager em;
-    
-    public ProjetoDAO(){
-        em = Conexao.getEntityManager();
-    }
-
-    public Projeto getById(Integer id) {
-        return em.find(Projeto.class, id);
-    }
- 
-    public void save(Projeto entity) {
-        em.persist(entity);
-    }
- 
-    public void update(Projeto entity) {
-        em.merge(entity);
-    }
- 
-    public void delete(Projeto entity) {
-        em.remove(entity);
-    }
- 
-    public List<Projeto> findAll() {
-        Query query = em.createNamedQuery("Projeto.findAll") ;
-        return query.getResultList(); 
-    }
-
+public class ProjetoDAO extends AbstractDAO<Projeto> {
     public List<AndamentoProjeto> getAndamento(Integer projetoId) {
         Query query = em.createNamedQuery("AndamentoProjeto.findByProjetoId");
         query.setParameter("projetoId", projetoId);
@@ -57,5 +28,10 @@ public class ProjetoDAO {
         Query query = em.createNamedQuery("ComparacaoProjeto.findAll");
         
         return query.getResultList(); 
+    }
+
+    @Override
+    Class<Projeto> getEntityClass() {
+        return Projeto.class;
     }
 }

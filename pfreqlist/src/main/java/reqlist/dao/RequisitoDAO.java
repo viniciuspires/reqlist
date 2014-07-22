@@ -16,21 +16,14 @@ import reqlist.entity.Requisito;
  * @author Vinicius
  */
 public class RequisitoDAO extends AbstractDAO<Requisito> {
-    
-    @Override
-    public Requisito getById(Integer id) {
-        return super.em.find(Requisito.class, id);
-    }
- 
-    @Override
-    public List<Requisito> findAll() {
-        Query query = em.createNamedQuery("Requisito.findAll");
-        return query.getResultList();
-    }
-
     public List<Requisito> findByEscopo(Escopo escopo) {
         Query query = em.createNamedQuery("Requisito.findByEscopo");
         query.setParameter("escopoId", escopo.getId());
         return query.getResultList();
+    }
+
+    @Override
+    Class<Requisito> getEntityClass() {
+        return Requisito.class;
     }
 }

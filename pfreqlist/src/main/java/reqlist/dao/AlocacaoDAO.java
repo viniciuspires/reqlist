@@ -16,18 +16,14 @@ import reqlist.entity.Escopo;
  * @author Vinicius
  */
 public class AlocacaoDAO extends AbstractDAO<Alocacao> {
-    public Alocacao getById(Integer id) {
-        return em.find(Alocacao.class, id);
-    }
-    
-    public List<Alocacao> findAll() {
-        Query query = em.createNamedQuery("Alocacao.findAll");
-        return query.getResultList();
-    }
-
     public List<Alocacao> findByEscopo(Escopo escopo) {
         Query query = em.createNamedQuery("Alocacao.findByEscopo");
         query.setParameter("escopoId", escopo.getId());
         return query.getResultList();
+    }
+
+    @Override
+    Class<Alocacao> getEntityClass() {
+        return Alocacao.class;
     }
 }
