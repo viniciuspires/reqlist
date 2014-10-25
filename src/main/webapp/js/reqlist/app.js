@@ -2,13 +2,6 @@
 
 var app = angular.module('reqlist', ['ngRoute','ngAnimate','localytics.directives']);
 
-var standardErrorHandler = function(response){
-	console.log(response);
-	window.alert("Não foi possível realizar a operação: "
-		+response.statusText
-		+" ("+response.status+")");
-};
-
 app.config(function($routeProvider) {
 	$routeProvider.when('/projeto', {
 		templateUrl:'view/projeto-list.html',
@@ -55,15 +48,22 @@ app.config(function($routeProvider) {
 	}).otherwise({
 		redirectTo:'/projeto'
 	});
-	
-	//$locationProvider.html5Mode(true);
-	
 }).filter('numberPad', function() {
 	return function(input, minNumberOfDigits) {
 		minNumberOfDigits = minNumberOfDigits || 2;
 		input = input + '';
 		var zeros = new Array(minNumberOfDigits - input.length + 1).join('0');
 		return zeros + input;
+	};
+}).factory('$handle', function(){
+	return function( promise ){
+		promise.then(function(){}, function(response){
+			console.log(response);
+			window.alert("Não foi possível realizar a operação: "
+				+response.statusText
+				+" ("+response.status+")");
+		});
+		return promise;
 	};
 }).service('ProjetoService', function($http) {
 	this.findAll = function() {
@@ -212,12 +212,12 @@ app.config(function($routeProvider) {
 			}
 		];
 	},
-	ProjetoListController:function($scope, $window, ProjetoService){
+	ProjetoListController:function($scope, ProjetoService, $handle){
 		$scope.projetos = [];
 		
-		ProjetoService.findAll().then(function(response){
+		$handle( ProjetoService.findAll() ).then(function(response){
 			$scope.projetos = response.data;
-		}, standardErrorHandler);
+		});
 
 		$scope.removerProjeto = function(projeto){
 			if ( window.confirm('Tem certeza que deseja arquivar este projeto?') ) {
