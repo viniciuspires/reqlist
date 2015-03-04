@@ -1,8 +1,12 @@
+/* global angular, moment */
+
 'use strict';
 
-var app = angular.module('reqlist', ['ngRoute','ngAnimate','localytics.directives']);
-
-app.config(function($routeProvider) {
+angular.module('reqlist', [
+	'ngRoute',
+	'ngAnimate',
+	'localytics.directives'
+]).config(function($routeProvider) {
 	$routeProvider.when('/projeto', {
 		templateUrl:'view/projeto-list.html',
 		controller:'ProjetoListController'
@@ -55,11 +59,11 @@ app.config(function($routeProvider) {
 		var zeros = new Array(minNumberOfDigits - input.length + 1).join('0');
 		return zeros + input;
 	};
-}).factory('$handle', function(){
+}).factory('$handle', function($window, $log){
 	return function( promise ){
 		promise.then(function(){}, function(response){
-			console.log(response);
-			window.alert("Não foi possível realizar a operação: "
+			$log.debug(response);
+			$window.alert("Não foi possível realizar a operação: "
 				+response.statusText
 				+" ("+response.status+")");
 		});
@@ -149,7 +153,7 @@ app.config(function($routeProvider) {
 		return $http.get('api/projeto/'+projeto.id+'/escopo/'+escopo.id+'/alocacao');
 	};
 	this.persist = function(projeto, escopo, alocacao) {
-		if ( alocacao.id != null ) {
+		if ( alocacao.id !== null ) {
 			return $http.put('api/projeto/'+projeto.id+'/escopo/'+escopo.id
 				+'/alocacao/'+alocacao.id, alocacao);
 		} else {
@@ -212,7 +216,7 @@ app.config(function($routeProvider) {
 			}
 		];
 	},
-	ProjetoListController:function($scope, ProjetoService, $handle){
+	ProjetoListController:function($scope, ProjetoService, $handle, $window){
 		$scope.projetos = [];
 		
 		$handle( ProjetoService.findAll() ).then(function(response){
@@ -225,15 +229,15 @@ app.config(function($routeProvider) {
 			}
 		};
 	},
-	ProjetoController:function($scope, $routeParams, EscopoService, $window){
+	ProjetoController:function($scope, $routeParams, EscopoService, $window, $handle){
 		$scope.projeto = {
 			id:$routeParams.idProjeto
 		};
 		$scope.escopos = [];
 		
-		EscopoService.getEscoposByProjeto($scope.projeto).then(function(response){
+		$handle( EscopoService.getEscoposByProjeto($scope.projeto) ).then(function(response){
 			$scope.escopos = response.data;
-		}, standardErrorHandler);
+		});
 		
 		$scope.travarEscopo = function(escopo){
 			var confirmMessage = "Após travar o escopo, só será possível"
@@ -395,7 +399,7 @@ app.config(function($routeProvider) {
 				]
 			});
 			
-		}, standardErrorHandler);
+		});
 	},
 	AndamentoController:function($scope, $routeParams, ProjetoService, $window){
 		$scope.projeto = {
@@ -406,7 +410,7 @@ app.config(function($routeProvider) {
 		
 		ProjetoService.getAndamento($scope.projeto).then(function(response){
 			$scope.escopos = response.data.escopos;
-		}, standardErrorHandler);
+		});
 		
 		$scope.porcentagem = function(parte, todo){
 			return parte/todo*100;
@@ -499,7 +503,7 @@ app.config(function($routeProvider) {
 				]
 			});
 			
-		}, standardErrorHandler);
+		});
 	},
 	RequisitoController:function($scope, $routeParams, $window, RequisitoService){
 		var projeto = {
@@ -512,7 +516,7 @@ app.config(function($routeProvider) {
 		RequisitoService.getRequisitosByProjetoAndEscopo(projeto, escopo).then(function(response){
 			$scope.requisitos = response.data;
 			console.log($scope.requisitos);
-		}, standardErrorHandler);
+		});
 		
 		$scope.classeTipo = function(tipo){
 			var defaultClass = 'label-default';
@@ -552,14 +556,13 @@ app.config(function($routeProvider) {
 		TarefaService.getTarefasByProjetoAndEscopo(projeto, escopo).then(function(response){
 			$scope.tarefas = response.data;
 			console.log($scope.tarefas);
-		}, standardErrorHandler);
+		});
 		
 		$scope.mudarStatus = function(tarefa){
 			console.log(tarefa);
 			TarefaService.persist(projeto, escopo, tarefa).then(function(response){
 				console.log(response);
 			}, function( response ){
-				standardErrorHandler(response);
 				tarefa.status = !tarefa.status;
 			});
 		};
@@ -637,7 +640,7 @@ app.config(function($routeProvider) {
 						console.log(event);
 
 						calendario.fullCalendar('renderEvent', event, true); // stick? = true
-					}, standardErrorHandler);
+					});
 				},
 				scrollTime:'08:00:00',
 				lang:'pt-br',
@@ -669,7 +672,7 @@ app.config(function($routeProvider) {
 						angular.extend(event, alocacao);
 
 						calendario.fullCalendar('renderEvent', event, true);
-					}, standardErrorHandler);
+					});
 				},
 				eventResize:function(alocacao){
 					alocacao.inicio = alocacao.start;
@@ -684,7 +687,7 @@ app.config(function($routeProvider) {
 						angular.extend(event, alocacao);
 
 						calendario.fullCalendar('renderEvent', event, true);
-					}, standardErrorHandler);
+					});
 				},
 				selectable: true,
 				selectHelper: true,
@@ -709,7 +712,7 @@ app.config(function($routeProvider) {
 			$scope.alocacoes = response.data;
 			
 			_renderCalendar();
-		}, standardErrorHandler);
+		});
 		
 		TarefaService.getTarefasByProjetoAndEscopo(projeto, escopo).then(function(response){
 			$scope.tarefas = response.data;
@@ -721,7 +724,7 @@ app.config(function($routeProvider) {
 					zIndex: 999
 				});
 			});
-		}, standardErrorHandler);
+		});
 	},
 	ObjetivoController:function($scope, $routeParams, $window, ObjetivoService){
 		$scope.idProjeto = $routeParams.idProjeto;
@@ -730,7 +733,7 @@ app.config(function($routeProvider) {
 		ObjetivoService.getObjetivosByProjeto({id: $scope.idProjeto}).then(function(response){
 			$scope.objetivos = response.data;
 			console.log(response);
-		}, standardErrorHandler);
+		});
 		
 		$scope.removerObjetivo = function(objetivo){
 			if ($window.confirm("Tem certeza que deseja remover o objetivo?")) {

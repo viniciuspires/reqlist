@@ -7,10 +7,13 @@
             <property name="hibernate.cache.use_second_level_cache" value="false" />
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" />
             <property name="hibernate.connection.autocommit" value="true" />
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/reqlist?characterEncoding=UTF-8" />
-            <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/reqlist?characterEncoding=UTF-8" />-->
+            <property name="javax.persistence.schema-generation.create-source" value="metadata" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:reqlist" />
+            <property name="javax.persistence.jdbc.user" value="reqlist" />
+            <property name="javax.persistence.jdbc.password" value="reqlist" />
             <property name="show_sql" value="true" />
         </properties>
     </persistence-unit>
