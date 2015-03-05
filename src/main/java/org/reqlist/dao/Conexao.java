@@ -22,7 +22,7 @@ public class Conexao {
      */
     public static EntityManager getEntityManager() {
         if ( em == null ) {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("reqlist");
+            EntityManagerFactory factory = Persistence.createEntityManagerFactory("ReqlistPU");
             em = factory.createEntityManager();
         }
         return em;

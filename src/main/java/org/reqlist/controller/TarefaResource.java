@@ -4,30 +4,16 @@
  * and open the template in the editor.
  */
 
-package org.reqlist.resources;
-
-import java.util.List;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import org.reqlist.dao.TarefaDAO;
-import org.reqlist.entity.Escopo;
-import org.reqlist.entity.Tarefa;
+package org.reqlist.controller;
 
 /**
  *
  * @author Vinicius
  */
-@Path("tarefa")
-@Produces("application/json; charset=utf-8")
+//@Path("tarefa")
+//@Produces("application/json; charset=utf-8")
 public class TarefaResource {
-    private Escopo escopo;
+    /*private Escopo escopo;
     TarefaDAO dao = new TarefaDAO();
     
     @GET
@@ -40,6 +26,7 @@ public class TarefaResource {
         }
         return tarefas;
     }
+    
     @GET
     @Path("{id}")
     public Tarefa getById(@PathParam("id") Integer id) {
@@ -64,5 +51,5 @@ public class TarefaResource {
     
     public void setEscopo(Escopo escopo) {
         this.escopo = escopo;
-    }
+    }*/
 }

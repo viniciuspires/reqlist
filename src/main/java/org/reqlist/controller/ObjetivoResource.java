@@ -4,30 +4,16 @@
  * and open the template in the editor.
  */
 
-package org.reqlist.resources;
-
-import java.util.List;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import org.reqlist.dao.ObjetivoDAO;
-import org.reqlist.entity.Objetivo;
-import org.reqlist.entity.Projeto;
+package org.reqlist.controller;
 
 /**
  *
  * @author Vinicius
  */
-@Path("objetivo")
-@Produces("application/json; charset=utf-8")
+//@Path("objetivo")
+//@Produces("application/json; charset=utf-8")
 public class ObjetivoResource {
-    private Projeto projeto;
+    /*private Projeto projeto;
     ObjetivoDAO dao = new ObjetivoDAO();
     
     @GET
@@ -64,5 +50,5 @@ public class ObjetivoResource {
 
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
-    }
+    }*/
 }

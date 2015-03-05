@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <context:component-scan base-package="org.reqlist" />
+
+    <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10485760"/> <!-- 10MB -->
+    </bean>
+    
+    <!-- ViewResolver e Configuração do Jackson -->
+    <bean id="objectMapper" class="org.reqlist.context.HibernateAwareObjectMapper" />
+    
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="objectMapper" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    
+    <!--<mvc:resources mapping="/assets/**" location="/assets/" />
+    <mvc:resources mapping="/app/**" location="/app/" />
+    <mvc:resources mapping="/bower_components/**" location="/bower_components/" />-->
+    
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="mediaTypes">
+            <map>
+                <entry key="html" value="text/html"/>
+                <entry key="json" value="application/json"/>
+                <entry key="xml"  value="application/xml"/>
+            </map>
+        </property>
+        <property name="defaultContentType" value="application/json"/>
+    </bean>
+
+    <!-- Internacionalização -->
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="lang" />
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="pt_br"/>
+    </bean>
+
+    <mvc:interceptors>
+        <ref bean="localeChangeInterceptor" />
+    </mvc:interceptors>
+    
+    <!-- MESSAGE SOURCES -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:messages" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+    
+    <!-- PERSISTENCE -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="ReqlistPU" />
+    </bean>
+    
+    <!--TRANSACTION-->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    
+    <bean id="sharedTransactionTemplate"
+          class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="isolationLevelName" value="ISOLATION_READ_UNCOMMITTED" />
+        <property name="timeout" value="30" />
+    </bean>
+    
+    <!--<import resource="classpath:META-INF/org.reqlist.transaction.xml" />-->
+    
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <!--SPRING REPOSITORIES-->
+    <jpa:repositories base-package="org.reqlist.repository"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager"  />
+    
+    <!--SECURITY-->
+    <!--<security:global-method-security secured-annotations="enabled" jsr250-annotations="enabled" />-->
+    
+</beans>

@@ -9,7 +9,8 @@ package org.reqlist.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -42,19 +43,19 @@ public abstract class AbstractDAO<T> {
         em.getTransaction().commit();
     }
  
-    @Transactional(Transactional.TxType.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED)
     public void delete(T entity) {
         em.remove(entity);
     }
     
-    @Transactional(Transactional.TxType.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED)
     public List<T> findAll() {
         String string = "FROM "+getEntityClass().getName();
         Query query = em.createQuery(string);
         return query.getResultList();
     }
     
-    @Transactional(Transactional.TxType.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED)
     public T getById(Integer id){
         return em.find(getEntityClass(), id);
     }

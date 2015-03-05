@@ -4,31 +4,16 @@
  * and open the template in the editor.
  */
 
-package org.reqlist.resources;
-
-import java.util.List;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import org.reqlist.dao.EscopoDAO;
-import org.reqlist.entity.Escopo;
-import org.reqlist.entity.Projeto;
-import org.reqlist.model.Burndown;
+package org.reqlist.controller;
 
 /**
  *
  * @author Vinicius
  */
-@Path("escopo")
-@Produces("application/json; charset=utf-8")
+//@Path("escopo")
+//@Produces("application/json; charset=utf-8")
 public class EscopoResource {
-    Projeto projeto = null;
+    /*Projeto projeto = null;
     EscopoDAO dao = new EscopoDAO();
     
     @GET
@@ -102,5 +87,5 @@ public class EscopoResource {
         EntregaResource entregaResource = new EntregaResource();
         entregaResource.setEscopo( new Escopo(id) );
         return entregaResource;
-    }
+    }*/
 }

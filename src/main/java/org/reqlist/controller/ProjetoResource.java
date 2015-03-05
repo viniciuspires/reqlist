@@ -1,29 +1,32 @@
-package org.reqlist.resources;
+package org.reqlist.controller;
 
 import java.util.List;
-import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import org.reqlist.dao.ProjetoDAO;
 import org.reqlist.entity.Projeto;
 import org.reqlist.model.Andamento;
 import org.reqlist.model.PerformanceComparacao;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Path("projeto")
-@Produces("application/json; charset=utf-8")
+//@Path("projeto")
+@RestController
+@RequestMapping("projeto")
+//@Produces("application/json; charset=utf-8")
 public class ProjetoResource {
     ProjetoDAO dao = new ProjetoDAO();
     
-    @GET
+    @RequestMapping(method = RequestMethod.GET)
     public List getProjetos(){
         return dao.findAll();
     }
     
-    @GET
-    @Path("{id}")
-    public Projeto getProjeto(@PathParam("id") Integer id) {
+    //@GET
+    //@Path("{id}")
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public Projeto getProjeto(@PathVariable("id") Integer id) throws NotFoundException {
         Projeto projeto = dao.getById(id);
         if ( projeto == null ) {
             throw new NotFoundException();
@@ -31,20 +34,22 @@ public class ProjetoResource {
         return projeto;
     }
     
-    @GET
-    @Path("{id}/andamento")
-    public Andamento getAndamentoProjeto(@PathParam("id") Integer id) {
+    //@GET
+    //@Path("{id}/andamento")
+    @RequestMapping(value="{id}/andamento", method = RequestMethod.GET)
+    public Andamento getAndamentoProjeto(@PathVariable("id") Integer id) {
         return new Andamento( dao.getAndamento(id) );
     }
     
-    @GET
-    @Path("comparacao")
+    //@GET
+    //@Path("comparacao")
+    @RequestMapping(value="comparacao", method = RequestMethod.GET)
     public PerformanceComparacao getComparacaoProjetos() {
         return new PerformanceComparacao( dao.getComparacao() );
     }
     
     // Subresources
-    @Path("{id}/escopo")
+    /*@Path("{id}/escopo")
     public EscopoResource getEscopoResource(@PathParam("id") Integer id) {
         EscopoResource escopoResource = new EscopoResource();
         escopoResource.setProjeto( new Projeto(id) );
@@ -55,5 +60,5 @@ public class ProjetoResource {
         ObjetivoResource objetivoResource = new ObjetivoResource();
         objetivoResource.setProjeto( new Projeto(id) );
         return objetivoResource;
-    }
+    }*/
 }
