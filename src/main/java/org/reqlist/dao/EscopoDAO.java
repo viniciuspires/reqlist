@@ -9,7 +9,7 @@ package org.reqlist.dao;
 import java.util.List;
 import javax.persistence.Query;
 import org.reqlist.entity.Escopo;
-import org.reqlist.entity.Projeto;
+import org.reqlist.entity.Project;
 import org.reqlist.entity.view.DataFinalizacao;
 import org.reqlist.enumerated.TipoAlocacao;
 
@@ -18,7 +18,7 @@ import org.reqlist.enumerated.TipoAlocacao;
  * @author Vinicius
  */
 public class EscopoDAO extends AbstractDAO<Escopo> {
-    public List<Escopo> findByProjeto(Projeto projeto) {
+    public List<Escopo> findByProjeto(Project projeto) {
         Query query = em.createNamedQuery("Escopo.findByProjeto");
         query.setParameter("projetoId", projeto.getId());
         return query.getResultList();

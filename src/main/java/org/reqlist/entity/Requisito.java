@@ -85,24 +85,9 @@ public class Requisito implements Serializable {
     private Usuario usuario;
     @JoinColumn(name = "projeto_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Projeto projeto;
+    private Project projeto;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "requisitoId")
     private List<Tarefa> tarefaList;
-
-    public Requisito() {
-    }
-
-    public Requisito(Integer id) {
-        this.id = id;
-    }
-
-    public Requisito(Integer id, String titulo, Date data, int tipo, int status) {
-        this.id = id;
-        this.titulo = titulo;
-        this.data = data;
-        this.tipo = tipo;
-        this.status = status;
-    }
 
     public Integer getId() {
         return id;
@@ -178,11 +163,11 @@ public class Requisito implements Serializable {
         this.usuario = usuario;
     }
 
-    public Projeto getProjeto() {
+    public Project getProjeto() {
         return projeto;
     }
 
-    public void setProjeto(Projeto projeto) {
+    public void setProjeto(Project projeto) {
         this.projeto = projeto;
     }
 

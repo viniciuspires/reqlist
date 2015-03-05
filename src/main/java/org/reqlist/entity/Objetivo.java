@@ -71,7 +71,7 @@ public class Objetivo implements Serializable {
     private Usuario usuario;
     @JoinColumn(name = "projeto_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Projeto projeto;
+    private Project projeto;
 
     public Objetivo() {
     }
@@ -134,11 +134,11 @@ public class Objetivo implements Serializable {
         this.usuario = usuario;
     }
 
-    public Projeto getProjeto() {
+    public Project getProjeto() {
         return projeto;
     }
 
-    public void setProjeto(Projeto projeto) {
+    public void setProjeto(Project projeto) {
         this.projeto = projeto;
     }
 

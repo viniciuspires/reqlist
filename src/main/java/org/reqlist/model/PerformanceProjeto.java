@@ -8,7 +8,7 @@ package org.reqlist.model;
 
 import java.math.BigInteger;
 import java.util.Date;
-import org.reqlist.entity.view.ComparacaoProjeto;
+import org.reqlist.entity.view.ProjectComparison;
 
 /**
  *
@@ -23,7 +23,7 @@ public class PerformanceProjeto {
     
     private Integer escopoId;
 
-    public PerformanceProjeto(ComparacaoProjeto comparacaoProjeto) {
+    public PerformanceProjeto(ProjectComparison comparacaoProjeto) {
         this.id = comparacaoProjeto.getProjetoId();
         this.nome = comparacaoProjeto.getProjetoNome();
         this.data = comparacaoProjeto.getData();

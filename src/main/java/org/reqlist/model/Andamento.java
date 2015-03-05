@@ -8,7 +8,7 @@ package org.reqlist.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.reqlist.entity.view.AndamentoProjeto;
+import org.reqlist.entity.view.ProjectProgress;
 
 /**
  *
@@ -17,9 +17,9 @@ import org.reqlist.entity.view.AndamentoProjeto;
 public class Andamento {
     private List<AndamentoEscopo> escopos;
     
-    public Andamento( List<AndamentoProjeto> andamentoList ) {
+    public Andamento( List<ProjectProgress> andamentoList ) {
         this.escopos = new ArrayList<>();
-        for (AndamentoProjeto andamento : andamentoList) {
+        for (ProjectProgress andamento : andamentoList) {
             AndamentoEscopo escopo = this.getEscopoById( andamento.getEscopoId() );
             if ( escopo == null ) {
                 escopo = new AndamentoEscopo(andamento.getEscopoId(), andamento.getEscopoTitulo(), andamentoList);

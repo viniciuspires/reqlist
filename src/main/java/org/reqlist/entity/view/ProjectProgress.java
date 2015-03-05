@@ -8,6 +8,7 @@ package org.reqlist.entity.view;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -25,20 +25,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "vw_andamento_projeto")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AndamentoProjeto.findAll", query = "SELECT a FROM AndamentoProjeto a"),
-    @NamedQuery(name = "AndamentoProjeto.findByProjetoId", query = "SELECT a FROM AndamentoProjeto a WHERE a.projetoId = :projetoId"),
-    @NamedQuery(name = "AndamentoProjeto.findByProjetoNome", query = "SELECT a FROM AndamentoProjeto a WHERE a.projetoNome = :projetoNome"),
-    @NamedQuery(name = "AndamentoProjeto.findByEscopoId", query = "SELECT a FROM AndamentoProjeto a WHERE a.escopoId = :escopoId"),
-    @NamedQuery(name = "AndamentoProjeto.findByEscopoTitulo", query = "SELECT a FROM AndamentoProjeto a WHERE a.escopoTitulo = :escopoTitulo"),
-    @NamedQuery(name = "AndamentoProjeto.findByRequisitoId", query = "SELECT a FROM AndamentoProjeto a WHERE a.requisitoId = :requisitoId"),
-    @NamedQuery(name = "AndamentoProjeto.findByRequisitoTitulo", query = "SELECT a FROM AndamentoProjeto a WHERE a.requisitoTitulo = :requisitoTitulo"),
-    @NamedQuery(name = "AndamentoProjeto.findByTarefas", query = "SELECT a FROM AndamentoProjeto a WHERE a.tarefas = :tarefas"),
-    @NamedQuery(name = "AndamentoProjeto.findByTarefasRealizadas", query = "SELECT a FROM AndamentoProjeto a WHERE a.tarefasRealizadas = :tarefasRealizadas"),
-    @NamedQuery(name = "AndamentoProjeto.findByHorasPlanejadas", query = "SELECT a FROM AndamentoProjeto a WHERE a.horasPlanejadas = :horasPlanejadas"),
-    @NamedQuery(name = "AndamentoProjeto.findByHorasRealizadas", query = "SELECT a FROM AndamentoProjeto a WHERE a.horasRealizadas = :horasRealizadas")})
-public class AndamentoProjeto implements Serializable {
+    @NamedQuery(name = "ProjectProgress.findAll", query = "SELECT a FROM ProjectProgress a"),
+    //@NamedQuery(name = "ProjectProgress.findByProjetoId", query = "SELECT a FROM ProjectProgress a WHERE a.projetoId = :projetoId"),
+    @NamedQuery(name = "ProjectProgress.findByProjetoNome", query = "SELECT a FROM ProjectProgress a WHERE a.projetoNome = :projetoNome"),
+    @NamedQuery(name = "ProjectProgress.findByEscopoId", query = "SELECT a FROM ProjectProgress a WHERE a.escopoId = :escopoId"),
+    @NamedQuery(name = "ProjectProgress.findByEscopoTitulo", query = "SELECT a FROM ProjectProgress a WHERE a.escopoTitulo = :escopoTitulo"),
+    @NamedQuery(name = "ProjectProgress.findByRequisitoId", query = "SELECT a FROM ProjectProgress a WHERE a.requisitoId = :requisitoId"),
+    @NamedQuery(name = "ProjectProgress.findByRequisitoTitulo", query = "SELECT a FROM ProjectProgress a WHERE a.requisitoTitulo = :requisitoTitulo"),
+    @NamedQuery(name = "ProjectProgress.findByTarefas", query = "SELECT a FROM ProjectProgress a WHERE a.tarefas = :tarefas"),
+    @NamedQuery(name = "ProjectProgress.findByTarefasRealizadas", query = "SELECT a FROM ProjectProgress a WHERE a.tarefasRealizadas = :tarefasRealizadas"),
+    @NamedQuery(name = "ProjectProgress.findByHorasPlanejadas", query = "SELECT a FROM ProjectProgress a WHERE a.horasPlanejadas = :horasPlanejadas"),
+    @NamedQuery(name = "ProjectProgress.findByHorasRealizadas", query = "SELECT a FROM ProjectProgress a WHERE a.horasRealizadas = :horasRealizadas")})
+public class ProjectProgress implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Basic(optional = false)
@@ -82,7 +81,7 @@ public class AndamentoProjeto implements Serializable {
     @Column(name = "horas_realizadas")
     private BigInteger horasRealizadas;
 
-    public AndamentoProjeto() {
+    public ProjectProgress() {
     }
 
     public int getProjetoId() {
@@ -167,32 +166,62 @@ public class AndamentoProjeto implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + this.projetoId;
-        hash = 53 * hash + this.escopoId;
-        hash = 53 * hash + this.requisitoId;
+        int hash = 7;
+        hash = 59 * hash + this.projetoId;
+        hash = 59 * hash + Objects.hashCode(this.projetoNome);
+        hash = 59 * hash + this.escopoId;
+        hash = 59 * hash + Objects.hashCode(this.escopoTitulo);
+        hash = 59 * hash + this.requisitoId;
+        hash = 59 * hash + Objects.hashCode(this.requisitoTitulo);
+        hash = 59 * hash + (int) (this.tarefas ^ (this.tarefas >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.tarefasRealizadas);
+        hash = 59 * hash + Objects.hashCode(this.horasPlanejadas);
+        hash = 59 * hash + Objects.hashCode(this.horasRealizadas);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return false;
-        /*if (obj == null) {
+        if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AndamentoProjeto other = (AndamentoProjeto) obj;
+        final ProjectProgress other = (ProjectProgress) obj;
         if (this.projetoId != other.projetoId) {
+            return false;
+        }
+        if (!Objects.equals(this.projetoNome, other.projetoNome)) {
             return false;
         }
         if (this.escopoId != other.escopoId) {
             return false;
         }
+        if (!Objects.equals(this.escopoTitulo, other.escopoTitulo)) {
+            return false;
+        }
         if (this.requisitoId != other.requisitoId) {
             return false;
         }
-        return true;*/
+        if (!Objects.equals(this.requisitoTitulo, other.requisitoTitulo)) {
+            return false;
+        }
+        if (this.tarefas != other.tarefas) {
+            return false;
+        }
+        if (!Objects.equals(this.tarefasRealizadas, other.tarefasRealizadas)) {
+            return false;
+        }
+        if (!Objects.equals(this.horasPlanejadas, other.horasPlanejadas)) {
+            return false;
+        }
+        if (!Objects.equals(this.horasRealizadas, other.horasRealizadas)) {
+            return false;
+        }
+        return true;
     }
+    
+    
+    
 }

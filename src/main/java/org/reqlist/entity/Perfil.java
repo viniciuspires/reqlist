@@ -44,7 +44,7 @@ public class Perfil implements Serializable {
     private Usuario usuario;
     @JoinColumn(name = "projeto_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Projeto projeto;
+    private Project projeto;
 
     public Perfil() {
     }
@@ -86,11 +86,11 @@ public class Perfil implements Serializable {
         this.usuario = usuario;
     }
 
-    public Projeto getProjeto() {
+    public Project getProjeto() {
         return projeto;
     }
 
-    public void setProjeto(Projeto projeto) {
+    public void setProjeto(Project projeto) {
         this.projeto = projeto;
     }
 

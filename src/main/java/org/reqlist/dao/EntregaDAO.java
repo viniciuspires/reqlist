@@ -10,14 +10,14 @@ import java.util.List;
 import javax.persistence.Query;
 import org.reqlist.entity.Entrega;
 import org.reqlist.entity.Objetivo;
-import org.reqlist.entity.Projeto;
+import org.reqlist.entity.Project;
 
 /**
  *
  * @author Vinicius
  */
 public class EntregaDAO extends AbstractDAO<Entrega> {
-    public List<Objetivo> findByProjeto(Projeto projeto) {
+    public List<Objetivo> findByProjeto(Project projeto) {
         Query query = em.createNamedQuery("Objetivo.findByProjeto");
         query.setParameter("projetoId", projeto.getId());
         return query.getResultList();

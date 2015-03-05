@@ -8,24 +8,6 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:META-INF/org.reqlist.context.xml</param-value>
     </context-param>
-    <!--<servlet>
-        <servlet-name>Jersey RESTful</servlet-name> 
-        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-        <init-param>
-            <param-name>com.sun.jersey.config.property.packages</param-name> 
-            <param-value>org.reqlist.resources</param-value> 
-        </init-param>
-        <init-param>
-            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
-            <param-value>true</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Jersey RESTful</servlet-name>
-        <url-pattern>/api/*</url-pattern>
-    </servlet-mapping>-->
-    
     <servlet>
         <servlet-name>rest-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

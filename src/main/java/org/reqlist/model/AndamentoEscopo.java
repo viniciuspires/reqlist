@@ -9,7 +9,7 @@ package org.reqlist.model;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import org.reqlist.entity.view.AndamentoProjeto;
+import org.reqlist.entity.view.ProjectProgress;
 
 /**
  *
@@ -26,12 +26,12 @@ public class AndamentoEscopo {
     
     private List<AndamentoRequisito> requisitos;
 
-    public AndamentoEscopo(Integer id, String titulo, List<AndamentoProjeto> andamentoProjetoList) {
+    public AndamentoEscopo(Integer id, String titulo, List<ProjectProgress> andamentoProjetoList) {
         this.id = id;
         this.titulo = titulo;
         this.requisitos = new ArrayList<>();
         
-        for (AndamentoProjeto andamentoProjeto : andamentoProjetoList) {
+        for (ProjectProgress andamentoProjeto : andamentoProjetoList) {
             if ( andamentoProjeto.getEscopoId() == this.id ) {
                 AndamentoRequisito requisito = new AndamentoRequisito(andamentoProjeto);
                 this.requisitos.add( requisito );

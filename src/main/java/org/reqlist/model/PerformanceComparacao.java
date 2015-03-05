@@ -8,7 +8,7 @@ package org.reqlist.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.reqlist.entity.view.ComparacaoProjeto;
+import org.reqlist.entity.view.ProjectComparison;
 
 /**
  *
@@ -17,9 +17,9 @@ import org.reqlist.entity.view.ComparacaoProjeto;
 public class PerformanceComparacao {
     private List<PerformanceProjeto> projetos;
 
-    public PerformanceComparacao(List<ComparacaoProjeto> comparacaoList) {
+    public PerformanceComparacao(List<ProjectComparison> comparacaoList) {
         this.projetos = new ArrayList<>();
-        for (ComparacaoProjeto comparacaoProjeto : comparacaoList) {
+        for (ProjectComparison comparacaoProjeto : comparacaoList) {
             PerformanceProjeto projeto = this.getProjetoById( comparacaoProjeto.getProjetoId() );
             if ( projeto == null ) {
                 projeto = new PerformanceProjeto(comparacaoProjeto);

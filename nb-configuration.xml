@@ -6,16 +6,19 @@ The configuration is intended to be shared among all the users of project and
 therefore it is assumed to be part of version control checkout.
 Without this configuration present, some functionality in the IDE may be limited or fail altogether.
 -->
+    <config-data xmlns="http://www.netbeans.org/ns/maven-config-data/1">
+        <configurations>
+            <configuration id="development" profiles="development">
+                <property name="skipTests"/>
+            </configuration>
+        </configurations>
+    </config-data>
     <spring-data xmlns="http://www.netbeans.org/ns/spring-data/1">
         <config-files>
-            <config-file>src/main/webapp/WEB-INF/applicationContext.xml</config-file>
-            <config-file>src/main/webapp/WEB-INF/dispatcher-servlet.xml</config-file>
+            <config-file>src/main/resources/META-INF/org.reqlist.context.xml</config-file>
         </config-files>
         <config-file-groups>
-            <config-file-group name="Grupo Default">
-                <config-file>src/main/webapp/WEB-INF/applicationContext.xml</config-file>
-                <config-file>src/main/webapp/WEB-INF/dispatcher-servlet.xml</config-file>
-            </config-file-group>
+            <config-file-group name="Grupo Default"/>
         </config-file-groups>
     </spring-data>
     <properties xmlns="http://www.netbeans.org/ns/maven-properties-data/1">
@@ -36,12 +39,7 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-css-prep.sass_2e_enabled>true</org-netbeans-modules-css-prep.sass_2e_enabled>
         <org-netbeans-modules-css-prep.less_2e_compiler_2e_options/>
         <org-netbeans-modules-css-prep.sass_2e_configured>true</org-netbeans-modules-css-prep.sass_2e_configured>
+        <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
+        <netbeans.checkstyle.format>true</netbeans.checkstyle.format>
     </properties>
-    <config-data xmlns="http://www.netbeans.org/ns/maven-config-data/1">
-        <configurations>
-            <configuration id="development" profiles="development">
-                <property name="skipTests"/>
-            </configuration>
-        </configurations>
-    </config-data>
 </project-shared-configuration>

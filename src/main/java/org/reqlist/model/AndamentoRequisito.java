@@ -7,7 +7,7 @@
 package org.reqlist.model;
 
 import java.math.BigInteger;
-import org.reqlist.entity.view.AndamentoProjeto;
+import org.reqlist.entity.view.ProjectProgress;
 
 /**
  *
@@ -22,7 +22,7 @@ public class AndamentoRequisito {
     private BigInteger tarefas;
     private BigInteger tarefasFinalizadas;
     
-    public AndamentoRequisito(AndamentoProjeto andamentoProjeto) {
+    public AndamentoRequisito(ProjectProgress andamentoProjeto) {
         this.id = andamentoProjeto.getRequisitoId();
         this.titulo = andamentoProjeto.getRequisitoTitulo();
         this.tarefas =  BigInteger.valueOf( andamentoProjeto.getTarefas() );

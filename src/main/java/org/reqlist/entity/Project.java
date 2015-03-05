@@ -6,6 +6,7 @@
 
 package org.reqlist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -25,8 +26,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -35,12 +34,10 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Entity
 @Table(name = "projeto")
 @NamedQueries({
-    @NamedQuery(name = "Projeto.findAll", query = "SELECT p FROM Projeto p"),
-    @NamedQuery(name = "Projeto.findById", query = "SELECT p FROM Projeto p WHERE p.id = :id"),
-    @NamedQuery(name = "Projeto.findByNome", query = "SELECT p FROM Projeto p WHERE p.nome = :nome"),
-    @NamedQuery(name = "Projeto.findByData", query = "SELECT p FROM Projeto p WHERE p.data = :data"),
-    @NamedQuery(name = "Projeto.findByStatus", query = "SELECT p FROM Projeto p WHERE p.status = :status")})
-public class Projeto implements Serializable {
+    @NamedQuery(name = "Project.findByNome", query = "SELECT p FROM Project p WHERE p.nome = :nome"),
+    @NamedQuery(name = "Project.findByData", query = "SELECT p FROM Project p WHERE p.data = :data"),
+    @NamedQuery(name = "Project.findByStatus", query = "SELECT p FROM Project p WHERE p.status = :status")})
+public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,20 +70,6 @@ public class Projeto implements Serializable {
     private List<Escopo> escopoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Perfil> perfilList;
-
-    public Projeto() {
-    }
-
-    public Projeto(Integer id) {
-        this.id = id;
-    }
-
-    public Projeto(Integer id, String nome, Date data, int status) {
-        this.id = id;
-        this.nome = nome;
-        this.data = data;
-        this.status = status;
-    }
 
     public Integer getId() {
         return id;
@@ -128,7 +111,6 @@ public class Projeto implements Serializable {
         this.status = status;
     }
 
-    @XmlTransient
     public List<Requisito> getRequisitoList() {
         return requisitoList;
     }
@@ -137,7 +119,6 @@ public class Projeto implements Serializable {
         this.requisitoList = requisitoList;
     }
 
-    @XmlTransient
     public List<Objetivo> getObjetivoList() {
         return objetivoList;
     }
@@ -146,7 +127,6 @@ public class Projeto implements Serializable {
         this.objetivoList = objetivoList;
     }
 
-    @XmlTransient
     public List<Escopo> getEscopoList() {
         return escopoList;
     }
@@ -155,32 +135,6 @@ public class Projeto implements Serializable {
         this.escopoList = escopoList;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Projeto)) {
-            return false;
-        }
-        Projeto other = (Projeto) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "reqlist.entity.Projeto[ id=" + id + " ]";
-    }
-
-    @XmlTransient
     @JsonIgnore
     public List<Perfil> getPerfilList() {
         return perfilList;

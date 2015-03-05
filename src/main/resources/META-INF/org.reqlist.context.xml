@@ -17,7 +17,7 @@
         <property name="maxUploadSize" value="10485760"/> <!-- 10MB -->
     </bean>
     
-    <!-- ViewResolver e Configuração do Jackson -->
+    <!--ViewResolver & Jackson -->
     <bean id="objectMapper" class="org.reqlist.context.HibernateAwareObjectMapper" />
     
     <mvc:annotation-driven>
@@ -43,7 +43,7 @@
         <property name="defaultContentType" value="application/json"/>
     </bean>
 
-    <!-- Internacionalização -->
+    <!--I18N-->
     <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
         <property name="paramName" value="lang" />
     </bean>
@@ -81,16 +81,11 @@
         <property name="timeout" value="30" />
     </bean>
     
-    <!--<import resource="classpath:META-INF/org.reqlist.transaction.xml" />-->
-    
     <tx:annotation-driven transaction-manager="transactionManager" />
     
     <!--SPRING REPOSITORIES-->
     <jpa:repositories base-package="org.reqlist.repository"
                       entity-manager-factory-ref="entityManagerFactory"
                       transaction-manager-ref="transactionManager"  />
-    
-    <!--SECURITY-->
-    <!--<security:global-method-security secured-annotations="enabled" jsr250-annotations="enabled" />-->
     
 </beans>

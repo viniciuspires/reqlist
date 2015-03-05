@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.reqlist.entity.view;
 
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,16 +23,16 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "vw_comparacao_projeto")
 @NamedQueries({
-    @NamedQuery(name = "ComparacaoProjeto.findAll", query = "SELECT c FROM ComparacaoProjeto c"),
-    @NamedQuery(name = "ComparacaoProjeto.findByProjetoId", query = "SELECT c FROM ComparacaoProjeto c WHERE c.projetoId = :projetoId"),
-    @NamedQuery(name = "ComparacaoProjeto.findByProjetoNome", query = "SELECT c FROM ComparacaoProjeto c WHERE c.projetoNome = :projetoNome"),
-    @NamedQuery(name = "ComparacaoProjeto.findByEscopoId", query = "SELECT c FROM ComparacaoProjeto c WHERE c.escopoId = :escopoId"),
-    @NamedQuery(name = "ComparacaoProjeto.findByEscopoTitulo", query = "SELECT c FROM ComparacaoProjeto c WHERE c.escopoTitulo = :escopoTitulo"),
-    @NamedQuery(name = "ComparacaoProjeto.findByData", query = "SELECT c FROM ComparacaoProjeto c WHERE c.data = :data"),
-    @NamedQuery(name = "ComparacaoProjeto.findByHorasPlanejadas", query = "SELECT c FROM ComparacaoProjeto c WHERE c.horasPlanejadas = :horasPlanejadas"),
-    @NamedQuery(name = "ComparacaoProjeto.findByHorasRealizadas", query = "SELECT c FROM ComparacaoProjeto c WHERE c.horasRealizadas = :horasRealizadas")
+    @NamedQuery(name = "ProjectComparison.findAll", query = "SELECT c FROM ProjectComparison c"),
+    @NamedQuery(name = "ProjectComparison.findByProjetoId", query = "SELECT c FROM ProjectComparison c WHERE c.projetoId = :projetoId"),
+    @NamedQuery(name = "ProjectComparison.findByProjetoNome", query = "SELECT c FROM ProjectComparison c WHERE c.projetoNome = :projetoNome"),
+    @NamedQuery(name = "ProjectComparison.findByEscopoId", query = "SELECT c FROM ProjectComparison c WHERE c.escopoId = :escopoId"),
+    @NamedQuery(name = "ProjectComparison.findByEscopoTitulo", query = "SELECT c FROM ProjectComparison c WHERE c.escopoTitulo = :escopoTitulo"),
+    @NamedQuery(name = "ProjectComparison.findByData", query = "SELECT c FROM ProjectComparison c WHERE c.data = :data"),
+    @NamedQuery(name = "ProjectComparison.findByHorasPlanejadas", query = "SELECT c FROM ProjectComparison c WHERE c.horasPlanejadas = :horasPlanejadas"),
+    @NamedQuery(name = "ProjectComparison.findByHorasRealizadas", query = "SELECT c FROM ProjectComparison c WHERE c.horasRealizadas = :horasRealizadas")
 })
-public class ComparacaoProjeto implements Serializable {
+public class ProjectComparison implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -69,7 +64,7 @@ public class ComparacaoProjeto implements Serializable {
     @Column(name = "horas_realizadas")
     private BigInteger horasRealizadas;
 
-    public ComparacaoProjeto() {
+    public ProjectComparison() {
     }
 
     public int getProjetoId() {
@@ -131,8 +126,13 @@ public class ComparacaoProjeto implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 13 * hash + this.projetoId;
-        hash = 13 * hash + this.escopoId;
+        hash = 79 * hash + this.projetoId;
+        hash = 79 * hash + Objects.hashCode(this.projetoNome);
+        hash = 79 * hash + this.escopoId;
+        hash = 79 * hash + Objects.hashCode(this.escopoTitulo);
+        hash = 79 * hash + Objects.hashCode(this.data);
+        hash = 79 * hash + Objects.hashCode(this.horasPlanejadas);
+        hash = 79 * hash + Objects.hashCode(this.horasRealizadas);
         return hash;
     }
 
@@ -144,13 +144,29 @@ public class ComparacaoProjeto implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ComparacaoProjeto other = (ComparacaoProjeto) obj;
+        final ProjectComparison other = (ProjectComparison) obj;
         if (this.projetoId != other.projetoId) {
+            return false;
+        }
+        if (!Objects.equals(this.projetoNome, other.projetoNome)) {
             return false;
         }
         if (this.escopoId != other.escopoId) {
             return false;
         }
+        if (!Objects.equals(this.escopoTitulo, other.escopoTitulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.data, other.data)) {
+            return false;
+        }
+        if (!Objects.equals(this.horasPlanejadas, other.horasPlanejadas)) {
+            return false;
+        }
+        if (!Objects.equals(this.horasRealizadas, other.horasRealizadas)) {
+            return false;
+        }
         return true;
     }
+    
 }
