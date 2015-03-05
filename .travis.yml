@@ -3,4 +3,4 @@ jdk:
   - oraclejdk7
   - openjdk7
 after_success:
-  - mvn clean install jacoco:report coveralls:report
+  - mvn jacoco:report coveralls:report
