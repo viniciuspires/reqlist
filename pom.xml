@@ -327,7 +327,7 @@
                 </executions>
                 <configuration>
                     <includes>
-                        <include>src/main/java</include>
+                        <include>src/main/java/**.java</include>
                     </includes>
                 </configuration>
             </plugin>
