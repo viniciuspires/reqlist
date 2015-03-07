@@ -1,10 +1,16 @@
 package org.reqlist.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import org.reqlist.arch.ValidatorProvider;
+import org.reqlist.arch.exception.ResourceNotFoundException;
 import org.reqlist.entity.Project;
-import org.reqlist.entity.view.ProjectComparison;
-import org.reqlist.entity.view.ProjectProgress;
+import org.reqlist.enumerated.StatusEnum;
 import org.reqlist.repository.ProjectRepository;
+import static org.reqlist.util.AssertUtils.isNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +22,9 @@ import org.springframework.stereotype.Service;
 public class ProjectService {
     
     @Autowired
+    private ValidatorProvider vp;
+    
+    @Autowired
     private ProjectRepository repository;
 
     public List<Project> findAll() {
@@ -23,15 +32,34 @@ public class ProjectService {
     }
 
     public Project getById(Integer id) {
-        return repository.findOne(id);
+        Project project = repository.findOne(id);
+        
+        if ( isNull(project) ) {
+            throw new ResourceNotFoundException();
+        }
+        
+        return project;
     }
 
-    public List<ProjectProgress> getProjectProgress(Integer id) {
+    public Project save(Project project) {
+        project.setDate(new Date());
+        project.setStatus(StatusEnum.ACTIVE);
+        
+        Set<ConstraintViolation<Project>> violations = vp.validator().validate(project);
+        
+        if ( !violations.isEmpty() ) {
+            throw new ConstraintViolationException(violations);
+        }
+        
+        return repository.save(project);
+    }
+    
+    /*public List<ProjectProgress> getProjectProgress(Integer id) {
         return repository.getProjectProgress(id);
     }
 
     public List<ProjectComparison> getProjectComparison() {
         return repository.getProjectComparison();
-    }
-    
+    }*/
+
 }

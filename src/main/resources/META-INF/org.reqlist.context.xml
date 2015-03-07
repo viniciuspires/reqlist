@@ -18,7 +18,7 @@
     </bean>
     
     <!--ViewResolver & Jackson -->
-    <bean id="objectMapper" class="org.reqlist.context.HibernateAwareObjectMapper" />
+    <bean id="objectMapper" class="org.reqlist.arch.HibernateAwareObjectMapper" />
     
     <mvc:annotation-driven>
         <mvc:message-converters>
@@ -44,14 +44,14 @@
     </bean>
 
     <!--I18N-->
-    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-        <property name="paramName" value="lang" />
-    </bean>
-
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
         <property name="defaultLocale" value="pt_br"/>
     </bean>
-
+    
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="lang" />
+    </bean>
+    
     <mvc:interceptors>
         <ref bean="localeChangeInterceptor" />
     </mvc:interceptors>

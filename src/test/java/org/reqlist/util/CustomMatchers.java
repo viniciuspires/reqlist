@@ -67,18 +67,18 @@ public class CustomMatchers {
      * 
      * Exemplo:
      * <pre>
-     * String[] honestos = {
-     *  "Joaquim Roriz",
-     *  "Weslian Roriz",
-     *  "Jackeline Roriz"
-     * };
-     * assertThat(honestos, todosOsItens( containsString("Roriz") ));
-     * </pre>
+ String[] honestos = {
+  "Joaquim Roriz",
+  "Weslian Roriz",
+  "Jackeline Roriz"
+ };
+ assertThat(honestos, allItems( containsString("Roriz") ));
+ </pre>
      *
      * @param matcher Matcher
      * @return the matcher
      */
-    public static Matcher<Object[]> todosOsItens(final Matcher<?> matcher) {
+    public static Matcher<Object[]> allItems(final Matcher<?> matcher) {
         return new TodosOsItens(matcher);
     }
 
@@ -89,14 +89,18 @@ public class CustomMatchers {
      * @param matcher Matcher
      * @return the matcher
      */
-    public static Matcher<Object[]> peloMenosUmItem(final Matcher<?> matcher) {
+    public static Matcher<Object[]> atLeastOneItem(final Matcher<?> matcher) {
         return new PeloMenosUmItem(matcher);
+    }
+    
+    public static Matcher<Number> timestamp(final Matcher<?> matcher) {
+        return new Timestamp(matcher);
     }
 
     // ------------ INNER CLASSES ------------
     
     /**
-     * Classe dso Matcher que verifica se a data injetada está dentro do Mês/Ano
+     * Classe do Matcher que verifica se a data injetada está dentro do Mês/Ano
      * informado.
      *
      * @author vinicius.pires
@@ -285,5 +289,31 @@ public class CustomMatchers {
             matcher.describeTo(description);
         }
 
+    }
+
+    private static class Timestamp extends BaseMatcher<Number> {
+        private final Matcher<?> matcher;
+
+        private Timestamp(Matcher<?> matcher) {
+            this.matcher = matcher;
+        }
+
+        @Override
+        public void describeTo(Description description) {
+            matcher.describeTo(description);
+        }
+
+        @Override
+        public boolean matches(Object item) {
+            if ( !(item instanceof Number) ) {
+                throw new IllegalArgumentException("Timestamp must be a number");
+            }
+            
+            Date date = new Date((Long) item);
+            
+            return matcher.matches(date);
+        }
+        
+        
     }
 }

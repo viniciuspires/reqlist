@@ -1,5 +1,5 @@
-INSERT INTO REQLIST.projeto (id,data,descricao,nome,status)
-    VALUES (1, '1990-10-12 00:00:00', 'Teste descrição', 'Reqlist', 1);
+INSERT INTO REQLIST.project (id,date,description,name,status)
+    VALUES (10, '1990-10-12 00:00:00', 'Teste descrição', 'Reqlist', 'ACTIVE');
 
-INSERT INTO REQLIST.projeto (id,data,descricao,nome,status)
-    VALUES (2, '1990-10-12 00:00:00', 'Teste descrição', 'Bichorama', 1);
+INSERT INTO REQLIST.project (id,date,description,name,status)
+    VALUES (11, '1990-10-12 00:00:00', 'Teste descrição', 'Bichorama', 'ACTIVE');
