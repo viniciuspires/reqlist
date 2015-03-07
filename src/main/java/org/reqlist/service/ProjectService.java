@@ -13,6 +13,8 @@ import org.reqlist.repository.ProjectRepository;
 import static org.reqlist.util.AssertUtils.isNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -45,13 +47,29 @@ public class ProjectService {
         project.setDate(new Date());
         project.setStatus(StatusEnum.ACTIVE);
         
+        validate(project);
+        
+        return repository.save(project);
+    }
+
+    private void validate(Project project) {
         Set<ConstraintViolation<Project>> violations = vp.validator().validate(project);
         
         if ( !violations.isEmpty() ) {
             throw new ConstraintViolationException(violations);
         }
+    }
+    
+    public Project update(Project project) {
+        validate(project);
         
         return repository.save(project);
+    }
+    
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void delete(Integer id) {
+        Project project = getById(id);
+        repository.delete(project);
     }
     
     /*public List<ProjectProgress> getProjectProgress(Integer id) {
@@ -61,5 +79,4 @@ public class ProjectService {
     public List<ProjectComparison> getProjectComparison() {
         return repository.getProjectComparison();
     }*/
-
 }
