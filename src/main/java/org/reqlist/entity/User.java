@@ -13,15 +13,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Email;
 
 /**
  * 
  * @author Vinicius Pires <vinicius.costa.pires at gmail.com>
  */
 @Entity
-@Table(name = "project")
-public class Project implements Serializable {
+@Table(name = "user")
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,28 +30,31 @@ public class Project implements Serializable {
     @Column(name = "id")
     private Long id;
     
-    @Basic(optional = false)
-    @NotNull
-    @NotBlank
-    @Size(min = 1, max = 100)
-    @Column(name = "name")
+    @Size(max = 128)
+    @Column(name = "nome")
     private String name;
     
-    @Basic
-    @Column(name = "description")
-    @Size(min = 0, max = 1024)
-    private String description;
+    @Basic(optional = false)
+    @Size(min = 1, max = 128)
+    @Column(name = "email")
+    @NotNull
+    @Email
+    private String email;
+    
+    @Size(max = 32)
+    @Column(name = "password")
+    private String senha;
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "register_date", nullable = false)
+    @Column(name = "register_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registerDate;
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "active", nullable = false)
-    private boolean active;
+    @Column(name = "confirmado")
+    private boolean confirmed;
 
     public Long getId() {
         return id;
@@ -68,12 +72,20 @@ public class Project implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public Date getRegisterDate() {
@@ -84,12 +96,12 @@ public class Project implements Serializable {
         this.registerDate = registerDate;
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isConfirmed() {
+        return confirmed;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
     
 }

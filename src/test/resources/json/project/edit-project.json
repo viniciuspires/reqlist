@@ -1,6 +1,6 @@
 {
     "name"        : "French Fries",
     "description" : "Hellyeah",
-    "date"        : 1425705726461,
-    "status"      : "INACTIVE"
+    "registerDate": 1425705726461,
+    "active"      : false
 }

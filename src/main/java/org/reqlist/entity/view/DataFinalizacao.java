@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.reqlist.entity.view;
 
 import java.io.Serializable;
@@ -18,7 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -26,7 +19,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "vw_data_finalizacao")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DataFinalizacao.findAll", query = "SELECT d FROM DataFinalizacao d"),
     @NamedQuery(name = "DataFinalizacao.findByProjetoId", query = "SELECT d FROM DataFinalizacao d WHERE d.projetoId = :projetoId"),

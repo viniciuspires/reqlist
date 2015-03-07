@@ -8,7 +8,6 @@ import javax.validation.ConstraintViolationException;
 import org.reqlist.arch.ValidatorProvider;
 import org.reqlist.arch.exception.ResourceNotFoundException;
 import org.reqlist.entity.Project;
-import org.reqlist.enumerated.StatusEnum;
 import org.reqlist.repository.ProjectRepository;
 import static org.reqlist.util.AssertUtils.isNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class ProjectService {
         return repository.findAll();
     }
 
-    public Project getById(Integer id) {
+    public Project getById(Long id) {
         Project project = repository.findOne(id);
         
         if ( isNull(project) ) {
@@ -44,8 +43,8 @@ public class ProjectService {
     }
 
     public Project save(Project project) {
-        project.setDate(new Date());
-        project.setStatus(StatusEnum.ACTIVE);
+        project.setRegisterDate(new Date());
+        project.setActive(true);
         
         validate(project);
         
@@ -67,7 +66,7 @@ public class ProjectService {
     }
     
     @Transactional(propagation = Propagation.REQUIRED)
-    public void delete(Integer id) {
+    public void delete(Long id) {
         Project project = getById(id);
         repository.delete(project);
     }

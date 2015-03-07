@@ -29,7 +29,7 @@ public class ProjectController {
     }
     
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public Project get(@PathVariable("id") Integer id) {
+    public Project get(@PathVariable("id") Long id) {
         return service.getById(id);
     }
     
@@ -40,7 +40,7 @@ public class ProjectController {
     }
     
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Project> update(@PathVariable("id") Integer id, @RequestBody Project project) {
+    public ResponseEntity<Project> update(@PathVariable("id") Long id, @RequestBody Project project) {
         
         project.setId(id);
         
@@ -50,7 +50,7 @@ public class ProjectController {
     }
     
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity delete(@PathVariable("id") Integer id) {
+    public ResponseEntity delete(@PathVariable("id") Long id) {
         service.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT); 
     }

@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.Test;
-import org.reqlist.enumerated.StatusEnum;
 import static org.reqlist.util.CustomMatchers.*;
 import org.springframework.http.MediaType;
 
@@ -34,9 +33,9 @@ public class ProjectTest extends BaseTest {
                 .andExpect(jsonPath("$[*]", hasSize(greaterThan(1))))
                 .andExpect(jsonPath("$[*].id", allItems(notNullValue())))
                 .andExpect(jsonPath("$[*].name", allItems(notNullValue())))
-                .andExpect(jsonPath("$[*].date", allItems(notNullValue())))
+                .andExpect(jsonPath("$[*].registerDate", allItems(notNullValue())))
                 .andExpect(jsonPath("$[*].description", allItems(notNullValue())))
-                .andExpect(jsonPath("$[*].status", allItems(notNullValue())));
+                .andExpect(jsonPath("$[*].active", allItems(anyOf(equalTo(true), equalTo(false)))));
     }
 
     @Test
@@ -53,9 +52,9 @@ public class ProjectTest extends BaseTest {
                 .andExpect(content().contentType(MEDIA_TYPE_JSON_UTF8))
                 .andExpect(jsonPath("$.id", equalTo(10)))
                 .andExpect(jsonPath("$.name", equalTo("Reqlist")))
-                .andExpect(jsonPath("$.date", equalTo(calendar.getTimeInMillis())))
+                .andExpect(jsonPath("$.registerDate", equalTo(calendar.getTimeInMillis())))
                 .andExpect(jsonPath("$.description", equalTo("Whatevs")))
-                .andExpect(jsonPath("$.status", equalTo(StatusEnum.ACTIVE.name())));
+                .andExpect(jsonPath("$.active", equalTo(true)));
     }
 
     @Test
@@ -78,8 +77,8 @@ public class ProjectTest extends BaseTest {
                 .andExpect(jsonPath("$.id", allOf(notNullValue(), isA(Integer.class), greaterThan(0))))
                 .andExpect(jsonPath("$.name", equalTo("Reqlist")))
                 .andExpect(jsonPath("$.description", nullValue()))
-                .andExpect(jsonPath("$.date", timestamp(sameDay(new Date()))))
-                .andExpect(jsonPath("$.status", equalTo(StatusEnum.ACTIVE.name())));
+                .andExpect(jsonPath("$.registerDate", timestamp(sameDay(new Date()))))
+                .andExpect(jsonPath("$.active", equalTo(true)));
     }
 
     @Test
@@ -96,8 +95,8 @@ public class ProjectTest extends BaseTest {
                 .andExpect(jsonPath("$.id", allOf(notNullValue(), isA(Integer.class), equalTo(11))))
                 .andExpect(jsonPath("$.name", equalTo("French Fries")))
                 .andExpect(jsonPath("$.description", equalTo("Hellyeah")))
-                .andExpect(jsonPath("$.date", timestamp(equalTo(date))))
-                .andExpect(jsonPath("$.status", equalTo(StatusEnum.INACTIVE.name())));
+                .andExpect(jsonPath("$.registerDate", timestamp(equalTo(date))))
+                .andExpect(jsonPath("$.active", equalTo(false)));
     }
 
     @Test

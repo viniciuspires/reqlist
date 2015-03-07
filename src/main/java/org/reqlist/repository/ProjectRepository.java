@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * @author Vinicius Pires <vinicius.costa.pires at gmail.com>
  */
 @Repository
-public interface ProjectRepository extends JpaRepository<Project, Integer>{
+public interface ProjectRepository extends JpaRepository<Project, Long>{
 
     /*@Query("SELECT a FROM ProjectProgress a WHERE a.projetoId = :id")
     public List<ProjectProgress> getProjectProgress(@Param("id") Integer id);
