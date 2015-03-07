@@ -325,7 +325,13 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <includes>
+                        <include>src/main/java</include>
+                    </includes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
 </project>
+
