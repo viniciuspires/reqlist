@@ -31,7 +31,7 @@ public class User implements Serializable {
     private Long id;
     
     @Size(max = 128)
-    @Column(name = "nome")
+    @Column(name = "name")
     private String name;
     
     @Basic(optional = false)
@@ -53,7 +53,7 @@ public class User implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "confirmado")
+    @Column(name = "confirmed")
     private boolean confirmed;
 
     public Long getId() {

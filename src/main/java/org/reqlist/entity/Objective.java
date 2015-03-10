@@ -19,12 +19,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.DynamicUpdate;
 
 /**
  * 
  * @author Vinicius Pires <vinicius.costa.pires at gmail.com>
  */
 @Entity
+@DynamicUpdate
 @Table(name = "objective")
 public class Objective implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -33,7 +35,7 @@ public class Objective implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     
     @Basic(optional = false)
     @NotNull
@@ -50,12 +52,6 @@ public class Objective implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date registerDate;
     
-    @ManyToMany
-    @JoinTable(name = "objective_x_requirement",
-        joinColumns = @JoinColumn(name = "objective_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "requirement_id", referencedColumnName = "id"))
-    private List<Requirement> requirements;
-    
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User user;
@@ -63,12 +59,18 @@ public class Objective implements Serializable {
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Project project;
+    
+    @ManyToMany
+    @JoinTable(name = "objective_x_requirement",
+        joinColumns = @JoinColumn(name = "objective_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "requirement_id", referencedColumnName = "id"))
+    private List<Requirement> requirements;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

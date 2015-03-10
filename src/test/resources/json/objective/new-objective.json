@@ -1,0 +1,7 @@
+{
+    "title"       : "Some objective",
+    "description" : "Some description",
+    "project"     : {
+        "id" : 10
+    }
+}
