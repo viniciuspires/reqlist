@@ -46,21 +46,13 @@ public class ProjectService {
         project.setRegisterDate(new Date());
         project.setActive(true);
         
-        validate(project);
+        vp.basicValidate(project);
         
         return repository.save(project);
     }
 
-    private void validate(Project project) {
-        Set<ConstraintViolation<Project>> violations = vp.validator().validate(project);
-        
-        if ( !violations.isEmpty() ) {
-            throw new ConstraintViolationException(violations);
-        }
-    }
-    
     public Project update(Project project) {
-        validate(project);
+        vp.basicValidate(project);
         
         return repository.save(project);
     }

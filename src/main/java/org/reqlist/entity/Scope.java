@@ -18,12 +18,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.DynamicUpdate;
 
 /**
  * 
  * @author Vinicius Pires <vinicius.costa.pires at gmail.com>
  */
 @Entity
+@DynamicUpdate
 @Table(name = "scope")
 public class Scope implements Serializable {
     private static final long serialVersionUID = 1L;

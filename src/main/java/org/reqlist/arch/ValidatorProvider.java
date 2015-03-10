@@ -1,5 +1,8 @@
 package org.reqlist.arch;
 
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -22,6 +25,14 @@ public class ValidatorProvider {
     
     public Validator validator() {
         return validator;
+    }
+    
+    public void basicValidate(Object object) {
+        Set<ConstraintViolation<Object>> violations = validator().validate(object);
+        
+        if ( !violations.isEmpty() ) {
+            throw new ConstraintViolationException(violations);
+        }
     }
     
 }

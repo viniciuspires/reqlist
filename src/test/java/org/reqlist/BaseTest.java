@@ -37,7 +37,7 @@ public class BaseTest {
     protected static final String TEST_RESOURCE_FOLDER = "src/test/resources/";
     protected static final String FILE_CHARSET = Charset.defaultCharset().displayName();
     
-    protected static final MediaType MEDIA_TYPE_JSON_UTF8 = MediaType.parseMediaType(MediaType.APPLICATION_JSON_VALUE+";charset=UTF-8");
+    protected static final MediaType MEDIATYPE_JSON_UTF8 = MediaType.parseMediaType(MediaType.APPLICATION_JSON_VALUE+";charset=UTF-8");
     
     /**
      * Getter da configuração de {@link MockMvc} da {@link BaseTest}
