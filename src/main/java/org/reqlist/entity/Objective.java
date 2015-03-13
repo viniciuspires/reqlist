@@ -60,12 +60,6 @@ public class Objective implements Serializable {
     @ManyToOne(optional = false)
     private Project project;
     
-    @ManyToMany
-    @JoinTable(name = "objective_x_requirement",
-        joinColumns = @JoinColumn(name = "objective_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "requirement_id", referencedColumnName = "id"))
-    private List<Requirement> requirements;
-
     public Long getId() {
         return id;
     }
@@ -96,14 +90,6 @@ public class Objective implements Serializable {
 
     public void setRegisterDate(Date registerDate) {
         this.registerDate = registerDate;
-    }
-
-    public List<Requirement> getRequirements() {
-        return requirements;
-    }
-
-    public void setRequirements(List<Requirement> requirements) {
-        this.requirements = requirements;
     }
 
     public User getUser() {

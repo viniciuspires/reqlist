@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -72,7 +73,10 @@ public class Requirement implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Project project;
     
-    @ManyToMany(mappedBy = "requirements")
+    @ManyToMany
+    @JoinTable(name = "objective_x_requirement",
+        joinColumns = @JoinColumn(name = "requirement_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "objective_id", referencedColumnName = "id"))
     private List<Objective> objectives;
     
     @ManyToMany(mappedBy = "requirements")
