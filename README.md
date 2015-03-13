@@ -20,7 +20,7 @@ To install, you just have to download the latest code and run in the root folder
 mvn install
 ```
 
-Then, choose your JavaEE application server (recommended: JBoss AS 7.1.1.Final) and create a Datasource with write access, with a JNDI of `java:/ReqlistDS`.
+Then, choose your JavaEE application server (recommended: JBoss AS 7.1.1.Final) and create a Datasource with `DDL` and `DML` access, with a JNDI of `java:/ReqlistDS`.
 
 After that, you can deploy it in your JavaEE application server and run it normally.
 
