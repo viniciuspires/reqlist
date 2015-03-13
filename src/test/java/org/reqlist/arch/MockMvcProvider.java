@@ -1,4 +1,4 @@
-package org.reqlist.util;
+package org.reqlist.arch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

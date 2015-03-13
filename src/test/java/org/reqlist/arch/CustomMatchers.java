@@ -1,4 +1,4 @@
-package org.reqlist.util;
+package org.reqlist.arch;
 
 import java.util.Calendar;
 import java.util.Date;

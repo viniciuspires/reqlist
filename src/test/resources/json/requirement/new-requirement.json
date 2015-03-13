@@ -1,0 +1,8 @@
+{
+    "title"       : "Some requirement",
+    "description" : "Some description",
+    "type" : "FUNCTIONAL",
+    "project"     : {
+        "id" : 10
+    }
+}

@@ -17,11 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ScopeService {
     
-    @Autowired
-    private ScopeRepository repository;
-
-    @Autowired
-    private ValidatorProvider vp;
+    @Autowired ScopeRepository repository;
+    @Autowired ValidatorProvider vp;
 
     public List<Scope> findByProject(Long id) {
         return repository.findAllByProject(id);

@@ -19,7 +19,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import org.reqlist.util.MockMvcProvider;
+import org.reqlist.arch.MockMvcProvider;
 import org.springframework.http.MediaType;
 
 /**

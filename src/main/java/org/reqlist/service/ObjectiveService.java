@@ -20,14 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ObjectiveService {
     
-    @Autowired
-    private UserSession session;
-    
-    @Autowired
-    private ObjectiveRepository repository;
-    
-    @Autowired
-    private ValidatorProvider vp;
+    @Autowired ObjectiveRepository repository;
+    @Autowired UserSession session;
+    @Autowired ValidatorProvider vp;
 
     public List<Objective> findByProject(Long id) {
         return repository.findAllByProject(id);

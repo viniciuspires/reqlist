@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.Test;
-import static org.reqlist.util.CustomMatchers.*;
+import static org.reqlist.arch.CustomMatchers.*;
 import org.springframework.http.MediaType;
 
 /**

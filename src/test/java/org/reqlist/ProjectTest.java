@@ -4,14 +4,12 @@ import java.util.Calendar;
 import java.util.Date;
 import static org.exparity.hamcrest.date.DateMatchers.sameDay;
 import static org.hamcrest.Matchers.*;
-import org.junit.Ignore;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.Test;
-import static org.reqlist.util.CustomMatchers.*;
-import org.springframework.http.MediaType;
+import static org.reqlist.arch.CustomMatchers.*;
 
 /**
  * API tests for {@link org.reqlist.controller.ProjectController}
@@ -27,7 +25,7 @@ public class ProjectTest extends BaseTest {
     @Test
     public void listProjects() throws Exception {
         mockMvc().perform(get(RESOURCE)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MEDIATYPE_JSON_UTF8)
         ).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MEDIATYPE_JSON_UTF8))
@@ -48,7 +46,7 @@ public class ProjectTest extends BaseTest {
         calendar.set(1990, 9, 12, 0, 0, 0);
 
         mockMvc().perform(get(RESOURCE_ID, 10)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MEDIATYPE_JSON_UTF8)
         ).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MEDIATYPE_JSON_UTF8))
@@ -62,7 +60,7 @@ public class ProjectTest extends BaseTest {
     @Test
     public void unkownProject() throws Exception {
         mockMvc().perform(get(RESOURCE_ID, 999)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MEDIATYPE_JSON_UTF8)
         ).andDo(print())
                 .andExpect(status().isNotFound());
     }
@@ -70,7 +68,7 @@ public class ProjectTest extends BaseTest {
     @Test
     public void saveProject() throws Exception {
         mockMvc().perform(post(RESOURCE)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MEDIATYPE_JSON_UTF8)
                 .content(getJson("project/new-project"))
         ).andDo(print())
                 .andExpect(status().isCreated())
@@ -88,7 +86,7 @@ public class ProjectTest extends BaseTest {
         Date date = new Date(1425705726461L);
         
         mockMvc().perform(put(RESOURCE_ID, 11)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MEDIATYPE_JSON_UTF8)
                 .content(getJson("project/edit-project"))
         ).andDo(print())
                 .andExpect(status().isOk())
@@ -104,7 +102,7 @@ public class ProjectTest extends BaseTest {
     @Test
     public void deleteUnknownProject() throws Exception {
         mockMvc().perform(delete(RESOURCE_ID, 777)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MEDIATYPE_JSON_UTF8)
         ).andDo(print())
                 .andExpect(status().isNotFound());
     }
@@ -112,18 +110,18 @@ public class ProjectTest extends BaseTest {
     @Test
     public void deleteProject() throws Exception {
         mockMvc().perform(get(RESOURCE_ID, 666)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MEDIATYPE_JSON_UTF8)
         ).andDo(print())
                 .andExpect(status().isOk());
 
         mockMvc().perform(delete(RESOURCE_ID, 666)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MEDIATYPE_JSON_UTF8)
         ).andDo(print())
                 .andExpect(status().isNoContent())
                 .andExpect(content().string(""));
 
         mockMvc().perform(get(RESOURCE_ID, 666)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MEDIATYPE_JSON_UTF8)
         ).andDo(print())
                 .andExpect(status().isNotFound());
     }

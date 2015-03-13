@@ -21,12 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class ProjectService {
-    
-    @Autowired
-    private ValidatorProvider vp;
-    
-    @Autowired
-    private ProjectRepository repository;
+
+    @Autowired ProjectRepository repository;
+    @Autowired ValidatorProvider vp;
 
     public List<Project> findAll() {
         return repository.findAll();
