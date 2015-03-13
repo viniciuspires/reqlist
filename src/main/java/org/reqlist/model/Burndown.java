@@ -15,7 +15,7 @@ import org.reqlist.entity.view.DataFinalizacao;
  *
  * @author Vinicius
  */
-public class Burndown {
+public final class Burndown {
     private Integer totalTarefas;
 
     private List<DataFinalizacao> planejamento;

@@ -13,7 +13,7 @@ import org.reqlist.entity.view.ProjectProgress;
  *
  * @author Vinicius
  */
-public class AndamentoRequisito {
+public class RequirementProgress {
     private Integer id;
     private String titulo;
     
@@ -22,7 +22,7 @@ public class AndamentoRequisito {
     private BigInteger tarefas;
     private BigInteger tarefasFinalizadas;
     
-    public AndamentoRequisito(ProjectProgress andamentoProjeto) {
+    public RequirementProgress(ProjectProgress andamentoProjeto) {
         this.id = andamentoProjeto.getRequisitoId();
         this.titulo = andamentoProjeto.getRequisitoTitulo();
         this.tarefas =  BigInteger.valueOf( andamentoProjeto.getTarefas() );

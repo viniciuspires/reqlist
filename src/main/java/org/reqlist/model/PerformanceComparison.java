@@ -14,27 +14,27 @@ import org.reqlist.entity.view.ProjectComparison;
  *
  * @author Vinicius
  */
-public class PerformanceComparacao {
-    private List<PerformanceProjeto> projetos;
+public class PerformanceComparison {
+    private List<ProjectPerformance> projetos;
 
-    public PerformanceComparacao(List<ProjectComparison> comparacaoList) {
+    public PerformanceComparison(List<ProjectComparison> comparacaoList) {
         this.projetos = new ArrayList<>();
         for (ProjectComparison comparacaoProjeto : comparacaoList) {
-            PerformanceProjeto projeto = this.getProjetoById( comparacaoProjeto.getProjetoId() );
+            ProjectPerformance projeto = this.getProjetoById( comparacaoProjeto.getProjetoId() );
             if ( projeto == null ) {
-                projeto = new PerformanceProjeto(comparacaoProjeto);
+                projeto = new ProjectPerformance(comparacaoProjeto);
                 this.projetos.add(projeto);
             } else if ( comparacaoProjeto.getEscopoId()> projeto.getEscopoId() ) {
                 int indice = this.projetos.indexOf(projeto);
-                projeto = new PerformanceProjeto(comparacaoProjeto);
+                projeto = new ProjectPerformance(comparacaoProjeto);
                 this.projetos.set(indice, projeto);
             }
         }
     }
     
-    private PerformanceProjeto getProjetoById(Integer id){
-        PerformanceProjeto projeto = null;
-        for (PerformanceProjeto performanceProjeto : projetos) {
+    private ProjectPerformance getProjetoById(Integer id){
+        ProjectPerformance projeto = null;
+        for (ProjectPerformance performanceProjeto : projetos) {
             if ( performanceProjeto.getId().equals(id) ) {
                 projeto = performanceProjeto;
                 break;
@@ -43,11 +43,11 @@ public class PerformanceComparacao {
         return projeto;
     }
 
-    public List<PerformanceProjeto> getProjetos() {
+    public List<ProjectPerformance> getProjetos() {
         return projetos;
     }
 
-    public void setProjetos(List<PerformanceProjeto> projetos) {
+    public void setProjetos(List<ProjectPerformance> projetos) {
         this.projetos = projetos;
     }
 }

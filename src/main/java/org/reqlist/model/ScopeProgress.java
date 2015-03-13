@@ -15,7 +15,7 @@ import org.reqlist.entity.view.ProjectProgress;
  *
  * @author Vinicius
  */
-public class AndamentoEscopo {
+public class ScopeProgress {
     private Integer id;
     private String titulo;
     
@@ -24,16 +24,16 @@ public class AndamentoEscopo {
     private BigInteger tarefas;
     private BigInteger tarefasFinalizadas;
     
-    private List<AndamentoRequisito> requisitos;
+    private List<RequirementProgress> requisitos;
 
-    public AndamentoEscopo(Integer id, String titulo, List<ProjectProgress> andamentoProjetoList) {
+    public ScopeProgress(Integer id, String titulo, List<ProjectProgress> andamentoProjetoList) {
         this.id = id;
         this.titulo = titulo;
         this.requisitos = new ArrayList<>();
         
         for (ProjectProgress andamentoProjeto : andamentoProjetoList) {
             if ( andamentoProjeto.getEscopoId() == this.id ) {
-                AndamentoRequisito requisito = new AndamentoRequisito(andamentoProjeto);
+                RequirementProgress requisito = new RequirementProgress(andamentoProjeto);
                 this.requisitos.add( requisito );
             }
         }
@@ -47,7 +47,7 @@ public class AndamentoEscopo {
     private BigInteger calculaTotalHorasPlanejadas(){
         BigInteger total = new BigInteger("0");
         
-        for (AndamentoRequisito requisito : requisitos) {
+        for (RequirementProgress requisito : requisitos) {
             total = requisito.getHorasPlanejadas().add(total);
         }
         
@@ -56,7 +56,7 @@ public class AndamentoEscopo {
     private BigInteger calculaTotalHorasRealizadas(){
         BigInteger total = new BigInteger("0");
         
-        for (AndamentoRequisito requisito : requisitos) {
+        for (RequirementProgress requisito : requisitos) {
             total = requisito.getHorasRealizadas().add(total);
         }
         
@@ -65,7 +65,7 @@ public class AndamentoEscopo {
     private BigInteger calculaTotalTarefas(){
         BigInteger total = new BigInteger("0");
         
-        for (AndamentoRequisito requisito : requisitos) {
+        for (RequirementProgress requisito : requisitos) {
             total = requisito.getTarefas().add(total);
         }
         
@@ -74,7 +74,7 @@ public class AndamentoEscopo {
     private BigInteger calculaTotalTarefasFinalizadas(){
         BigInteger total = new BigInteger("0");
         
-        for (AndamentoRequisito requisito : requisitos) {
+        for (RequirementProgress requisito : requisitos) {
             total = requisito.getTarefasFinalizadas().add(total);
         }
         
@@ -97,11 +97,11 @@ public class AndamentoEscopo {
         this.titulo = titulo;
     }
 
-    public List<AndamentoRequisito> getRequisitos() {
+    public List<RequirementProgress> getRequisitos() {
         return requisitos;
     }
 
-    public void setRequisitos(List<AndamentoRequisito> requisitos) {
+    public void setRequisitos(List<RequirementProgress> requisitos) {
         this.requisitos = requisitos;
     }
 

@@ -14,7 +14,7 @@ import org.reqlist.entity.view.ProjectComparison;
  *
  * @author Vinicius
  */
-public class PerformanceProjeto {
+public class ProjectPerformance {
     private Integer id;
     private String nome;
     private Date data;
@@ -23,7 +23,7 @@ public class PerformanceProjeto {
     
     private Integer escopoId;
 
-    public PerformanceProjeto(ProjectComparison comparacaoProjeto) {
+    public ProjectPerformance(ProjectComparison comparacaoProjeto) {
         this.id = comparacaoProjeto.getProjetoId();
         this.nome = comparacaoProjeto.getProjetoNome();
         this.data = comparacaoProjeto.getData();

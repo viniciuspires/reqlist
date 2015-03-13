@@ -14,23 +14,23 @@ import org.reqlist.entity.view.ProjectProgress;
  *
  * @author Vinicius
  */
-public class Andamento {
-    private List<AndamentoEscopo> escopos;
+public class Progress {
+    private List<ScopeProgress> escopos;
     
-    public Andamento( List<ProjectProgress> andamentoList ) {
+    public Progress( List<ProjectProgress> andamentoList ) {
         this.escopos = new ArrayList<>();
         for (ProjectProgress andamento : andamentoList) {
-            AndamentoEscopo escopo = this.getEscopoById( andamento.getEscopoId() );
+            ScopeProgress escopo = this.getEscopoById( andamento.getEscopoId() );
             if ( escopo == null ) {
-                escopo = new AndamentoEscopo(andamento.getEscopoId(), andamento.getEscopoTitulo(), andamentoList);
+                escopo = new ScopeProgress(andamento.getEscopoId(), andamento.getEscopoTitulo(), andamentoList);
                 this.escopos.add(escopo);
             }
         }
     }
     
-    private AndamentoEscopo getEscopoById(int escopoId) {
-        AndamentoEscopo retorno = null;
-        for (AndamentoEscopo escopo : this.escopos) {
+    private ScopeProgress getEscopoById(int escopoId) {
+        ScopeProgress retorno = null;
+        for (ScopeProgress escopo : this.escopos) {
             if ( escopo.getId() == escopoId ) {
                 retorno = escopo;
                 break;
@@ -39,11 +39,11 @@ public class Andamento {
         return retorno;
     }
 
-    public List<AndamentoEscopo> getEscopos() {
+    public List<ScopeProgress> getEscopos() {
         return escopos;
     }
 
-    public void setEscopos(List<AndamentoEscopo> escopos) {
+    public void setEscopos(List<ScopeProgress> escopos) {
         this.escopos = escopos;
     }
 }
