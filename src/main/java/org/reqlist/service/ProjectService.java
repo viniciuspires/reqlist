@@ -2,9 +2,6 @@ package org.reqlist.service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import org.reqlist.arch.ValidatorProvider;
 import org.reqlist.arch.exception.ResourceNotFoundException;
 import org.reqlist.entity.Project;
