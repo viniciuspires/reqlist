@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     
 //    @Autowired ValidatorProvider vp;
-//    
 //    @Autowired UserRepository repository;
 //
 //    public List<User> findAll() {

@@ -8,9 +8,7 @@ package org.reqlist.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,18 +29,17 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "task")
 public class Task implements Serializable {
-    
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 128)
+    @Size(min = 3, max = 128)
     @Column(name = "title")
     private String title;
     
@@ -63,11 +59,8 @@ public class Task implements Serializable {
     @Column(name = "done")
     private boolean done;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "task")
-    private List<TaskAllocation> allocations;
-    
     @JoinColumn(name = "delivery_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Delivery delivery;
     
     @JoinColumn(name = "requirement_id", referencedColumnName = "id")
@@ -75,14 +68,14 @@ public class Task implements Serializable {
     private Requirement requirement;
     
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User user;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -116,14 +109,6 @@ public class Task implements Serializable {
 
     public void setDone(boolean done) {
         this.done = done;
-    }
-
-    public List<TaskAllocation> getAllocations() {
-        return allocations;
-    }
-
-    public void setAllocations(List<TaskAllocation> allocations) {
-        this.allocations = allocations;
     }
 
     public Delivery getDelivery() {
