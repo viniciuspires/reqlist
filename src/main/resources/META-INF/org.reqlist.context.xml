@@ -28,8 +28,6 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
     
-    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"></bean>
-    
     <!--<mvc:resources mapping="/assets/**" location="/assets/" />
     <mvc:resources mapping="/app/**" location="/app/" />
     <mvc:resources mapping="/bower_components/**" location="/bower_components/" />-->
