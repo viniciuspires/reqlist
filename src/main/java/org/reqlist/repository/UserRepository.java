@@ -1,5 +1,6 @@
 package org.reqlist.repository;
 
+import java.util.List;
 import org.reqlist.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u.email FROM User u WHERE u.id = :id")
     String getUserEmail(@Param("id") Long id);
-    
+
 }

@@ -1,19 +1,28 @@
 package org.reqlist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.reqlist.service.UserService;
+import org.reqlist.util.Hash;
 
 /**
  * 
@@ -41,9 +50,10 @@ public class User implements Serializable {
     @Email
     private String email;
     
-    @Size(max = 32)
+//    @JsonIgnore
+    @Length(min = 6, max = 40)
     @Column(name = "password")
-    private String senha;
+    private String password;
     
     @Basic(optional = false)
     @NotNull
@@ -55,6 +65,16 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "confirmed")
     private boolean confirmed;
+    
+    @JsonIgnore
+    @OneToMany
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    private List<Profile> profiles;
+    
+    @Transient
+    public String getAvatar() {
+        return String.format(UserService.GRAVATAR_URL_TEMPLATE, Hash.md5(email));
+    }
 
     public Long getId() {
         return id;
@@ -80,12 +100,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getRegisterDate() {
@@ -103,5 +123,12 @@ public class User implements Serializable {
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
     }
-    
+
+    public List<Profile> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(List<Profile> profiles) {
+        this.profiles = profiles;
+    }
 }

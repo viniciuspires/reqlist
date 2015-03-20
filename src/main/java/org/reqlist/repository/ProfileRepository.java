@@ -19,7 +19,7 @@ public interface ProfileRepository extends JpaRepository<Profile, ProfileKey> {
     @Query("FROM Profile p WHERE p.profileKey.userId = :id")
     List<Profile> findByUser(@Param("id") Long userId);
     
-    @Query("FROM Profile p WHERE p.profileKey.projectId = :id")
+    @Query("FROM Profile p JOIN FETCH p.user u WHERE p.profileKey.projectId = :id")
     List<Profile> findByProject(@Param("id") Long userId);
     
     @Query("FROM Profile p WHERE p.role = :role")

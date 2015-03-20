@@ -3,8 +3,8 @@ package org.reqlist;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -140,6 +140,17 @@ public class BaseTest {
         calendar.setTimeInMillis(0);
         calendar.set(year, month-1, day, 0, 0, 0);
         return calendar;
+    }
+    
+    /**
+     * Returns an instance of a Date
+     * @param year
+     * @param month
+     * @param day
+     * @return 
+     */
+    protected Date date(final int year, final int month, final int day) {
+        return calendar(year, month, day).getTime();
     }
 
     /**

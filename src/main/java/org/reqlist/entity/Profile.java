@@ -6,11 +6,14 @@
 
 package org.reqlist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -27,20 +30,22 @@ public class Profile implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
+    @JsonIgnore
     protected ProfileKey profileKey;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private RoleEnum role;
     
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private User usuario;
+    private User user;
     
-    @JoinColumn(name = "projeto_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "project_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Project projeto;
+    private Project project;
 
     public Profile() {
     }
@@ -93,20 +98,19 @@ public class Profile implements Serializable {
         this.role = role;
     }
 
-    public User getUsuario() {
-        return usuario;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsuario(User usuario) {
-        this.usuario = usuario;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Project getProjeto() {
-        return projeto;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjeto(Project projeto) {
-        this.projeto = projeto;
+    public void setProject(Project project) {
+        this.project = project;
     }
-    
 }

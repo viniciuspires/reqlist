@@ -1,6 +1,11 @@
 -- USER
 INSERT INTO REQLIST.user (id,name,email,password,register_date,confirmed)
-    VALUES (10,'Vinicius','wh@tevs.com','123456','1990-10-12 00:00:00',1);
+    VALUES (10,'Vinicius','vinicius.costa.pires@gmail.com','123456','1990-10-12 00:00:00',1);
+INSERT INTO REQLIST.user (id,name,email,password,register_date,confirmed)
+    VALUES (11,'Fulano','ful@no.com','123456','1990-10-12 00:00:00',1);
+    -- to be deleted
+INSERT INTO REQLIST.user (id,name,email,password,register_date,confirmed)
+    VALUES (666,'Fulano','ful@no.com','123456','1990-10-12 00:00:00',1);
 
 -- PROJECT
 INSERT INTO REQLIST.project (id,register_date,description,name,active)
@@ -10,6 +15,12 @@ INSERT INTO REQLIST.project (id,register_date,description,name,active)
     -- to be deleted
 INSERT INTO REQLIST.project (id,register_date,description,name,active)
     VALUES (666,'1990-10-12 00:00:00','Whatevs Ipsum dolor','Bichorama',0);
+
+-- PROFILE
+INSERT INTO REQLIST.profile (user_id, project_id, role)
+    VALUES (10, 10, 'ADMIN');
+INSERT INTO REQLIST.profile (user_id, project_id, role)
+    VALUES (10, 11, 'DEVELOPER');
 
 -- SCOPE
 INSERT INTO REQLIST.scope (id,title,register_date,active,project_id)
