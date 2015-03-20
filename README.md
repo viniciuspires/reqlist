@@ -36,3 +36,6 @@ Contributing
 All documentation on this project is available at [this link on Google Docs (pt-BR)](https://docs.google.com/document/d/18yR9UUwc_QALzDXZmgp1XofucDZmyeKcO7oE5JdsKok/edit?usp=sharing).
 
 The plans are to migrate the documentation to the Github Wiki and translate it to English. Any help is appreciated. Contact me if you want to contribute, or send a PR.
+
+
+Made with <3.
