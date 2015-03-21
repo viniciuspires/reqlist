@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Test;
 import static org.reqlist.arch.CustomMatchers.*;
-import org.reqlist.arch.ReqlistExceptionHandler;
+import org.reqlist.arch.exception.ApplicationExceptionHandler;
 import org.reqlist.enumerated.RequirementTypeEnum;
 
 /**
@@ -62,7 +62,6 @@ public class RequirementTest extends BaseTest {
     }
     
     @Test
-    @Ignore
     public void saveRequirement() throws Exception {
         mockMvc().perform(post(RESOURCE)
                 .contentType(MEDIATYPE_JSON_UTF8)
@@ -78,7 +77,7 @@ public class RequirementTest extends BaseTest {
     }
 
     /**
-     * FIXME {@link ReqlistExceptionHandler} is not intercepting
+     * FIXME {@link ApplicationExceptionHandler} is not intercepting
      * javax.validation.ConstraintViolationException and translating to a JSON Array.
      * Discover why and solve that.
      * @throws Exception 

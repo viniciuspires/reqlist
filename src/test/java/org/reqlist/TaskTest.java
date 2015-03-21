@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Test;
 import static org.reqlist.arch.CustomMatchers.*;
-import org.reqlist.arch.ReqlistExceptionHandler;
+import org.reqlist.arch.exception.ApplicationExceptionHandler;
 
 /**
  * API tests for {@link org.reqlist.controller.TaskController}
@@ -76,7 +76,7 @@ public class TaskTest extends BaseTest {
     }
 
     /**
-     * FIXME {@link ReqlistExceptionHandler} is not intercepting
+     * FIXME {@link ApplicationExceptionHandler} is not intercepting
      * javax.validation.ConstraintViolationException and translating to a JSON Array.
      * Discover why and solve that.
      * @throws Exception 
